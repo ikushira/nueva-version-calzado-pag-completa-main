@@ -125,7 +125,7 @@ class ProductsRenderer {
       ${etiquetas}
       <div class="img-container">
         <img src="${product.images[0]}" alt="${product.name}" loading="lazy" 
-             onerror="this.src='./assets/img/placeholder.jpg'">
+             onerror="this.src='./assets/img/placeholder.svg'; this.onerror=null;">
       </div>
       <div class="producto-info">
         <h3>${product.name}</h3>
