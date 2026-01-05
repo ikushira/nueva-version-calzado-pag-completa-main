@@ -1,0 +1,224 @@
+/* Nueva paleta de colores basada en rojo #ff0000 */
+:root {
+  /* Colores principales */
+  --color-primary: #ff0000; /* Rojo vibrante - Color principal */
+  --color-primary-dark: #ff0000; /* Rojo oscuro para hover */
+  --color-primary-light: #ff0000; /* Rojo claro para acentos */
+  
+  /* Colores neutros */
+  --color-neutral-dark: #333333; /* Casi negro para textos */
+  --color-neutral-medium: #666666; /* Gris medio para textos secundarios */
+  --color-neutral-light: #f5f5f5; /* Gris muy claro para fondos */
+  --color-white: #ffffff; /* Blanco para fondos y contraste */
+  
+  /* Colores de acento */
+  --color-accent: #ffd200; /* Amarillo dorado para CTA y elementos destacados */
+  --color-accent-secondary: #1e90ff; /* Azul para enlaces y acentos secundarios */
+  
+  /* Colores de estado */
+  --color-success: #4caf50; /* Verde para mensajes de éxito */
+  --color-warning: #ff9800; /* Naranja para advertencias */
+  --color-error: #f44336; /* Rojo ligeramente diferente para errores */
+  
+  /* Colores específicos para secciones */
+  --color-header-bg: var(--color-primary);
+  --color-header-text: var(--color-white);
+  --color-footer-bg: #222222;
+  --color-footer-text: #e0e0e0;
+  --color-footer-link: #ffffff;
+  --color-footer-heading: #ffffff;
+  --color-nav-bg: var(--color-primary-dark);
+  --color-nav-text: var(--color-white);
+  --color-button-primary: var(--color-primary);
+  --color-button-primary-hover: var(--color-primary-dark);
+  --color-button-secondary: var(--color-accent);
+  --color-button-secondary-hover: #e6bd00;
+  --color-link: var(--color-accent-secondary);
+  
+  /* Sombras */
+  --shadow-small: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-large: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* #ff0000inición de clases basadas en temas */
+.#ff0000-theme {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.dark-theme {
+  background-color: var(--color-neutral-dark);
+  color: var(--color-white);
+}
+
+/* #ff0000inir la clase blue-theme (mantener por compatibilidad) */
+.blue-theme {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Estilos específicos para botones */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--color-accent);
+  color: var(--color-neutral-dark);
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-button-secondary-hover);
+}
+
+/* Estilos específicos para elementos del carrito */
+.btn-finalizar-compra {
+  background-color: var(--color-accent);
+  color: var(--color-neutral-dark);
+  font-weight: bold;
+}
+
+.btn-finalizar-compra:hover {
+  background-color: var(--color-button-secondary-hover);
+}
+
+.btn-add-cart, .btn-agregar-carrito {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-add-cart:hover, .btn-agregar-carrito:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Estilos para elementos específicos del sitio */
+.main-header {
+  background-color: var(--color-primary);
+}
+
+.main-nav {
+  background-color: var(--color-primary-dark);
+}
+
+.top-bar {
+  background-color: var(--color-neutral-dark);
+}
+
+.footer {
+  background-color: var(--color-neutral-dark);
+  color: var(--color-white);
+}
+
+.btn-carrito {
+  background-color: var(--color-accent);
+  color: var(--color-neutral-dark);
+}
+
+.carrito-cantidad {
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+}
+
+/* Estilos para tarjetas de productos */
+.producto-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.producto-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+}
+
+.producto-info h3 {
+  color: var(--color-neutral-dark);
+}
+
+.producto-precio {
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+/* Estilo para botones de talla */
+.talla-btn {
+  border: 1px solid #ddd;
+  background: var(--color-white);
+  transition: all 0.2s ease;
+}
+
+.talla-btn:hover {
+  border-color: var(--color-primary);
+}
+
+.talla-btn.selected {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+/* Estilos para etiquetas en productos */
+.etiqueta-nuevo {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.etiqueta-oferta {
+  background-color: var(--color-accent);
+  color: var(--color-neutral-dark);
+}
+
+.etiqueta-envio {
+  background-color: var(--color-success);
+  color: var(--color-white);
+}
+
+/* Estilos para el modal del carrito */
+.modal-carrito-header {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Estilos para efectos de pulsación en botones */
+.btn-add-cart:active, .btn-agregar-carrito:active,
+.btn-finalizar-compra:active, .btn-primary:active,
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+/* Animación de pulsación para botones de talla */
+.talla-btn:active {
+  transform: scale(0.95);
+}
+
+/* Destacar elementos de venta importantes */
+.promo-strong {
+  color: var(--color-accent);
+  font-weight: bold;
+}
+
+/* Estilos para el WhatsApp flotante */
+.whatsapp-float {
+  background-color: #25d366;
+  box-shadow: var(--shadow-medium);
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}

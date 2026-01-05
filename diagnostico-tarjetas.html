@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico de Tarjetas de Productos</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/standardized-cards.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/new-colors.css">
+  <link rel="stylesheet" href="css/enhanced-shopping.css">
+  <link rel="stylesheet" href="css/filtros-styles.css">
+  <link rel="stylesheet" href="css/carrito.css">
+  <link rel="stylesheet" href="css/whatsapp-button.css">
+  <link rel="stylesheet" href="css/footer-enhanced.css">
+  <link rel="stylesheet" href="css/image-size-fix.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .diagnostico-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .diagnostico-seccion {
+      margin-bottom: 30px;
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .diagnostico-titulo {
+      color: var(--color-primario);
+      margin-bottom: 15px;
+    }
+    .diagnostico-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .diagnostico-info {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .diagnostico-info h3 {
+      margin-top: 0;
+      color: var(--color-primario);
+    }
+    .diagnostico-info pre {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+    .tarjeta-ejemplo {
+      margin-top: 20px;
+      border: 2px dashed var(--color-primario);
+      padding: 10px;
+    }
+    .btn-link {
+      display: inline-block;
+      background-color: var(--color-primario);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin: 10px 5px 10px 0;
+      transition: background-color 0.3s;
+    }
+    .btn-link:hover {
+      background-color: var(--color-secundario);
+    }
+  </style>
+  <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+  <div class="diagnostico-container">
+    <h1 class="diagnostico-titulo">Diagnóstico de Tarjetas de Productos</h1>
+    
+    <div class="diagnostico-seccion">
+      <h2 class="diagnostico-titulo">Análisis de CSS Cargados</h2>
+      <div class="diagnostico-info">
+        <h3>Archivos CSS detectados:</h3>
+        <div id="css-list"></div>
+      </div>
+    </div>
+    
+    <div class="diagnostico-seccion">
+      <h2 class="diagnostico-titulo">Prueba de Tarjetas</h2>
+      <div class="diagnostico-grid">
+        <div class="diagnostico-info">
+          <h3>Tarjeta con image-size-fix.css</h3>
+          <div class="tarjeta-ejemplo">
+            <div class="producto-card">
+              <div class="img-container">
+                <img src="assets/img/calzhombres/4.jpeg" alt="Zapato Ejemplo">
+              </div>
+              <div class="producto-info">
+                <h3>Zapato Hombre Ejemplo</h3>
+                <p class="producto-precio">$75.000</p>
+                <div class="producto-tallas">
+                  <div class="tallas-label">Selecciona tu talla:</div>
+                  <div class="tallas-list">
+                    <button type="button" class="talla-btn">38</button>
+                    <button type="button" class="talla-btn">39</button>
+                    <button type="button" class="talla-btn">40</button>
+                  </div>
+                </div>
+                <button class="btn-add-cart">Añadir al carrito</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="diagnostico-info">
+          <h3>Dimensiones Actuales</h3>
+          <div id="dimensiones-info"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="diagnostico-seccion">
+      <h2 class="diagnostico-titulo">Tarjetas Dinámicas</h2>
+      <p>Se cargarán 3 tarjetas dinámicamente como en las páginas de productos:</p>
+      <div id="tarjetas-dinamicas" class="catalogo-container">
+        <!-- Las tarjetas se cargarán dinámicamente -->
+      </div>
+    </div>
+
+    <div class="diagnostico-seccion">
+      <h2 class="diagnostico-titulo">Enlaces a Páginas de Productos</h2>
+      <p>Comprueba cómo se ven las tarjetas en las diferentes páginas:</p>
+      <a href="index.html" class="btn-link">Inicio</a>
+      <a href="hombres.html" class="btn-link">Hombres</a>
+      <a href="mujeres.html" class="btn-link">Mujeres</a>
+      <a href="accesorios.html" class="btn-link">Accesorios</a>
+      <a href="ninos.html" class="btn-link">Niños</a>
+      <a href="ninas.html" class="btn-link">Niñas</a>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Analizar CSS cargados
+      const cssList = document.getElementById('css-list');
+      const cssLinks = document.querySelectorAll('link[rel="stylesheet"]');
+      let cssHtml = '<ul>';
+      cssLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href) {
+          cssHtml += `<li>${href}</li>`;
+        }
+      });
+      cssHtml += '</ul>';
+      cssList.innerHTML = cssHtml;
+      
+      // Mostrar dimensiones actuales
+      const dimensionesInfo = document.getElementById('dimensiones-info');
+      const tarjetaEjemplo = document.querySelector('.tarjeta-ejemplo .producto-card');
+      const imgContainer = tarjetaEjemplo.querySelector('.img-container');
+      const imagen = imgContainer.querySelector('img');
+      
+      // Obtener estilos computados
+      setTimeout(() => {
+        const tarjetaEstilos = window.getComputedStyle(tarjetaEjemplo);
+        const containerEstilos = window.getComputedStyle(imgContainer);
+        const imagenEstilos = window.getComputedStyle(imagen);
+        
+        dimensionesInfo.innerHTML = `
+          <p><strong>Tarjeta:</strong></p>
+          <pre>
+height: ${tarjetaEstilos.height}
+width: ${tarjetaEstilos.width}
+          </pre>
+          
+          <p><strong>Contenedor de Imagen:</strong></p>
+          <pre>
+height: ${containerEstilos.height}
+width: ${containerEstilos.width}
+padding: ${containerEstilos.padding}
+          </pre>
+          
+          <p><strong>Imagen:</strong></p>
+          <pre>
+max-height: ${imagenEstilos.maxHeight}
+max-width: ${imagenEstilos.maxWidth}
+object-fit: ${imagenEstilos.objectFit}
+          </pre>
+        `;
+      }, 500);
+      
+      // Cargar tarjetas dinámicamente
+      const tarjetasDinamicas = document.getElementById('tarjetas-dinamicas');
+      
+      for (let i = 1; i <= 3; i++) {
+        const card = document.createElement('div');
+        card.className = 'producto-card';
+        card.innerHTML = `
+          <div class="img-container">
+            <img src="assets/img/calzhombres/${i+5}.jpeg" alt="Zapato Dinámico ${i}" loading="lazy" />
+          </div>
+          <div class="producto-info">
+            <h3>Zapato Dinámico ${i}</h3>
+            <p class="producto-precio">$75.000</p>
+            <div class="producto-tallas">
+              <div class="tallas-label">Selecciona tu talla:</div>
+              <div class="tallas-list">
+                <button type="button" class="talla-btn">38</button>
+                <button type="button" class="talla-btn">39</button>
+                <button type="button" class="talla-btn">40</button>
+              </div>
+            </div>
+            <button class="btn-add-cart">Añadir al carrito</button>
+          </div>
+        `;
+        tarjetasDinamicas.appendChild(card);
+      }
+    });
+  </script>
+  <script src="js/image-size-fix.js"></script>
+  
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener">
+      <img src="assets/img/whatsapp.svg" alt="WhatsApp">
+    </a>
+  <script src="js/aplicar-whatsapp-all-pages.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

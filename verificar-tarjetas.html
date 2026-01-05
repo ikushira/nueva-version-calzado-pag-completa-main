@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificación de Tarjetas Estandarizadas</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #ff0000;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    ul {
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #ff0000;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      margin: 10px 5px;
+      font-weight: bold;
+    }
+    .btn:hover {
+      background-color: #ff0000;
+    }
+    .pages {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  </style>
+    <link rel="stylesheet" href="./css/image-size-fix.css">
+  <link rel="stylesheet" href="css/whatsapp-button.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/responsive-mobile.css">
+  <link rel="stylesheet" href="css/mobile-navigation.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Verificación de Tarjetas Estandarizadas</h1>
+    
+    <p>Se han implementado las siguientes mejoras:</p>
+    
+    <ul>
+      <li><strong>Dimensiones consistentes:</strong> Todas las tarjetas de productos ahora tienen el mismo tamaño (280px x 450px).</li>
+      <li><strong>Contenedores de imágenes estandarizados:</strong> Todas las imágenes ahora se muestran en contenedores de 250px de altura.</li>
+      <li><strong>Estructura optimizada:</strong> Las tarjetas ahora usan la estructura <code>&lt;div class="img-container"&gt;</code> para las imágenes.</li>
+      <li><strong>Estilos responsivos:</strong> Las tarjetas se adaptan a diferentes tamaños de pantalla.</li>
+      <li><strong>Variables CSS:</strong> Se implementó un sistema de variables CSS para facilitar futuros cambios.</li>
+    </ul>
+    
+    <p>Selecciona una página para verificar las tarjetas estandarizadas:</p>
+    
+    <div class="pages">
+      <a href="hombres.html" class="btn" target="_blank">Hombres</a>
+      <a href="mujeres.html" class="btn" target="_blank">Mujeres</a>
+      <a href="ninos.html" class="btn" target="_blank">Niños</a>
+      <a href="ninas.html" class="btn" target="_blank">Niñas</a>
+      <a href="marcas.html" class="btn" target="_blank">Marcas</a>
+      <a href="nuevos.html" class="btn" target="_blank">Nuevos</a>
+    </div>
+  </div>
+  
+  <script src="js/verificar-tarjetas-inline.js"></script>
+    <script src="./js/image-size-fix.js"></script>
+  
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener">
+      <img src="assets/img/whatsapp.svg" alt="WhatsApp">
+    </a>
+  <script src="js/aplicar-whatsapp-all-pages.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/mobile-navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limpiar Carrito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #d32f2f;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        #carrito-info {
+            margin: 20px 0;
+            text-align: left;
+            font-family: monospace;
+            white-space: pre-wrap;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+    <link rel="stylesheet" href="./css/image-size-fix.css">
+  <link rel="stylesheet" href="css/whatsapp-button.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/responsive-mobile.css">
+  <link rel="stylesheet" href="css/mobile-navigation.css">
+</head>
+<body>
+    <div class="card">
+        <h1>Utilidad para limpiar el carrito</h1>
+        <p>Esta herramienta te ayuda a limpiar el localStorage del carrito para solucionar problemas.</p>
+        
+        <div id="carrito-info">Cargando información del carrito...</div>
+        
+        <button id="limpiar">Limpiar carrito</button>
+        <button id="volver">Volver a la tienda</button>
+        
+        <div id="mensaje" class="success" style="display: none;">Carrito limpiado correctamente.</div>
+    </div>
+
+    <script src="js/limpiar-carrito-inline.js"></script>
+    <script src="./js/image-size-fix.js"></script>
+  
+  <!-- Script unificado de carrito -->
+  <script src="js/carrito-simplificado.js"></script>
+
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener">
+      <img src="assets/img/whatsapp.svg" alt="WhatsApp">
+    </a>
+  <script src="js/aplicar-whatsapp-all-pages.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/mobile-navigation.js"></script>
+</body>
+</html>

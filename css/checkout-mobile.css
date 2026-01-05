@@ -1,0 +1,563 @@
+/* 
+ * checkout-mobile.css
+ * Mejoras específicas para el proceso de checkout en dispositivos móviles
+ */
+
+/* ===== PÁGINA DE CHECKOUT RESPONSIVA ===== */
+
+@media (max-width: 768px) {
+  .checkout-container {
+    display: block;
+    padding: 15px;
+    max-width: 100%;
+  }
+  
+  .checkout-steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 25px;
+    padding: 15px 0;
+    border-bottom: 2px solid #eee;
+  }
+  
+  .checkout-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin: 4px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #f8f9fa;
+    color: #6c757d;
+    transition: all 0.3s ease;
+  }
+  
+  .checkout-step.active {
+    background: var(--color-primary);
+    color: white;
+  }
+  
+  .checkout-step.completed {
+    background: #28a745;
+    color: white;
+  }
+  
+  .checkout-step-number {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout-container {
+    padding: 10px;
+  }
+  
+  .checkout-steps {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .checkout-step {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  .checkout-step-number {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+}
+
+/* ===== FORMULARIOS MÓVILES ===== */
+
+@media (max-width: 768px) {
+  .form-section {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    color: var(--color-neutral-dark);
+  }
+  
+  .form-group {
+    margin-bottom: 18px;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--color-neutral-dark);
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 16px; /* Evita zoom en iOS */
+    background: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+  }
+  
+  .form-control.error {
+    border-color: #ff0000;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+  }
+  
+  .form-error {
+    color: #ff0000;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+  }
+  
+  .form-error.visible {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-section {
+    padding: 15px 12px;
+    margin-bottom: 15px;
+  }
+  
+  .form-section-title {
+    font-size: 15px;
+  }
+  
+  .form-control {
+    padding: 14px 12px;
+    font-size: 16px;
+  }
+}
+
+/* ===== CAMPOS DE FORMULARIO EN FILA ===== */
+
+@media (max-width: 768px) {
+  .form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 18px;
+  }
+  
+  .form-col {
+    flex: 1;
+  }
+  
+  .form-col-auto {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .form-col {
+    width: 100%;
+  }
+}
+
+/* ===== SELECTS PERSONALIZADOS MÓVILES ===== */
+
+@media (max-width: 768px) {
+  .select-wrapper {
+    position: relative;
+  }
+  
+  .select-wrapper::after {
+    content: '▼';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #6c757d;
+    font-size: 12px;
+  }
+  
+  .form-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: white;
+    padding-right: 40px;
+  }
+}
+
+/* ===== CHECKBOXES Y RADIOS MÓVILES ===== */
+
+@media (max-width: 768px) {
+  .form-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    transition: background 0.3s ease;
+  }
+  
+  .form-check:hover {
+    background: #e9ecef;
+  }
+  
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  
+  .form-check-label {
+    font-size: 14px;
+    line-height: 1.4;
+    cursor: pointer;
+    margin: 0;
+  }
+  
+  .form-check-input:checked + .form-check-label {
+    font-weight: 600;
+  }
+}
+
+/* ===== MÉTODOS DE PAGO MÓVILES ===== */
+
+@media (max-width: 768px) {
+  .payment-methods {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 25px;
+  }
+  
+  .payment-method {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .payment-method:hover {
+    border-color: #ced4da;
+    background: #f8f9fa;
+  }
+  
+  .payment-method.selected {
+    border-color: var(--color-primary);
+    background: rgba(255, 0, 0, 0.05);
+  }
+  
+  .payment-method-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 18px;
+  }
+  
+  .payment-method-info {
+    flex: 1;
+  }
+  
+  .payment-method-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  
+  .payment-method-desc {
+    font-size: 12px;
+    color: #6c757d;
+  }
+  
+  .payment-method-radio {
+    margin-left: 12px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* ===== RESUMEN DE PEDIDO MÓVIL ===== */
+
+@media (max-width: 768px) {
+  .order-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+  }
+  
+  .order-summary-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+  }
+  
+  .order-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f3f4;
+  }
+  
+  .order-item:last-child {
+    border-bottom: none;
+  }
+  
+  .order-item-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .order-item-info {
+    flex: 1;
+  }
+  
+  .order-item-name {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  
+  .order-item-details {
+    font-size: 11px;
+    color: #6c757d;
+    margin-bottom: 4px;
+  }
+  
+  .order-item-price {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+}
+
+/* ===== TOTALES MÓVILES ===== */
+
+@media (max-width: 768px) {
+  .order-totals {
+    padding: 15px 0 0 0;
+    border-top: 2px solid #eee;
+  }
+  
+  .total-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+  
+  .total-line.grand-total {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 0 8px 0;
+    border-top: 1px solid #eee;
+    margin-top: 8px;
+  }
+  
+  .total-savings {
+    color: #28a745;
+    font-weight: 600;
+  }
+}
+
+/* ===== BOTONES DE ACCIÓN MÓVILES ===== */
+
+@media (max-width: 768px) {
+  .checkout-actions {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 20px 15px 10px 15px;
+    border-top: 2px solid #eee;
+    margin: 0 -15px -15px -15px;
+  }
+  
+  .btn-checkout-primary {
+    width: 100%;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    min-height: 50px;
+  }
+  
+  .btn-checkout-primary:hover {
+    background: #218838;
+  }
+  
+  .btn-checkout-primary:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .btn-checkout-secondary {
+    width: 100%;
+    background: transparent;
+    color: #007bff;
+    border: 2px solid #007bff;
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 46px;
+  }
+  
+  .btn-checkout-secondary:hover {
+    background: #007bff;
+    color: white;
+  }
+}
+
+/* ===== LOADING Y ESTADOS ===== */
+
+@media (max-width: 768px) {
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+  }
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
+
+/* ===== MENSAJES DE ERROR Y ÉXITO ===== */
+
+@media (max-width: 768px) {
+  .alert {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .alert-warning {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+  }
+  
+  .alert-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+}
+
+/* ===== OPTIMIZACIONES ADICIONALES ===== */
+
+@media (max-width: 768px) {
+  /* Mejorar tap targets */
+  .checkout-container button,
+  .checkout-container input,
+  .checkout-container select {
+    min-height: 44px;
+  }
+  
+  /* Prevenir zoom en inputs */
+  .checkout-container input[type="text"],
+  .checkout-container input[type="email"],
+  .checkout-container input[type="tel"],
+  .checkout-container input[type="number"],
+  .checkout-container select,
+  .checkout-container textarea {
+    font-size: 16px !important;
+  }
+}

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Botones de Tallas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .producto-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .producto-info {
+            margin-top: 15px;
+        }
+        
+        .producto-tallas {
+            margin: 15px 0;
+        }
+        
+        .tallas-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tallas-list {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .talla-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .talla-btn.selected {
+            background-color: #333;
+            color: white;
+            border-color: #333;
+        }
+        
+        .btn-add-cart {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .debug-panel {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+        
+        h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+    </style>
+    <link rel="stylesheet" href="./css/image-size-fix.css">
+  <link rel="stylesheet" href="css/whatsapp-button.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+    <h1>Prueba de Botones de Tallas</h1>
+    <p>Esta página sirve para verificar que los botones de tallas funcionen correctamente y que la selección sea detectada por el carrito.</p>
+    
+    <div class="producto-card">
+        <img src="assets/img/zapato1.jpeg" alt="Zapato de prueba" style="max-width: 100%; height: auto;">
+        <div class="producto-info">
+            <h3>Zapato de Prueba</h3>
+            <p class="producto-precio">$75.000</p>
+            <div class="producto-tallas">
+                <div class="tallas-label">Selecciona tu talla:</div>
+                <div class="tallas-list">
+                    <button type="button" class="talla-btn">35</button>
+                    <button type="button" class="talla-btn">36</button>
+                    <button type="button" class="talla-btn">37</button>
+                    <button type="button" class="talla-btn">38</button>
+                    <button type="button" class="talla-btn">39</button>
+                    <button type="button" class="talla-btn">40</button>
+                    <button type="button" class="talla-btn">41</button>
+                    <button type="button" class="talla-btn">42</button>
+                </div>
+            </div>
+            <button class="btn-add-cart">Añadir al carrito</button>
+        </div>
+    </div>
+    
+    <div class="debug-panel">
+        <h2>Panel de Depuración</h2>
+        <div>
+            <strong>Talla seleccionada:</strong> <span id="talla-seleccionada">Ninguna</span>
+        </div>
+        <div>
+            <strong>Estado botón:</strong> <span id="estado-boton">No se ha hecho clic</span>
+        </div>
+        <div>
+            <h3>Datos del producto detectados:</h3>
+            <pre id="datos-producto">Ninguno todavía</pre>
+        </div>
+    </div>
+    
+    <!-- Modal del carrito (simplificado) -->
+    <div id="modal-carrito" class="oculto" style="display: none;">
+        <div id="carrito-contenido">
+            <div id="carrito-encabezado">
+                <h3>Tu carrito</h3>
+                <button id="cerrar-carrito">×</button>
+            </div>
+            <div id="carrito-lista"></div>
+            <div id="carrito-vacio">
+                <p>Tu carrito está vacío</p>
+                <button id="btn-elegir-productos">Elegir productos</button>
+            </div>
+            <div id="carrito-total" class="oculto">
+                <p>Total: $<span id="carrito-total-precio">0</span></p>
+                <button id="btn-finalizar-compra">Finalizar compra</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tallaSeleccionadaSpan = document.getElementById('talla-seleccionada');
+            const estadoBotonSpan = document.getElementById('estado-boton');
+            const datosProductoPre = document.getElementById('datos-producto');
+            
+            // Manejar selección de tallas
+            const botonesTalla = document.querySelectorAll('.talla-btn');
+            botonesTalla.forEach(boton => {
+                boton.addEventListener('click', function() {
+                    // Quitar selección de todos los botones
+                    botonesTalla.forEach(btn => btn.classList.remove('selected'));
+                    
+                    // Seleccionar este botón
+                    boton.classList.add('selected');
+                    
+                    // Actualizar panel de depuración
+                    tallaSeleccionadaSpan.textContent = boton.textContent;
+                });
+            });
+            
+            // Manejar clic en botón agregar al carrito
+            const btnAddCart = document.querySelector('.btn-add-cart');
+            btnAddCart.addEventListener('click', function() {
+                estadoBotonSpan.textContent = 'Se hizo clic';
+                
+                // Obtener datos del producto
+                const card = btnAddCart.closest('.producto-card');
+                
+                const nombre = card.querySelector('h3').textContent.trim();
+                
+                const precioText = card.querySelector('.producto-precio').textContent;
+                const precio = parseInt(precioText.replace(/[^\d]/g, ''));
+                
+                const tallaSeleccionada = card.querySelector('.talla-btn.selected');
+                const talla = tallaSeleccionada ? tallaSeleccionada.textContent : 'No seleccionada';
+                
+                const datos = {
+                    nombre: nombre,
+                    precio: precio,
+                    talla: talla
+                };
+                
+                // Mostrar en el panel de depuración
+                datosProductoPre.textContent = JSON.stringify(datos, null, 2);
+                
+                // Validar talla
+                if (!tallaSeleccionada) {
+                    alert('Por favor selecciona una talla antes de añadir al carrito.');
+                } else {
+                    alert(`Producto agregado: ${nombre} - Talla ${talla} - $${precio}`);
+                }
+            });
+        });
+    </script>
+    <script src="js/image-size-fix.js"></script>
+    <script src="js/carrito-simplificado.js"></script>
+    <script src="js/carrito-estilo-fix.js"></script>
+
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener">
+      <img src="assets/img/whatsapp.svg" alt="WhatsApp">
+    </a>
+  <script src="js/aplicar-whatsapp-all-pages.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

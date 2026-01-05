@@ -1,0 +1,98 @@
+/* Estilos para el selector de talla emergente en carrusel */
+.carrusel-talla-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+.carrusel-talla-modal.oculto {
+  display: none;
+}
+.carrusel-talla-content {
+  background: #fff;
+  border-radius: 18px;
+  width: 270px;
+  max-width: 95vw;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  padding: 22px 18px 18px 18px;
+  position: relative;
+  text-align: center;
+}
+.carrusel-talla-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.carrusel-talla-title {
+  font-weight: 600;
+  font-size: 1.08rem;
+  color: #232323;
+}
+.carrusel-talla-cerrar {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #232323;
+}
+.carrusel-talla-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.carrusel-talla-btn {
+  background: #f7f8fa;
+  border: 2px solid #d1d5db;
+  color: #232323;
+  border-radius: 22px;
+  padding: 7px 18px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border 0.18s, background 0.18s, color 0.18s;
+}
+.carrusel-talla-btn.selected,
+.carrusel-talla-btn.seleccionada {
+  border: 2px solid #ff0000;
+  background: #fff;
+  color: #ff0000;
+}
+.carrusel-talla-guia {
+  width: 100%;
+  background: #fff;
+  border: 2px solid #d1d5db;
+  border-radius: 22px;
+  padding: 10px 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #232323;
+  margin-top: 2px;
+  cursor: pointer;
+  transition: border 0.18s, background 0.18s;
+}
+.carrusel-talla-guia:hover {
+  border: 2px solid #ff0000;
+  color: #ff0000;
+}
+.carrusel-talla-aceptar {
+  background: #1a8cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-weight: 700;
+  width: 100%;
+  font-size: 1.08rem;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+.carrusel-talla-aceptar:hover {
+  background: #0d6efd;
+}

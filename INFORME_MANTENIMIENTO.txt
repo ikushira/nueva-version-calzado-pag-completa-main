@@ -1,0 +1,74 @@
+INFORME DE MANTENIMIENTO Y MODIFICACIÓN DEL PROYECTO
+
+Este documento explica cómo modificar cualquier aspecto del proyecto, incluyendo páginas, imágenes, colores y elementos visuales. Está pensado para usuarios sin experiencia técnica, usando un lenguaje sencillo y ejemplos claros.
+
+1. ESTRUCTURA DEL PROYECTO
+--------------------------
+- Las páginas principales están en archivos con extensión .html (por ejemplo: index.html, mujeres.html, hombres.html).
+- Los estilos visuales (colores, tamaños, fuentes) están en la carpeta css/.
+- Las imágenes están en la carpeta assets/img/ y sus subcarpetas.
+- Los scripts (funcionalidades interactivas) están en la carpeta js/.
+
+2. MODIFICAR PÁGINAS HTML
+-------------------------
+- Para cambiar textos, títulos o agregar contenido, abre el archivo .html correspondiente (por ejemplo, para la página de mujeres, abre mujeres.html).
+- Busca el texto que deseas cambiar y edítalo directamente.
+- Para agregar una nueva sección, copia y pega una sección similar y edita el contenido.
+
+3. AGREGAR O CAMBIAR IMÁGENES
+-----------------------------
+- Coloca la nueva imagen en la carpeta assets/img/ o en la subcarpeta correspondiente (por ejemplo, calzhombres/ para zapatos de hombre).
+- Para mostrar la imagen en una página, abre el archivo .html y busca una línea similar a:
+  <img src="assets/img/nombre-imagen.jpg" alt="Descripción">
+- Cambia el nombre del archivo por el de tu nueva imagen.
+- Si quieres agregar una imagen nueva, copia una línea <img ...> y cambia el nombre de la imagen.
+
+4. CAMBIAR COLORES Y ESTILOS VISUALES
+-------------------------------------
+- Los colores y estilos están en los archivos dentro de la carpeta css/.
+- El archivo styles.css controla la mayoría de los colores y estilos generales.
+- Para cambiar un color, busca en styles.css una línea como:
+  color: #123456;
+  background-color: #abcdef;
+- Cambia el código de color por el que desees (puedes usar https://htmlcolorcodes.com/ para elegir colores).
+- Ejemplo: Para cambiar el color de fondo de la página principal, busca en styles.css:
+  body {
+    background-color: #ffffff;
+  }
+  Cambia #ffffff por el color que prefieras.
+
+5. CAMBIAR FUENTES Y TAMAÑOS DE TEXTO
+-------------------------------------
+- En styles.css, busca líneas como:
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+- Cambia el nombre de la fuente o el tamaño según lo necesites.
+
+6. MODIFICAR MENÚS Y ENLACES
+----------------------------
+- Los menús suelen estar al inicio de cada archivo .html, dentro de etiquetas <nav> o <ul>.
+- Para agregar un nuevo enlace, copia una línea <li><a href="pagina.html">Texto</a></li> y edítala.
+
+7. CAMBIAR O AGREGAR SCRIPTS (FUNCIONALIDADES)
+----------------------------------------------
+- Los archivos en js/ controlan funciones como el carrito, búsqueda, etc.
+- Para cambiar una funcionalidad, abre el archivo correspondiente (por ejemplo, carrito.js para el carrito de compras).
+- Busca la función que deseas modificar (puedes buscar por palabras clave).
+
+8. UBICACIÓN Y LÍNEAS DE CAMBIO
+-------------------------------
+- Usa un editor de texto como Visual Studio Code para ver los números de línea.
+- Cuando busques un color, imagen o texto, el editor te mostrará la línea exacta para cambiar.
+- Si tienes dudas, busca la palabra clave (por ejemplo, el nombre de una imagen o color) usando la función de búsqueda del editor (Ctrl+F).
+
+9. RECOMENDACIONES GENERALES
+----------------------------
+- Haz una copia de seguridad antes de modificar archivos importantes.
+- Guarda los cambios y recarga la página en el navegador para ver los resultados.
+- Si algo no funciona, revisa que el nombre de los archivos y rutas sean correctos.
+
+10. CONTACTO Y AYUDA
+--------------------
+- Si necesitas ayuda adicional, consulta la documentación de HTML, CSS y JavaScript en sitios como w3schools.com o mdn web docs.
+
+Este informe cubre los aspectos básicos para mantener y modificar el proyecto. Si necesitas instrucciones para una tarea específica, busca el archivo y la línea correspondiente usando el editor de texto.

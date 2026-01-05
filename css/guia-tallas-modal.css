@@ -1,0 +1,131 @@
+/* Modal Guía de Tallas */
+.modal-guia-tallas {
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+.modal-gt-content {
+  background: #f7f8fa;
+  border-radius: 24px;
+  max-width: 950px;
+  width: 90vw;
+  min-height: 420px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  padding: 32px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-gt-close {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  background: #fff;
+  border: 2px solid #bbb;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 1.6rem;
+  color: #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.modal-gt-close:hover {
+  background: #eee;
+}
+.modal-gt-body {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: flex-start;
+}
+.modal-gt-img {
+  flex: 1 1 320px;
+  max-width: 340px;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-gt-img img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 32px;
+  object-fit: cover;
+}
+.modal-gt-panel {
+  flex: 2 1 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-gt-select-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+#modal-gt-select {
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 24px;
+  border: 1.5px solid #d1d5db;
+  font-size: 1.1rem;
+  background: #fff;
+  color: #444;
+  font-weight: 600;
+  outline: none;
+  transition: border 0.2s;
+}
+#modal-gt-select:focus {
+  border: 1.5px solid #1976d2;
+}
+#modal-gt-content-panel {
+  width: 100%;
+  min-height: 220px;
+  max-height: 340px;
+  overflow-y: auto;
+  background: none;
+  border-radius: 18px;
+  padding: 0 6px;
+}
+.gt-recom-list {
+  margin: 0 0 0 18px;
+  padding: 0;
+  font-size: 1.05rem;
+  color: #444;
+}
+.gt-recom-list li {
+  margin-bottom: 6px;
+}
+.gt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 1.05rem;
+}
+.gt-table th, .gt-table td {
+  padding: 8px 12px;
+  text-align: left;
+}
+.gt-table th {
+  background: #e3e7ee;
+  font-weight: 700;
+}
+.gt-table tr:nth-child(even) {
+  background: #f3f5f8;
+}
+@media (max-width: 900px) {
+  .modal-gt-body { flex-direction: column; gap: 18px; }
+  .modal-gt-img { max-width: 100%; justify-content: flex-start; }
+}

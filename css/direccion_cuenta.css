@@ -1,0 +1,82 @@
+/* Estilos para la sección de direcciones en cuenta */
+.direccion-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 32px 32px 24px 32px;
+  margin-top: 24px;
+}
+.direccion-form label {
+  display: block;
+  margin-bottom: 6px;
+  color: #888;
+  font-size: 0.98em;
+}
+.direccion-form input,
+.direccion-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 18px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1em;
+  background: #f7f8fa;
+}
+.direccion-form button {
+  width: 100%;
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 0;
+  font-size: 1.08em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+.direccion-form button:hover {
+  background: #ff0000;
+}
+.direccion-titulo {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 18px;
+}
+.direccion-volver {
+  color: #1a8cff;
+  font-size: 1em;
+  text-decoration: none;
+  margin-bottom: 18px;
+  display: inline-block;
+}
+.menu-cuenta {
+  min-width: 180px;
+  margin-right: 40px;
+}
+.menu-cuenta ul {
+  list-style: none;
+  padding: 0;
+}
+.menu-cuenta li {
+  padding: 12px 0;
+  color: #333;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+.menu-cuenta li.active {
+  color: #ff0000;
+  font-weight: bold;
+  border-left: 3px solid #ff0000;
+}
+@media (max-width: 900px) {
+  .direccion-container {
+    padding: 18px 8px;
+  }
+  .menu-cuenta {
+    margin-right: 0;
+    margin-bottom: 24px;
+  }
+}

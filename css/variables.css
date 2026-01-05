@@ -1,0 +1,51 @@
+/* 
+ * variables.css
+ * Este archivo define las variables CSS globales para el sitio
+ * como colores, espaciados, tipografías, etc.
+ */
+
+:root {
+  /* Colores primarios */
+  --color-primary: #ff0000;          /* Rojo principal */
+  --color-primary-light: #ff0000;    /* Rojo claro */
+  --color-primary-dark: #ff0000;     /* Rojo oscuro */
+  
+  /* Colores neutrales */
+  --color-neutral-dark: #232323;     /* Texto principal */
+  --color-neutral-medium: #555555;   /* Texto secundario */
+  --color-neutral-light: #dddddd;    /* Bordes y separadores */
+  --color-neutral-bg: #f7f8fa;       /* Fondo de página */
+  
+  /* Colores de acento */
+  --color-accent: #0056b3;           /* Acento - Azul */
+  --color-accent-secondary: #5a6268; /* Acento secundario - Gris */
+  
+  /* Colores de estado */
+  --color-success: #28a745;          /* Éxito - Verde */
+  --color-warning: #ffc107;          /* Advertencia - Amarillo */
+  --color-danger: #ff0000;           /* Error - Rojo oscuro */
+  --color-info: #17a2b8;             /* Información - Celeste */
+  
+  /* Espaciados */
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+  --spacing-xl: 30px;
+  
+  /* Bordes */
+  --border-radius-sm: 3px;
+  --border-radius-md: 5px;
+  --border-radius-lg: 10px;
+  --border-radius-xl: 20px;
+  
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 16px rgba(0,0,0,0.1);
+  
+  /* Transiciones */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}

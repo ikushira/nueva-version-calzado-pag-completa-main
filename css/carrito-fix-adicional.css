@@ -1,0 +1,178 @@
+/* Estilos adicionales para corregir problemas visuales del carrito */
+
+/* Mejoras en la apariencia del carrito en todas las páginas */
+.carrito-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  grid-gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.carrito-item-imagen {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrito-item-imagen img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Mejoras para la visualización de espacios y mensajes */
+#carrito-productos:not(:empty) + #carrito-vacio,
+#carrito-lista:not(:empty) + #carrito-vacio {
+  display: none !important;
+}
+
+/* Icono para carrito vacío */
+.carrito-vacio-icon {
+  margin-bottom: 15px;
+}
+
+.carrito-vacio-icon-color {
+  color: #ff0000;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+/* Asegurarse de que el mensaje de carrito vacío no aparezca si hay productos */
+.oculto, 
+#carrito-vacio.oculto {
+  display: none !important;
+}
+
+/* Mejorar espaciado vertical en el carrito */
+#carrito-modal .modal-body {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* #ff0000ucir espacios en blanco innecesarios */
+#carrito-modal .modal-content {
+  padding: 15px;
+}
+
+#carrito-total {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+/* Asegurar que el texto de envío gratis sea visible */
+#envio-gratis-indicador {
+  margin-top: 5px;
+  font-weight: bold;
+  color: #28a745;
+}
+
+/* Mejora visual para el contador de carrito */
+#carrito-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff0000;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mejoras para visualización en dispositivos móviles */
+@media (max-width: 576px) {
+  .carrito-item {
+    grid-template-columns: 60px 1fr;
+  }
+  
+  .carrito-item-imagen {
+    width: 50px;
+    height: 50px;
+  }
+  
+  #carrito-modal .modal-dialog {
+    margin: 10px;
+  }
+  
+  .carrito-item-imagen img {
+    max-height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* Forzar ocultamiento del mensaje de carrito vacío cuando hay productos */
+.carrito-lista:not(:empty) + #carrito-vacio,
+#carrito-productos:not(:empty) ~ #carrito-vacio,
+.carrito-productos:not(:empty) ~ #carrito-vacio {
+  display: none !important;
+}
+
+/* Asegurar que el mensaje de carrito vacío siempre esté oculto cuando hay productos */
+#carrito-vacio.oculto {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Asegurar espacio para los productos cuando hay productos en el carrito */
+.modal-carrito-content {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+}
+
+.carrito-lista {
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(80vh - 180px); /* Altura máxima ajustada */
+  margin-bottom: 15px;
+  padding-right: 5px; /* Para el scrollbar */
+}
+
+/* Estilo para el mensaje de envío gratis */
+.carrito-info-envio {
+  width: 100%;
+  text-align: center;
+  margin: 5px 0;
+  padding: 8px 5px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.carrito-info-envio.envio-gratis {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.carrito-info-envio:not(.envio-gratis) {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+/* #ff0000ucir espacio en blanco en el modal */
+.modal-carrito-content {
+  padding: 0 15px 15px 15px;
+}
+
+.carrito-total {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}

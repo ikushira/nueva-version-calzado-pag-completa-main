@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundo Calzado | Dotación</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/standardized-cards.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/new-colors.css">
+  <link rel="stylesheet" href="css/enhanced-shopping.css">
+  <link rel="stylesheet" href="css/filtros-styles.css">
+  <link rel="stylesheet" href="css/carrito.css">
+  <link rel="stylesheet" href="css/carrito-enhanced.css">
+  <link rel="stylesheet" href="css/whatsapp-button.css">
+  <link rel="stylesheet" href="css/footer-enhanced.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/image-size-fix.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/responsive-mobile.css">
+  <link rel="stylesheet" href="css/mobile-navigation.css">
+  <link rel="stylesheet" href="css/carrito-mobile-improvements.css">
+</head>
+<body>
+  <!-- Header y navegación igual que index.html -->
+  <div class="top-bar #ff0000-theme">
+    <div class="promo">
+      <span class="promo-strong"><i class="fa-solid fa-fire"></i> 30% OFF 2DO PAR</span>
+      <span class="promo-timer"><i class="fa-regular fa-clock"></i> 34:09 ÚLTIMAS HORAS</span>
+    </div>
+    <div class="top-links">
+      <a href="#"><i class="fa-regular fa-envelope"></i> Contáctanos</a>
+      <a href="#"><i class="fa-solid fa-truck"></i> Sigue tu pedido</a>
+      <a href="#"><i class="fa-solid fa-location-dot"></i> Nuestras tiendas</a>
+      <a href="#"><i class="fa-solid fa-leaf"></i> Sostenibilidad</a>
+    </div>
+  </div>
+  <header class="main-header #ff0000-theme">
+    <div class="logo">MUNDO CALZADO</div>
+    <input type="text" class="search-bar" id="main-search" placeholder="¿Qué zapatos estás buscando?">
+    <div class="header-actions">
+      <a href="login.html" class="header-login">
+        <i class="fa-regular fa-user"></i>
+        <span>Iniciar sesión</span>
+      </a>
+      <button id="btn-carrito" class="btn-carrito">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Carrito de compras</span>
+        <span id="carrito-cantidad" class="carrito-cantidad">0</span>
+      </button>
+    </div>
+  </header>
+  <!-- Modal Carrito de Compras -->
+  <div id="modal-carrito" class="modal-carrito oculto">
+    <div class="modal-carrito-content">
+      <div class="modal-carrito-header">
+        <span class="modal-carrito-title"><i class="fa-solid fa-cart-shopping"></i> MI CARRITO</span>
+        <button id="cerrar-carrito" class="cerrar-carrito">&times;</button>
+      </div>
+      <div id="carrito-lista" class="carrito-lista">
+        <!-- Aquí se mostrarán los productos del carrito -->
+      </div>
+      <div id="carrito-vacio" class="carrito-vacio">
+        <!-- Usamos un icono visual para representar el carrito vacío -->
+        <div class="carrito-vacio-icon">
+          <i class="fa-solid fa-box-open fa-4x carrito-vacio-icon-color"></i>
+        </div>
+        <p class="carrito-vacio-txt">Tu carrito está vacío</p>
+        <p class="carrito-vacio-desc">Aún no tienes artículos en tu carrito de compra.</p>
+        <button id="btn-elegir-productos" class="btn-elegir-productos"><i class="fa-solid fa-shoe-prints"></i> Explorar productos</button>
+      </div>
+      <div id="carrito-total" class="carrito-total oculto">
+        <span>Total: $<span id="carrito-total-precio">0</span></span>
+        <button id="btn-finalizar-compra" class="btn-finalizar-compra"><i class="fa-solid fa-check"></i> Finalizar compra</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="main-nav #ff0000-theme">
+    <ul>
+      <li><a href="nuevos.html">Nuevos</a></li>
+      <li><a href="mujeres.html">Mujeres</a></li>
+      <li><a href="hombres.html">Hombres</a></li>
+      <li><a href="ninas.html">Niñas</a></li>
+      <li><a href="ninos.html">Niños</a></li>
+      <li><a href="colegiales.html">Colegiales</a></li>
+      <li><a href="dotacion.html" class="ofertas">Dotación</a></li>
+      <li><a href="accesorios.html">Accesorios</a></li>
+      <li><a href="marcas.html">Marcas</a></li>
+      <li><a href="#" class="ofertas">Ofertas</a></li>
+    </ul>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb-nav">
+    <a href="index.html">Home</a> <span class="breadcrumb-sep">/</span>
+    <a href="nuevos.html">Nuevos</a> <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">Dotación</span>
+  </nav>
+  <!-- Botones desplegables -->
+  <div class="catalogo-actions">
+    <button class="btn-guia-tallas" title="Abrir guía de tallas">Guía de tallas</button>
+  </div>
+  <!-- Sidebar de filtros estilo bosquejo -->
+  <div id="filtroSidebar" class="filtro-sidebar-sketch filtro-sidebar-left">
+    <div class="filtro-header-sketch">
+      <span><i class="fa-solid fa-bars"></i> Filtros</span>
+      <button class="filtro-close-sketch" id="closeFiltro" title="Cerrar filtros"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="filtro-content-sketch">
+      <div class="filtro-group-sketch">
+        <div class="filtro-group-title-sketch" onclick="toggleFiltroSub('subcat')">
+          <b>Sub-Categoría</b> <i class="fa-solid fa-angle-down"></i>
+        </div>
+        <div class="filtro-group-list-sketch" id="filtro-subcat">
+          <label class="filtro-link" data-filtro="Botas de seguridad"><input type="checkbox"> Botas de seguridad</label><br>
+          <label class="filtro-link" data-filtro="Zapatos industriales"><input type="checkbox"> Zapatos industriales</label><br>
+          <label class="filtro-link" data-filtro="Botas impermeables"><input type="checkbox"> Botas impermeables</label><br>
+          <label class="filtro-link" data-filtro="Calzado hospitalario"><input type="checkbox"> Calzado hospitalario</label><br>
+          <label class="filtro-link" data-filtro="Accesorios de seguridad"><input type="checkbox"> Accesorios de seguridad</label>
+        </div>
+      </div>
+      <hr>
+      <div class="filtro-group-sketch">
+        <div class="filtro-group-title-sketch" onclick="toggleFiltroSub('colores')">Colores <i class="fa-solid fa-angle-down"></i></div>
+        <div class="filtro-group-list-sketch visually-hidden filtro-colores-list" id="filtro-colores">
+          <label class="filtro-link" data-filtro="blanco"><input type="checkbox"> blanco</label>
+          <label class="filtro-link" data-filtro="café"><input type="checkbox"> café</label>
+          <label class="filtro-link" data-filtro="azul"><input type="checkbox"> azul</label>
+          <label class="filtro-link" data-filtro="gris"><input type="checkbox"> gris</label>
+          <label class="filtro-link" data-filtro="verde"><input type="checkbox"> verde</label>
+          <label class="filtro-link" data-filtro="amarillo"><input type="checkbox"> amarillo</label>
+          <label class="filtro-link" data-filtro="negro"><input type="checkbox"> negro</label>
+        </div>
+      </div>
+      <div class="filtro-group-sketch">
+        <div class="filtro-group-title-sketch" onclick="toggleFiltroSub('marca')">Marca <i class="fa-solid fa-angle-down"></i></div>
+        <div class="filtro-group-list-sketch visually-hidden filtro-marca-list" id="filtro-marca">
+          <label class="filtro-link" data-filtro="Brahma"><input type="checkbox"> Brahma</label>
+          <label class="filtro-link" data-filtro="Rockland"><input type="checkbox"> Rockland</label>
+          <label class="filtro-link" data-filtro="Westland"><input type="checkbox"> Westland</label>
+          <label class="filtro-link" data-filtro="3M"><input type="checkbox"> 3M</label>
+          <label class="filtro-link" data-filtro="SafetyPlus"><input type="checkbox"> SafetyPlus</label>
+        </div>
+      </div>
+      <div class="filtro-group-sketch">
+        <div class="filtro-group-title-sketch" onclick="toggleFiltroSub('ofertas')">Ofertas <i class="fa-solid fa-angle-down"></i></div>
+        <div class="filtro-group-list-sketch visually-hidden filtro-ofertas-list" id="filtro-ofertas">
+          <label class="filtro-link" data-filtro="ofertas"><input type="checkbox"> ofertas</label>
+        </div>
+      </div>
+      <div class="filtro-group-sketch">
+        <div class="filtro-group-title-sketch" onclick="toggleFiltroSub('talla')">Talla <i class="fa-solid fa-angle-down"></i></div>
+        <div class="filtro-group-list-sketch visually-hidden filtro-talla-list" id="filtro-talla">
+          <label class="filtro-link" data-filtro="37"><input type="checkbox"> 37</label>
+          <label class="filtro-link" data-filtro="38"><input type="checkbox"> 38</label>
+          <label class="filtro-link" data-filtro="39"><input type="checkbox"> 39</label>
+          <label class="filtro-link" data-filtro="40"><input type="checkbox"> 40</label>
+          <label class="filtro-link" data-filtro="41"><input type="checkbox"> 41</label>
+          <label class="filtro-link" data-filtro="42"><input type="checkbox"> 42</label>
+          <label class="filtro-link" data-filtro="43"><input type="checkbox"> 43</label>
+          <label class="filtro-link" data-filtro="44"><input type="checkbox"> 44</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="filtroOverlay" class="filtro-overlay-sketch visually-hidden"></div>
+  <section class="catalogo-section">
+    <h2>Calzado de Dotación</h2>
+    <div class="catalogo-container" id="catalogo-dotacion">
+      <!-- Las tarjetas de productos se generan dinámicamente por JS -->
+    </div>
+  </section>
+
+  <!-- Footer igual que index.html -->
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-col">
+        <h4>Políticas</h4>
+        <a href="#">Condiciones Promociones vigentes</a>
+        <a href="#">Canjear bonos empresariales</a>
+        <a href="#">Código de ética y buen gobierno</a>
+        <a href="#">Política de cambios y garantías tiendas físicas</a>
+        <a href="#">Política de cambios y garantías tienda online</a>
+        <a href="#">Política de privacidad, tratamiento y protección de datos personales</a>
+      </div>
+      <div class="footer-col">
+        <h4>Descubre Mundo Calzado</h4>
+        <a href="#">¿Quiénes somos?</a>
+        <a href="#">Trabaja con nosotros</a>
+        <a href="#">Encuentra nuestras tiendas</a>
+        <a href="#">Registro de descuento de cumpleaños</a>
+      </div>
+      <div class="footer-col">
+        <h4>Necesitas ayuda</h4>
+        <a href="#">Contáctanos</a>
+        <a href="#">Gestiona tus cambios</a>
+        <a href="#">Portal Autogestión de proveedores</a>
+        <a href="#">Verifica el estado de tu pedido</a>
+        <a href="#">Consulta facturas electrónicas</a>
+      </div>
+      <div class="footer-col footer-social">
+        <h4>Síguenos en nuestras #ff0000es:</h4>
+        <div class="social-icons">
+          <a href="#"><img src="assets/img/instagram.svg" alt="Instagram" /></a>
+          <a href="#"><img src="assets/img/facebook.png" alt="Facebook" /></a>
+          <a href="#"><img src="assets/img/whatsapp.svg" alt="WhatsApp" /></a>
+          <a href="#"><img src="assets/img/tiktok.svg" alt="TikTok" /></a>
+        </div>
+        <h4>Medios de pago disponibles:</h4>
+        <div class="payment-icons">
+          <span class="payment-text">Visa • Mastercard • PSE • Efecty • Nequi</span>
+        </div>
+        <h4>Vigilado por:</h4>
+        <span class="super-text">Superintendencia de Industria y Comercio</span>
+      </div>
+    </div>
+    <link rel="stylesheet" href="css/guia-tallas-modal.css">
+    <script src="js/guia-tallas-modal.js"></script>
+    <style>
+      .visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+      }
+      .filtro-colores-list,
+      .filtro-marca-list,
+      .filtro-ofertas-list,
+      .filtro-talla-list {
+        max-height: 160px;
+        overflow-y: auto;
+      }
+    </style>
+    <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener">
+      <img src="assets/img/whatsapp.svg" alt="WhatsApp">
+    </a>
+    <p class="copyright">&copy; 2025 Mundo Calzado. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="js/secciones_js/Dotacion_fotos.js"></script>
+  <script src="js/catalogo.js"></script>
+  <script src="js/busqueda.js"></script><script src="js/tallas.js"></script>
+  <script src="js/diagnostico-tallas.js"></script>
+    <script src="./js/image-size-fix.js"></script>
+<script src="js/aplicar-whatsapp-all-pages.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/mobile-navigation.js"></script>
+    <script src="js/carrito-simplificado.js"></script>
+    <script src="js/carrito-estilo-fix.js"></script>
+</body>
+</html>

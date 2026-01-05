@@ -1,0 +1,301 @@
+/* 
+ * standardized-cards.css
+ * Este archivo define estilos estandarizados para todas las tarjetas de productos
+ * con dimensiones consistentes basadas en las tarjetas de "Zapato Hombre 9" y "Zapato Hombre 10"
+ */
+
+/* Contenedor de la tarjeta - Establece dimensiones fijas */
+.producto-card {
+  width: 280px;              /* Ancho estándar para todas las tarjetas */
+  height: 520px;             /* Altura aumentada para acomodar las imágenes más grandes (era 450px) */
+  margin: 15px;              /* Margen uniforme */
+  padding: 0;                /* Sin relleno interno */
+  position: relative;        /* Para posicionamiento de elementos internos */
+  border-radius: var(--border-radius-md); /* Bordes #ff0000ondeados */
+  overflow: hidden;          /* Oculta contenido que sobresale */
+  display: flex;             /* Usa flexbox para organizar contenido */
+  flex-direction: column;    /* Organiza contenido verticalmente */
+  background-color: white;   /* Fondo blanco */
+  box-shadow: var(--shadow-sm); /* Sombra sutil */
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium); /* Animación al pasar el cursor */
+}
+
+/* Efecto hover para las tarjetas */
+.producto-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Contenedor para la imagen del producto - Mantiene proporción y tamaño consistentes */
+.producto-card .img-container {
+  width: 100%;               /* Ocupa todo el ancho disponible */
+  height: 320px;             /* Altura aumentada para las imágenes (era 250px) */
+  overflow: hidden;          /* Oculta partes de la imagen que excedan el contenedor */
+  position: relative;        /* Para posicionar etiquetas */
+  background-color: var(--color-neutral-bg); /* Fondo gris claro para cuando la imagen está cargando */
+  display: flex;             /* Usa flexbox para centrar imagen */
+  justify-content: center;   /* Centra horizontalmente */
+  align-items: center;       /* Centra verticalmente */
+  padding: 10px;             /* Espacio interno para evitar que la imagen toque los bordes */
+}
+
+/* Estilos para la imagen - Se ajusta correctamente manteniendo proporciones */
+.producto-card .img-container img {
+  max-width: 100%;           /* Ocupa el ancho disponible */
+  max-height: 100%;          /* Ocupa la altura disponible */
+  width: auto;               /* Ancho automático para mantener proporciones */
+  height: auto;              /* Altura automática para mantener proporciones */
+  object-fit: contain;       /* Contiene la imagen completa en vez de recortarla */
+  object-position: center;   /* Centra la imagen */
+  transition: transform var(--transition-medium); /* Animación suave al pasar el cursor */
+}
+
+/* Efecto hover para las imágenes */
+.producto-card:hover .img-container img {
+  transform: scale(1.05);    /* Ligero zoom en la imagen al pasar el cursor */
+}
+
+/* Contenedor de información del producto */
+.producto-info {
+  padding: var(--spacing-md);  /* Relleno interno consistente */
+  flex-grow: 1;              /* Permite que ocupe el espacio vertical restante */
+  display: flex;             /* Usa flexbox para organizar contenido */
+  flex-direction: column;    /* Organiza contenido verticalmente */
+  justify-content: space-between; /* Distribuye el espacio disponible */
+}
+
+/* Nombre del producto */
+.producto-info h3 {
+  margin: 0 0 var(--spacing-xs) 0; /* Margen inferior */
+  font-size: 16px;           /* Tamaño de fuente consistente */
+  font-weight: 600;          /* Peso de fuente semibold */
+  color: var(--color-neutral-dark);
+  line-height: 1.2;          /* Espaciado de línea para mejor legibilidad */
+  height: 38px;              /* Altura fija para nombre del producto (2 líneas) */
+  overflow: hidden;          /* Oculta texto que excede la altura */
+  text-overflow: ellipsis;   /* Muestra puntos suspensivos para texto recortado */
+  display: -webkit-box;      /* Necesario para recorte multilinea */
+  -webkit-line-clamp: 2;     /* Limita a 2 líneas */
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: box;
+}
+
+/* Precio del producto */
+.producto-precio {
+  font-size: 18px;           /* Tamaño de fuente consistente */
+  font-weight: bold;         /* Peso de fuente bold */
+  color: var(--color-primary); /* Color de acento */
+  margin: var(--spacing-xs) 0; /* Margen vertical */
+}
+
+/* Contenedor de tallas */
+.producto-tallas {
+  margin: var(--spacing-sm) 0; /* Margen vertical */
+}
+
+.tallas-label {
+  font-size: 14px;           /* Tamaño de fuente consistente */
+  margin-bottom: var(--spacing-xs); /* Margen inferior */
+  color: var(--color-neutral-medium); /* Color de texto secundario */
+}
+
+/* Listado de tallas */
+.tallas-list {
+  display: flex;             /* Usa flexbox para organizar tallas */
+  flex-wrap: wrap;           /* Permite que las tallas se envuelvan a la siguiente línea */
+  gap: var(--spacing-xs);    /* Espacio entre tallas */
+  justify-content: center;   /* Centra las tallas horizontalmente */
+}
+
+/* Botones de talla */
+.talla-btn {
+  width: 40px;              /* Ancho fijo para todos los botones de talla */
+  height: 30px;             /* Altura fija para todos los botones de talla */
+  display: flex;            /* Usa flexbox para centrar texto */
+  justify-content: center;  /* Centra texto horizontalmente */
+  align-items: center;      /* Centra texto verticalmente */
+  font-size: 14px;          /* Tamaño de fuente consistente */
+  border: 1px solid var(--color-neutral-light);
+  border-radius: var(--border-radius-sm); /* Bordes #ff0000ondeados */
+  background-color: white;  /* Fondo blanco */
+  cursor: pointer;          /* Cursor tipo mano */
+  transition: all var(--transition-fast); /* Transición suave */
+}
+
+/* Estilo para talla seleccionada */
+.talla-btn.selected {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* Botón de guía de tallas */
+.btn-guia-tallas {
+  width: 100%;              /* Ocupa todo el ancho disponible */
+  margin-top: var(--spacing-sm); /* Margen superior */
+  padding: 8px 0;           /* Relleno vertical */
+  font-size: 14px;          /* Tamaño de fuente consistente */
+  background-color: transparent;
+  border: 1px solid var(--color-neutral-light);
+  border-radius: var(--border-radius-sm); /* Bordes #ff0000ondeados */
+  cursor: pointer;          /* Cursor tipo mano */
+  transition: all var(--transition-fast); /* Transición suave */
+}
+
+.btn-guia-tallas:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Botón de añadir al carrito */
+.btn-add-cart {
+  width: 100%;              /* Ocupa todo el ancho disponible */
+  padding: 10px 0;          /* Relleno vertical */
+  margin-top: var(--spacing-sm); /* Margen superior */
+  font-size: 16px;          /* Tamaño de fuente consistente */
+  font-weight: 600;         /* Peso de fuente semibold */
+  background-color: var(--color-primary);
+  color: white;             /* Texto blanco */
+  border: none;             /* Sin borde */
+  border-radius: var(--border-radius-sm); /* Bordes #ff0000ondeados */
+  cursor: pointer;          /* Cursor tipo mano */
+  transition: background-color var(--transition-fast); /* Transición suave */
+}
+
+.btn-add-cart:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Estilos para etiquetas (nuevo, envío, etc.) */
+.etiqueta-nuevo, .etiqueta-envio {
+  position: absolute;       /* Posicionamiento absoluto */
+  top: 10px;                /* Posición desde arriba */
+  left: 10px;               /* Posición desde la izquierda */
+  padding: 5px 10px;        /* Relleno */
+  font-size: 12px;          /* Tamaño de fuente */
+  font-weight: 600;         /* Peso de fuente semibold */
+  color: white;             /* Texto blanco */
+  border-radius: var(--border-radius-sm); /* Bordes #ff0000ondeados */
+  z-index: 2;               /* Por encima de la imagen */
+}
+
+.etiqueta-nuevo {
+  background-color: var(--color-primary); /* Fondo rojo primario */
+}
+
+.etiqueta-envio {
+  background-color: var(--color-accent); /* Fondo color acento */
+  top: 40px;                /* Posición desde arriba para segunda etiqueta */
+}
+
+/* Estilos específicos para tarjetas de marcas */
+.producto-card-marca {
+  height: 180px;            /* Altura menor para tarjetas de marca */
+}
+
+.producto-card-marca .img-container {
+  height: 120px;            /* Altura menor para imagen de marca */
+}
+
+.producto-card-marca .marca-nombre {
+  text-align: center;       /* Texto centrado */
+  font-weight: 700;         /* Peso de fuente bold */
+}
+
+/* Estilos responsivos para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  .producto-card {
+    width: 260px;           /* Ancho ligeramente menor en pantallas medianas */
+    height: 430px;          /* Altura ligeramente menor en pantallas medianas */
+  }
+  
+  .producto-card .img-container {
+    height: 230px;          /* Altura de imagen ajustada */
+  }
+}
+
+@media (max-width: 576px) {
+  .producto-card {
+    width: 240px;           /* Ancho menor en pantallas pequeñas */
+    height: 410px;          /* Altura menor en pantallas pequeñas */
+    margin: var(--spacing-sm); /* Margen #ff0000ucido */
+  }
+  
+  .producto-card .img-container {
+    height: 210px;          /* Altura de imagen ajustada */
+  }
+  
+  .producto-info h3 {
+    font-size: 14px;        /* Tamaño de fuente menor */
+  }
+  
+  .producto-precio {
+    font-size: 16px;        /* Tamaño de fuente menor */
+  }
+}
+.etiqueta-nuevo,
+.etiqueta-oferta,
+.etiqueta-envio {
+  position: absolute;        /* Posicionamiento absoluto */
+  top: 10px;                 /* Separación desde arriba */
+  left: 10px;                /* Separación desde la izquierda */
+  padding: 4px 10px;         /* Relleno interno */
+  font-size: 12px;           /* Tamaño de fuente consistente */
+  font-weight: 600;          /* Peso de fuente semibold */
+  border-radius: 3px;        /* Bordes #ff0000ondeados */
+  z-index: 2;                /* Por encima de la imagen */
+}
+
+.etiqueta-nuevo {
+  background-color: var(--color-primary); /* Fondo rojo */
+  color: white;              /* Texto blanco */
+}
+
+.etiqueta-oferta {
+  background-color: var(--color-accent); /* Fondo amarillo */
+  color: var(--color-neutral-dark);      /* Texto oscuro */
+}
+
+.etiqueta-envio {
+  background-color: #4CAF50; /* Fondo verde */
+  color: white;              /* Texto blanco */
+}
+
+/* Contenedor para múltiples tarjetas (grilla) */
+.catalogo-container {
+  display: flex;             /* Usa flexbox para organizar tarjetas */
+  flex-wrap: wrap;           /* Permite que las tarjetas se ajusten en múltiples filas */
+  justify-content: center;   /* Centra horizontalmente */
+  gap: 20px;                 /* Espaciado entre tarjetas */
+  padding: 20px 0;           /* Relleno vertical */
+}
+
+/* Para imágenes de alta resolución (2x) */
+@media 
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) {
+  .producto-card .img-container img {
+    image-rendering: -webkit-optimize-contrast; /* Mejora la nitidez en dispositivos retina */
+  }
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+  .producto-card {
+    width: calc(50% - 20px); /* 2 tarjetas por fila en móviles */
+    height: auto;            /* Altura automática */
+    margin: 10px;            /* Margen #ff0000ucido */
+  }
+  
+  .producto-card .img-container {
+    height: 180px;           /* Altura #ff0000ucida para imágenes */
+  }
+}
+
+@media (max-width: 480px) {
+  .producto-card {
+    width: calc(100% - 20px); /* 1 tarjeta por fila en móviles pequeños */
+  }
+}

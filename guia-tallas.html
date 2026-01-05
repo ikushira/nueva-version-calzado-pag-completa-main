@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía de Tallas | Mundo Calzado</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/standardized-cards.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/new-colors.css">
+  <link rel="stylesheet" href="css/enhanced-shopping.css">
+  <link rel="stylesheet" href="css/guia-tallas-modal.css">
+  <link rel="stylesheet" href="css/whatsapp-button.css">
+  <link rel="stylesheet" href="css/footer-enhanced.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/image-size-fix.css">
+  <link rel="stylesheet" href="css/carrito-imagen-fix.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/responsive-mobile.css">
+  <link rel="stylesheet" href="css/mobile-navigation.css">
+</head>
+<body>
+  <div id="modal-guia-tallas" class="modal-guia-tallas" style="display:flex;">
+    <div class="modal-gt-content">
+      <button class="modal-gt-close" id="close-modal-gt" aria-label="Cerrar">&times;</button>
+      <div class="modal-gt-body">
+        <div class="modal-gt-img" id="modal-gt-img">
+          <img src="assets/img/guiatalla1.webp" alt="Guía de tallas" id="img-gt-main" />
+        </div>
+        <div class="modal-gt-panel">
+          <div class="modal-gt-select-bar">
+            <select id="modal-gt-select">
+              <option value="medida">Recomendaciones para encontrar tu talla</option>
+              <option value="hombres">Hombres</option>
+              <option value="mujeres">Mujeres</option>
+              <option value="ninos">Niños</option>
+            </select>
+          </div>
+          <div id="modal-gt-content-panel">
+            <div id="gt-recomendaciones">
+              <ul class="gt-recom-list">
+                <li>Pon una hoja de papel en el suelo.</li>
+                <li>Si vas a usar el zapato con medias, póntelas.</li>
+                <li>Ponte de pie sobre la hoja, con los talones pegados a la pa#ff0000.</li>
+                <li>Marca con un lápiz hasta dónde llega el dedo más largo.</li>
+                <li>Toma la hoja y mide la distancia con una regla, desde el borde hasta la marca de lápiz.</li>
+                <li>El número que te da, son los centímetros del largo de tu pie.</li>
+                <li>Si quedas entre dos tallas, te recomendamos elegir la más grande.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/guia-tallas-modal.js"></script>
+    <script src="./js/image-size-fix.js"></script>
+  
+  
+  <!-- Scripts de carrito ordenados -->
+  <!-- Script unificado de carrito -->
+  <script src="js/carrito-simplificado.js"></script>
+
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener">
+      <img src="assets/img/whatsapp.svg" alt="WhatsApp">
+    </a>
+  <script src="js/aplicar-whatsapp-all-pages.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/mobile-navigation.js"></script>
+</body>
+</html>

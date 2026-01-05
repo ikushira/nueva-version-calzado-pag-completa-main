@@ -1,0 +1,126 @@
+.perfil-juridica {
+  display: none;
+}
+/* Estilos para la página de cuenta de usuario */
+body.cuenta-page {
+  background: #f7f8fa;
+  font-family: 'Inter', Arial, sans-serif;
+}
+.cuenta-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.cuenta-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.cuenta-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-right: 24px;
+}
+.cuenta-bienvenida {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+.cuenta-main {
+  display: flex;
+  gap: 40px;
+}
+.cuenta-menu {
+  min-width: 180px;
+}
+.cuenta-menu ul {
+  list-style: none;
+  padding: 0;
+}
+.cuenta-menu li {
+  padding: 12px 0;
+  color: #333;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: color 0.2s, border-left 0.2s;
+}
+.cuenta-menu li.active {
+  color: #ff0000;
+  font-weight: bold;
+  border-left: 3px solid #ff0000;
+}
+.cuenta-content {
+  flex: 1;
+  display: flex;
+  gap: 32px;
+}
+.perfil-card, .boletin-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 32px;
+  min-width: 340px;
+}
+.perfil-card {
+  flex: 2;
+}
+.boletin-card {
+  flex: 1;
+}
+.perfil-titulo {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+.perfil-datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 32px;
+  margin-bottom: 16px;
+}
+.perfil-datos label {
+  color: #888;
+  font-size: 0.95em;
+}
+.perfil-datos span {
+  color: #333;
+  font-size: 1em;
+}
+.perfil-editar {
+  text-align: right;
+  margin-top: 12px;
+}
+.perfil-editar a {
+  color: #ff0000;
+  text-decoration: none;
+  font-weight: bold;
+}
+.boletin-card label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+.boletin-card input[type="checkbox"] {
+  margin-right: 8px;
+}
+/* Ajustes para boletín informativo */
+.boletin-descripcion {
+  margin-bottom: 8px;
+  color: #555;
+}
+.boletin-label {
+  font-weight: normal;
+}
+@media (max-width: 900px) {
+  .cuenta-main {
+    flex-direction: column;
+  }
+  .cuenta-content {
+    flex-direction: column;
+  }
+}

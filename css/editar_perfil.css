@@ -1,0 +1,124 @@
+.editar-row {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 18px;
+}
+.editar-col {
+  flex: 1;
+}
+.editar-boletin {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.boletin-label {
+  font-weight: bold;
+  color: #1a2a4a;
+}
+.cuenta-container {
+  display: flex;
+  gap: 40px;
+  margin-top: 32px;
+}
+
+.menu-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+#msg-editar {
+  display: none;
+  margin-bottom: 12px;
+}
+
+.campos-juridica-oculto {
+  display: none;
+}
+/* Estilos para la sección de editar perfil */
+.editar-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 32px 32px 24px 32px;
+  margin-top: 24px;
+}
+.editar-form label {
+  display: block;
+  margin-bottom: 6px;
+  color: #888;
+  font-size: 0.98em;
+}
+.editar-form input,
+.editar-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 18px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1em;
+  background: #f7f8fa;
+}
+.editar-form button {
+  width: 100%;
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 0;
+  font-size: 1.08em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+.editar-form button:hover {
+  background: #ff0000;
+}
+.editar-titulo {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 18px;
+}
+.editar-volver {
+  color: #1a8cff;
+  font-size: 1em;
+  text-decoration: none;
+  margin-bottom: 18px;
+  display: inline-block;
+}
+.menu-cuenta {
+  min-width: 180px;
+  margin-right: 40px;
+}
+.menu-cuenta ul {
+  list-style: none;
+  padding: 0;
+}
+.menu-cuenta li {
+  padding: 12px 0;
+  color: #333;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+.menu-cuenta li.active {
+  color: #ff0000;
+  font-weight: bold;
+  border-left: 3px solid #ff0000;
+}
+.editar-juridica {
+  background: #f3f7ff;
+  color: #1a8cff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1em;
+  border: none;
+}
+.editar-juridica:hover {
+  background: #e0eaff;
+}

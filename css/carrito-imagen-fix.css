@@ -1,0 +1,228 @@
+/* Estilos para corregir el tamaño de las imágenes en el carrito */
+/* Creado: 27/07/2025 */
+
+/* Contenedor principal del carrito */
+.modal-carrito-content {
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-carrito-header {
+  background-color: #ff0000;
+  color: white;
+  padding: 10px 15px;
+  margin: -24px -18px 15px -18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-carrito-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cerrar-carrito {
+  color: white;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.carrito-lista {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+/* Contenedor de ítem del carrito */
+.carrito-item {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+/* Parte superior del ítem (imagen y detalles) */
+.carrito-item-top {
+  display: flex;
+}
+
+/* Contenedor de la imagen */
+.carrito-item-imagen {
+  width: 70px;
+  height: 70px;
+  min-width: 70px; /* Evita que se encoja */
+  margin-right: 15px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+/* Imagen dentro del contenedor */
+.carrito-item-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Mantiene la proporción sin recortar */
+}
+
+/* Placeholder para cuando no hay imagen */
+.carrito-item-imagen-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Contenedor de detalles del producto */
+.carrito-item-detalles {
+  flex: 1;
+  padding-right: 10px;
+  font-size: 0.9rem;
+}
+
+/* Marca del producto */
+.carrito-item-marca {
+  font-size: 0.8rem;
+  color: #777;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+/* Nombre del producto */
+.carrito-item-nombre {
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+/* Color, talla y precio */
+.carrito-item-color,
+.carrito-item-talla {
+  color: #666;
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
+
+.carrito-item-precio {
+  color: #333;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Acciones del carrito (cantidad, eliminar, subtotal) */
+.carrito-item-acciones {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-right: 5px;
+}
+
+/* Botón para eliminar item */
+.btn-eliminar-item {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.btn-eliminar-item:hover {
+  color: #ff0000;
+}
+
+/* Selector de cantidad */
+.carrito-item-cantidad {
+  display: flex;
+  align-items: center;
+}
+
+.cantidad-selector {
+  padding: 3px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 0.9rem;
+  min-width: 60px;
+}
+
+/* Subtotal */
+.carrito-item-subtotal {
+  font-weight: bold;
+  font-size: 0.95rem;
+  min-width: 80px;
+  text-align: right;
+}
+
+/* Estilos para el área de total */
+.carrito-total {
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  margin-top: auto;
+}
+
+.carrito-info-envio {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.btn-finalizar-compra {
+  background: #ff0000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Estilos para el carrito en dispositivos móviles */
+@media (max-width: 480px) {
+  .carrito-item-imagen {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+  }
+  
+  .carrito-item-acciones {
+    flex-wrap: wrap;
+  }
+  
+  .carrito-item-cantidad {
+    order: 1;
+    margin-right: auto;
+  }
+  
+  .btn-eliminar-item {
+    order: 0;
+  }
+  
+  .carrito-item-subtotal {
+    order: 2;
+    margin-top: 5px;
+    width: 100%;
+    text-align: right;
+  }
+}

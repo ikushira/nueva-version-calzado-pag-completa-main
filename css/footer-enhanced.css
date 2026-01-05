@@ -1,0 +1,81 @@
+/* Estilos para mejorar el pie de página */
+.footer {
+  background-color: var(--color-footer-bg);
+  color: var(--color-footer-text);
+  padding: 40px 0 20px;
+}
+
+.footer-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 25px;
+}
+
+.footer-col h4 {
+  color: var(--color-footer-heading);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.footer-col a {
+  display: block;
+  color: var(--color-footer-text);
+  text-decoration: none;
+  margin-bottom: 10px;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+  color: var(--color-footer-link);
+  text-decoration: underline;
+}
+
+.social-icons, .payment-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
+.social-icons img {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s;
+}
+
+.social-icons a:hover img {
+  transform: scale(1.2);
+}
+
+.payment-text, .super-text {
+  font-size: 14px;
+  color: var(--color-footer-text);
+  opacity: 0.9;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  color: var(--color-footer-text);
+  font-size: 14px;
+}

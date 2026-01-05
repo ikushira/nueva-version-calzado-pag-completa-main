@@ -1,0 +1,76 @@
+/* 
+ * Archivo CSS para sobrescribir y asegurar el tamaño correcto de las imágenes en las tarjetas
+ * Este archivo debe ser incluido después de styles.css y standardized-cards.css
+ */
+
+/* Asegurar que todas las imágenes dentro de tarjetas de productos tengan el tamaño correcto */
+.producto-card img,
+.producto-card .img-container img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+/* Asegurar que los contenedores de imágenes tengan altura suficiente */
+.producto-card .img-container {
+  height: 416px !important; /* 320px + 30% = 416px */
+  padding: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+/* Ajustar altura de las tarjetas para acomodar imágenes más grandes */
+.producto-card {
+  height: 616px !important; /* 520px + 96px = 616px */
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Asegurar que la información del producto se muestre correctamente */
+.producto-card .producto-info {
+  padding: 10px !important;
+  flex-grow: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Ajustes específicos para tarjetas de marcas */
+.producto-card-marca {
+  height: 180px !important;
+}
+
+.producto-card-marca .img-container {
+  height: 120px !important;
+}
+
+/* Asegurar que los botones queden en la parte inferior */
+.producto-card .btn-add-cart {
+  margin-top: auto !important;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .producto-card {
+    height: 590px !important;
+  }
+  
+  .producto-card .img-container {
+    height: 390px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .producto-card {
+    height: 570px !important;
+  }
+  
+  .producto-card .img-container {
+    height: 364px !important;
+  }
+}

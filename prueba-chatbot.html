@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prueba Chatbot - Mundo Calzado</title>
+  <link rel="stylesheet" href="css/whatsapp-button.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+      min-height: 100vh;
+    }
+    .test-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #4A90E2;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .test-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+    }
+    .test-section h2 {
+      color: #333;
+      margin-top: 0;
+    }
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    .feature-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+    .feature-list li::before {
+      content: "✅ ";
+      color: #4CAF50;
+      font-weight: bold;
+    }
+    .instructions {
+      background-color: #e3f2fd;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #4A90E2;
+    }
+    .chatbot-preview {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .chatbot-preview img {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #4A90E2, #5A9BD4);
+      border-radius: 50%;
+      padding: 12px;
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>🤖 Chatbot Mundo Calzado - Página de Prueba</h1>
+    
+    <div class="test-section">
+      <h2>📋 Estado de Implementación</h2>
+      <ul class="feature-list">
+        <li>Botón flotante del chatbot creado</li>
+        <li>Imagen SVG del robot personalizada</li>
+        <li>CSS responsivo implementado</li>
+        <li>JavaScript con IA conversacional</li>
+        <li>Posicionamiento encima del botón WhatsApp</li>
+        <li>Modal interactivo funcionando</li>
+        <li>Base de datos de productos incluida</li>
+        <li>Respuestas inteligentes programadas</li>
+      </ul>
+    </div>
+
+    <div class="test-section">
+      <h2>🎯 Cómo Probar el Chatbot</h2>
+      <div class="instructions">
+        <p><strong>Paso 1:</strong> Busca el botón del robot en la esquina inferior derecha (encima del WhatsApp)</p>
+        <p><strong>Paso 2:</strong> Haz clic en el botón para abrir el chat</p>
+        <p><strong>Paso 3:</strong> Prueba estas consultas de ejemplo:</p>
+        <ul>
+          <li>"Hola, busco zapatos para hombre"</li>
+          <li>"¿Qué marcas manejan?"</li>
+          <li>"Cuéntame sobre Piccadilly"</li>
+          <li>"¿Hacen envíos gratis?"</li>
+          <li>"Necesito tallas grandes"</li>
+          <li>"¿Tienen ofertas?"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>🎨 Vista Previa del Robot</h2>
+      <div class="chatbot-preview">
+        <img src="assets/img/chatbot-robot.svg" alt="Robot Chatbot">
+        <p>Esta es la imagen del robot que aparece en el botón flotante</p>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>💬 Capacidades del Chatbot</h2>
+      <ul class="feature-list">
+        <li>Responde sobre productos (hombres, mujeres, niños, niñas)</li>
+        <li>Información de marcas (Croydon, Piccadilly, Patrick, etc.)</li>
+        <li>Asesoramiento sobre tallas (21-45)</li>
+        <li>Detalles de precios y ofertas</li>
+        <li>Información de envíos y devoluciones</li>
+        <li>Recomendaciones personalizadas</li>
+        <li>Respuestas naturales y humanizadas</li>
+        <li>Interfaz moderna y responsiva</li>
+      </ul>
+    </div>
+
+    <div class="test-section">
+      <h2>📱 Compatibilidad</h2>
+      <ul class="feature-list">
+        <li>Funciona en desktop y móvil</li>
+        <li>Responsive design adaptativo</li>
+        <li>Compatible con todos los navegadores modernos</li>
+        <li>Animaciones suaves y fluidas</li>
+        <li>Accesible por teclado (Enter para enviar)</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Botón de WhatsApp para referencia -->
+  <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener">
+    <img src="assets/img/whatsapp.svg" alt="WhatsApp">
+  </a>
+
+  <!-- Script del chatbot -->
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

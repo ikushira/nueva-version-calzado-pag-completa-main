@@ -1,0 +1,17 @@
+[
+  {
+    "nombre": "Usuario",
+    "apellido": "Ejemplo",
+    "email": "usuario@ejemplo.com",
+    "cedula": "12345678",
+    "telefono": "3001234567",
+    "genero": "Femenino",
+    "fecha": "1990-01-01",
+    "boletin": true,
+    "nit": "",
+    "razon": "",
+    "password": "123456",
+    "fechaRegistro": "2025-01-01T00:00:00.000Z",
+    "fechaActualizacion": "2025-01-01T00:00:00.000Z"
+  }
+]

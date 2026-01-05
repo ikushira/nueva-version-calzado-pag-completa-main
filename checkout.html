@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Mundo Calzado</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/responsive-mobile.css">
+  <link rel="stylesheet" href="css/mobile-navigation.css">
+  <link rel="stylesheet" href="css/checkout-mobile.css">
+</head>
+<body>
+    <div class="checkout-container">
+        <header class="checkout-header">
+            <div class="logo">MUNDO CALZADO</div>
+            <div class="checkout-steps">
+                <div class="step active">
+                    <span class="step-number">1</span>
+                    <span class="step-title">Información</span>
+                </div>
+                <div class="step" id="payment-step">
+                    <span class="step-number">2</span>
+                    <span class="step-title">Pago</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-title">Confirmación</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="checkout-main">
+            <div class="checkout-form">
+                <!-- Información del Usuario -->
+                <section class="checkout-section" id="user-info-section">
+                    <h2>Información de Contacto</h2>
+                    <div class="user-login-status" id="user-login-status">
+                        <div class="guest-user">
+                            <p>¿Ya tienes cuenta? <a href="#" id="login-link">Inicia sesión</a></p>
+                        </div>
+                    </div>
+                    
+                    <form id="checkout-form">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" requi#ff0000>
+                        </div>
+
+                        <h3>Información de Envío</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Nombre *</label>
+                                <input type="text" id="firstName" name="firstName" requi#ff0000>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Apellido *</label>
+                                <input type="text" id="lastName" name="lastName" requi#ff0000>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Dirección *</label>
+                            <input type="text" id="address" name="address" placeholder="Calle y número" requi#ff0000>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">Ciudad *</label>
+                                <input type="text" id="city" name="city" requi#ff0000>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">Departamento *</label>
+                                <select id="state" name="state" requi#ff0000>
+                                    <option value="">Seleccionar</option>
+                                    <option value="valle">Valle del Cauca</option>
+                                    <option value="cundinamarca">Cundinamarca</option>
+                                    <option value="antioquia">Antioquia</option>
+                                    <option value="atlantico">Atlántico</option>
+                                    <option value="bolivar">Bolívar</option>
+                                    <option value="santander">Santander</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="zipCode">Código Postal</label>
+                                <input type="text" id="zipCode" name="zipCode">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Teléfono *</label>
+                            <input type="tel" id="phone" name="phone" requi#ff0000>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="saveInfo" name="saveInfo">
+                            <label for="saveInfo">Guardar esta información para futuras compras</label>
+                        </div>
+
+                        <button type="button" class="btn-continue" id="continue-to-payment">
+                            Continuar al Pago
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Métodos de Pago -->
+                <section class="checkout-section hidden" id="payment-section">
+                    <h2>Método de Pago</h2>
+                    
+                    <div class="payment-methods">
+                        <!-- Tarjeta de Crédito/Débito -->
+                        <div class="payment-method" data-method="card">
+                            <input type="radio" id="payment-card" name="payment-method" value="card" checked>
+                            <label for="payment-card">
+                                <div class="payment-option">
+                                    <div class="payment-icon">
+                                        <i class="fas fa-c#ff0000it-card"></i>
+                                    </div>
+                                    <div class="payment-info">
+                                        <h4>Tarjeta de Crédito/Débito</h4>
+                                        <p>Visa, MasterCard, American Express</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- PSE -->
+                        <div class="payment-method" data-method="pse">
+                            <input type="radio" id="payment-pse" name="payment-method" value="pse">
+                            <label for="payment-pse">
+                                <div class="payment-option">
+                                    <div class="payment-icon">
+                                        <i class="fas fa-university"></i>
+                                    </div>
+                                    <div class="payment-info">
+                                        <h4>PSE</h4>
+                                        <p>Pago Seguro en Línea</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Addi - Crédito -->
+                        <div class="payment-method" data-method="addi">
+                            <input type="radio" id="payment-addi" name="payment-method" value="addi">
+                            <label for="payment-addi">
+                                <div class="payment-option">
+                                    <div class="payment-icon">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                    </div>
+                                    <div class="payment-info">
+                                        <h4>Addi - Crédito Instantáneo</h4>
+                                        <p>Paga en cuotas sin tarjeta de crédito</p>
+                                        <span class="addi-badge">¡Aprobación inmediata!</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Efectivo -->
+                        <div class="payment-method" data-method="cash">
+                            <input type="radio" id="payment-cash" name="payment-method" value="cash">
+                            <label for="payment-cash">
+                                <div class="payment-option">
+                                    <div class="payment-icon">
+                                        <i class="fas fa-money-bill"></i>
+                                    </div>
+                                    <div class="payment-info">
+                                        <h4>Efectivo</h4>
+                                        <p>Efecty, Baloto, otros puntos de pago</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Formularios de pago específicos -->
+                    <div class="payment-forms">
+                        <!-- Formulario Tarjeta -->
+                        <div class="payment-form active" id="card-form">
+                            <div class="card-form">
+                                <div class="form-group">
+                                    <label for="cardNumber">Número de Tarjeta *</label>
+                                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                                    <div class="card-icons">
+                                        <i class="fab fa-cc-visa"></i>
+                                        <i class="fab fa-cc-mastercard"></i>
+                                        <i class="fab fa-cc-amex"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiryDate">Fecha de Expiración *</label>
+                                        <input type="text" id="expiryDate" placeholder="MM/AA" maxlength="5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV *</label>
+                                        <input type="text" id="cvv" placeholder="123" maxlength="4">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="cardName">Nombre en la Tarjeta *</label>
+                                    <input type="text" id="cardName" placeholder="Como aparece en la tarjeta">
+                                </div>
+
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="saveCard" name="saveCard">
+                                    <label for="saveCard">Guardar esta tarjeta para futuras compras</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario PSE -->
+                        <div class="payment-form" id="pse-form">
+                            <div class="form-group">
+                                <label for="pseBank">Selecciona tu banco *</label>
+                                <select id="pseBank" requi#ff0000>
+                                    <option value="">Seleccionar banco</option>
+                                    <option value="bancolombia">Bancolombia</option>
+                                    <option value="davivienda">Davivienda</option>
+                                    <option value="bbva">BBVA</option>
+                                    <option value="bancoagrario">Banco Agrario</option>
+                                    <option value="avvillas">AV Villas</option>
+                                    <option value="bancodebogota">Banco de Bogotá</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pseDocType">Tipo de Documento *</label>
+                                <select id="pseDocType" requi#ff0000>
+                                    <option value="">Seleccionar</option>
+                                    <option value="CC">Cédula de Ciudadanía</option>
+                                    <option value="CE">Cédula de Extranjería</option>
+                                    <option value="NIT">NIT</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pseDocNumber">Número de Documento *</label>
+                                <input type="text" id="pseDocNumber" requi#ff0000>
+                            </div>
+                        </div>
+
+                        <!-- Formulario Addi -->
+                        <div class="payment-form" id="addi-form">
+                            <div class="addi-info">
+                                <div class="addi-benefits">
+                                    <h4>¿Por qué elegir Addi?</h4>
+                                    <ul>
+                                        <li><i class="fas fa-check"></i> Aprobación en segundos</li>
+                                        <li><i class="fas fa-check"></i> Sin tarjeta de crédito</li>
+                                        <li><i class="fas fa-check"></i> Cuotas flexibles</li>
+                                        <li><i class="fas fa-check"></i> Sin papeleos</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="addiPhone">Número de Celular *</label>
+                                    <input type="tel" id="addiPhone" placeholder="3001234567" requi#ff0000>
+                                    <small>Te enviaremos un código de verificación</small>
+                                </div>
+                                
+                                <div class="addi-terms">
+                                    <input type="checkbox" id="addiTerms" requi#ff0000>
+                                    <label for="addiTerms">
+                                        Acepto los <a href="#" target="_blank">términos y condiciones de Addi</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario Efectivo -->
+                        <div class="payment-form" id="cash-form">
+                            <div class="cash-info">
+                                <h4>Instrucciones de Pago</h4>
+                                <p>Después de confirmar tu pedido, recibirás un código de pago que podrás usar en:</p>
+                                <div class="cash-options">
+                                    <div class="cash-option">
+                                        <img src="assets/img/efecty-logo.png" alt="Efecty" onerror="this.style.display='none'">
+                                        <span>Efecty</span>
+                                    </div>
+                                    <div class="cash-option">
+                                        <img src="assets/img/baloto-logo.png" alt="Baloto" onerror="this.style.display='none'">
+                                        <span>Baloto</span>
+                                    </div>
+                                    <div class="cash-option">
+                                        <span>Otros puntos autorizados</span>
+                                    </div>
+                                </div>
+                                <div class="cash-warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <span>Tu pedido se reservará por 24 horas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-pay" id="process-payment">
+                        <span class="btn-text">Procesar Pago</span>
+                        <span class="btn-loader hidden">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Procesando...
+                        </span>
+                    </button>
+                </section>
+
+                <!-- Confirmación -->
+                <section class="checkout-section hidden" id="confirmation-section">
+                    <div class="confirmation-content">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2>¡Pedido Confirmado!</h2>
+                        <p class="order-number">Número de orden: <strong id="orderNumber"></strong></p>
+                        <p class="confirmation-text">
+                            Hemos enviado los detalles de tu pedido a tu email. 
+                            Te mantendremos informado sobre el estado de tu envío.
+                        </p>
+                        
+                        <div class="confirmation-actions">
+                            <button type="button" class="btn-track" onclick="window.location.href='cuenta.html'">
+                                Ver Mi Cuenta
+                            </button>
+                            <button type="button" class="btn-continue-shopping" onclick="window.location.href='index.html'">
+                                Seguir Comprando
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Resumen del Pedido -->
+            <div class="order-summary">
+                <h3>Resumen del Pedido</h3>
+                <div class="order-items" id="order-items">
+                    <!-- Los items se cargarán dinámicamente -->
+                </div>
+                
+                <div class="order-totals">
+                    <div class="total-line">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0</span>
+                    </div>
+                    <div class="total-line">
+                        <span>Envío:</span>
+                        <span id="shipping">$15,000</span>
+                    </div>
+                    <div class="total-line discount hidden">
+                        <span>Descuento:</span>
+                        <span id="discount">-$0</span>
+                    </div>
+                    <div class="total-line final">
+                        <span>Total:</span>
+                        <span id="total">$0</span>
+                    </div>
+                </div>
+
+                <!-- Código de Descuento -->
+                <div class="discount-code">
+                    <input type="text" id="discountCode" placeholder="Código de descuento">
+                    <button type="button" id="applyDiscount">Aplicar</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/user-profile-manager.js"></script>
+    <script src="js/payment-gateway.js"></script>
+    <script src="js/addi-integration.js"></script>
+    <script src="js/checkout.js"></script>
+    <script src="js/init-checkout-system.js"></script>
+  <script src="js/mobile-navigation.js"></script>
+</body>
+</html>
