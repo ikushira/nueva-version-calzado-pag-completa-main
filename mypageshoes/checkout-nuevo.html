@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Mundo Calzado</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/new-colors.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .checkout-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .checkout-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .checkout-header h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .checkout-steps {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .checkout-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #999;
+    }
+
+    .checkout-step.active {
+      color: #ff0000;
+      font-weight: 600;
+    }
+
+    .step-number {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #e0e0e0;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .checkout-step.active .step-number {
+      background-color: #ff0000;
+      color: white;
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 40px;
+    }
+
+    .checkout-form {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-section {
+      margin-bottom: 35px;
+    }
+
+    .form-section h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #333;
+      border-bottom: 2px solid #ff0000;
+      padding-bottom: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #ff0000;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .payment-methods {
+      display: grid;
+      gap: 15px;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .payment-option:hover {
+      border-color: #ff0000;
+      background-color: #fff5f5;
+    }
+
+    .payment-option.active {
+      border-color: #ff0000;
+      background-color: #fff5f5;
+    }
+
+    .payment-option input[type="radio"] {
+      margin-right: 15px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .payment-option-content {
+      flex: 1;
+    }
+
+    .payment-option-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .payment-option-desc {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .payment-icon {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 15px;
+      font-size: 30px;
+    }
+
+    .order-summary {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      height: fit-content;
+      position: sticky;
+      top: 20px;
+    }
+
+    .order-summary h2 {
+      font-size: 20px;
+      margin-bottom: 25px;
+      color: #333;
+      border-bottom: 2px solid #ff0000;
+      padding-bottom: 10px;
+    }
+
+    .summary-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .summary-item-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+
+    .summary-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .summary-item-info {
+      flex: 1;
+    }
+
+    .summary-item-name {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .summary-item-details {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .summary-item-price {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .summary-totals {
+      margin-top: 25px;
+    }
+
+    .summary-total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      font-size: 15px;
+    }
+
+    .summary-total-row.final {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ff0000;
+      border-top: 2px solid #333;
+      padding-top: 15px;
+      margin-top: 10px;
+    }
+
+    .btn-submit-order {
+      width: 100%;
+      padding: 16px;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 25px;
+      transition: all 0.3s;
+    }
+
+    .btn-submit-order:hover {
+      background-color: #cc0000;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+    }
+
+    .btn-submit-order:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    .secure-badge i {
+      color: #28a745;
+      font-size: 16px;
+    }
+
+    @media (max-width: 968px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .order-summary {
+        position: static;
+        order: -1;
+      }
+
+      .checkout-steps {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Payment method details */
+    .payment-details {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+
+    .payment-details.active {
+      display: block;
+    }
+
+    .payment-details h3 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb-nav {
+      padding: 20px;
+      background-color: #f5f5f5;
+      font-size: 14px;
+    }
+
+    .breadcrumb-nav a {
+      color: #666;
+      text-decoration: none;
+    }
+
+    .breadcrumb-nav a:hover {
+      color: #ff0000;
+    }
+
+    .breadcrumb-sep {
+      margin: 0 10px;
+      color: #999;
+    }
+
+    .breadcrumb-current {
+      color: #333;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header simple -->
+  <header class="main-header">
+    <div class="logo">MUNDO CALZADO</div>
+    <div class="secure-checkout">
+      <i class="fa-solid fa-lock"></i>
+      <span>Pago Seguro</span>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb-nav">
+    <a href="../index.html">Home</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="./hombres.html">Tienda</a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">Checkout</span>
+  </nav>
+
+  <div class="checkout-container">
+    <!-- Header -->
+    <div class="checkout-header">
+      <h1>Finalizar Compra</h1>
+      <div class="checkout-steps">
+        <div class="checkout-step active">
+          <div class="step-number">1</div>
+          <span>Información</span>
+        </div>
+        <div class="checkout-step">
+          <div class="step-number">2</div>
+          <span>Envío</span>
+        </div>
+        <div class="checkout-step">
+          <div class="step-number">3</div>
+          <span>Pago</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid principal -->
+    <div class="checkout-grid">
+      <!-- Formulario de checkout -->
+      <div class="checkout-form">
+        <!-- Información personal -->
+        <div class="form-section">
+          <h2><i class="fa-solid fa-user"></i> Información Personal</h2>
+          <div class="form-group">
+            <label for="nombre-completo">Nombre Completo *</label>
+            <input type="text" id="nombre-completo" required placeholder="Ingresa tu nombre completo">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Correo Electrónico *</label>
+              <input type="email" id="email" required placeholder="ejemplo@correo.com">
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono *</label>
+              <input type="tel" id="telefono" required placeholder="300 123 4567">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="documento">Documento de Identidad *</label>
+            <input type="text" id="documento" required placeholder="C.C. o NIT">
+          </div>
+        </div>
+
+        <!-- Dirección de envío -->
+        <div class="form-section">
+          <h2><i class="fa-solid fa-location-dot"></i> Dirección de Envío</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ciudad">Ciudad *</label>
+              <select id="ciudad" required>
+                <option value="">Selecciona una ciudad</option>
+                <option value="bogota">Bogotá</option>
+                <option value="medellin">Medellín</option>
+                <option value="cali">Cali</option>
+                <option value="barranquilla">Barranquilla</option>
+                <option value="cartagena">Cartagena</option>
+                <option value="otra">Otra ciudad</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="departamento">Departamento *</label>
+              <input type="text" id="departamento" required placeholder="Ej: Cundinamarca">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="direccion">Dirección Completa *</label>
+            <input type="text" id="direccion" required placeholder="Calle 123 # 45-67">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="barrio">Barrio</label>
+              <input type="text" id="barrio" placeholder="Nombre del barrio">
+            </div>
+            <div class="form-group">
+              <label for="codigo-postal">Código Postal</label>
+              <input type="text" id="codigo-postal" placeholder="110111">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="notas">Notas de Entrega (opcional)</label>
+            <input type="text" id="notas" placeholder="Ej: Apartamento 502, portero en la entrada">
+          </div>
+        </div>
+
+        <!-- Método de pago -->
+        <div class="form-section">
+          <h2><i class="fa-solid fa-credit-card"></i> Método de Pago</h2>
+          <div class="payment-methods">
+            <!-- Nequi -->
+            <label class="payment-option" for="pago-nequi">
+              <input type="radio" name="metodo-pago" id="pago-nequi" value="nequi">
+              <div class="payment-option-content">
+                <div class="payment-option-title">Nequi</div>
+                <div class="payment-option-desc">Paga desde tu app Nequi</div>
+              </div>
+              <div class="payment-icon" style="color: #FF006C;">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+              </div>
+            </label>
+
+            <!-- Daviplata -->
+            <label class="payment-option" for="pago-daviplata">
+              <input type="radio" name="metodo-pago" id="pago-daviplata" value="daviplata">
+              <div class="payment-option-content">
+                <div class="payment-option-title">Daviplata</div>
+                <div class="payment-option-desc">Paga desde tu billetera Daviplata</div>
+              </div>
+              <div class="payment-icon" style="color: #FF0000;">
+                <i class="fa-solid fa-wallet"></i>
+              </div>
+            </label>
+
+            <!-- PSE -->
+            <label class="payment-option" for="pago-pse">
+              <input type="radio" name="metodo-pago" id="pago-pse" value="pse">
+              <div class="payment-option-content">
+                <div class="payment-option-title">PSE</div>
+                <div class="payment-option-desc">Débito desde tu cuenta bancaria</div>
+              </div>
+              <div class="payment-icon" style="color: #00A859;">
+                <i class="fa-solid fa-building-columns"></i>
+              </div>
+            </label>
+
+            <!-- Tarjeta de Crédito/Débito -->
+            <label class="payment-option" for="pago-tarjeta">
+              <input type="radio" name="metodo-pago" id="pago-tarjeta" value="tarjeta">
+              <div class="payment-option-content">
+                <div class="payment-option-title">Tarjeta de Crédito/Débito</div>
+                <div class="payment-option-desc">Visa, Mastercard, American Express</div>
+              </div>
+              <div class="payment-icon" style="color: #1A1F71;">
+                <i class="fa-solid fa-credit-card"></i>
+              </div>
+            </label>
+
+            <!-- Efectivo Contra Entrega -->
+            <label class="payment-option" for="pago-efectivo">
+              <input type="radio" name="metodo-pago" id="pago-efectivo" value="efectivo">
+              <div class="payment-option-content">
+                <div class="payment-option-title">Efectivo Contra Entrega</div>
+                <div class="payment-option-desc">Paga al recibir tu pedido</div>
+              </div>
+              <div class="payment-icon" style="color: #28a745;">
+                <i class="fa-solid fa-money-bill-wave"></i>
+              </div>
+            </label>
+          </div>
+
+          <!-- Detalles de pago con tarjeta -->
+          <div id="tarjeta-details" class="payment-details">
+            <h3>Información de la Tarjeta</h3>
+            <div class="form-group">
+              <label for="numero-tarjeta">Número de Tarjeta *</label>
+              <input type="text" id="numero-tarjeta" placeholder="1234 5678 9012 3456" maxlength="19">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fecha-expiracion">Fecha de Expiración *</label>
+                <input type="text" id="fecha-expiracion" placeholder="MM/AA" maxlength="5">
+              </div>
+              <div class="form-group">
+                <label for="cvv">CVV *</label>
+                <input type="text" id="cvv" placeholder="123" maxlength="4">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="nombre-tarjeta">Nombre en la Tarjeta *</label>
+              <input type="text" id="nombre-tarjeta" placeholder="Como aparece en la tarjeta">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumen del pedido -->
+      <div class="order-summary">
+        <h2>Resumen del Pedido</h2>
+        <div id="order-items">
+          <!-- Los items se cargarán dinámicamente -->
+        </div>
+        <div class="summary-totals">
+          <div class="summary-total-row">
+            <span>Subtotal:</span>
+            <span id="order-subtotal">$0</span>
+          </div>
+          <div class="summary-total-row">
+            <span>Envío:</span>
+            <span id="order-shipping">$15.000</span>
+          </div>
+          <div class="summary-total-row final">
+            <span>Total:</span>
+            <span id="order-total">$0</span>
+          </div>
+        </div>
+        <button type="button" class="btn-submit-order" id="btn-finalizar-pedido">
+          <i class="fa-solid fa-check-circle"></i> Confirmar Pedido
+        </button>
+        <div class="secure-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Tus datos están protegidos y seguros</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/cart-manager.js"></script>
+  <script src="js/checkout-manager.js"></script>
+</body>
+</html>

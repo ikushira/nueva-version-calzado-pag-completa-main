@@ -1,0 +1,448 @@
+{
+  "products": [
+    {
+      "id": "H001",
+      "name": "Zapato Casual Hombre",
+      "category": "hombres",
+      "description": "Zapato casual de cuero para hombre, perfecto para uso diario. Suela antideslizante y plantilla acolchada.",
+      "price": 89900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzhombres/2.jpeg",
+        "./assets/img/calzhombres/3.jpeg"
+      ],
+      "sizes": [38, 39, 40, 41, 42, 43, 44],
+      "colors": ["Negro", "Café"],
+      "brand": "River Creek",
+      "stock": 25,
+      "featured": true,
+      "isNew": false,
+      "freeShipping": true,
+      "rating": 4.5,
+      "reviews": 12
+    },
+    {
+      "id": "H002",
+      "name": "Zapato Deportivo Hombre",
+      "category": "hombres",
+      "description": "Zapato deportivo con tecnología air, ideal para caminar largas distancias.",
+      "price": 95900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzhombres/4.jpeg",
+        "./assets/img/calzhombres/5.jpeg"
+      ],
+      "sizes": [39, 40, 41, 42, 43],
+      "colors": ["Azul", "Negro"],
+      "brand": "New Balance",
+      "stock": 15,
+      "featured": true,
+      "isNew": true,
+      "freeShipping": true,
+      "rating": 4.8,
+      "reviews": 20
+    },
+    {
+      "id": "H003",
+      "name": "Zapato Formal Hombre",
+      "category": "hombres",
+      "description": "Zapato formal de cuero genuino, perfecto para ocasiones especiales.",
+      "price": 125900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzhombres/6.jpeg"
+      ],
+      "sizes": [38, 39, 40, 41, 42, 43, 44],
+      "colors": ["Negro"],
+      "brand": "Croydon",
+      "stock": 10,
+      "featured": false,
+      "isNew": false,
+      "freeShipping": true,
+      "rating": 4.6,
+      "reviews": 8
+    },
+    {
+      "id": "H004",
+      "name": "Zapato Sport Casual",
+      "category": "hombres",
+      "description": "Zapato deportivo casual con diseño moderno y confortable.",
+      "price": 79900,
+      "oldPrice": 99900,
+      "discount": 20,
+      "images": [
+        "./assets/img/calzhombres/7.jpeg"
+      ],
+      "sizes": [39, 40, 41, 42, 43],
+      "colors": ["Gris", "Negro"],
+      "brand": "Skechers",
+      "stock": 20,
+      "featured": true,
+      "isNew": false,
+      "freeShipping": true,
+      "rating": 4.4,
+      "reviews": 15
+    },
+    {
+      "id": "H005",
+      "name": "Zapato Casual Premium",
+      "category": "hombres",
+      "description": "Zapato casual de alta calidad con detalles en costuras.",
+      "price": 115900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzhombres/8.jpeg"
+      ],
+      "sizes": [38, 39, 40, 41, 42, 43],
+      "colors": ["Café", "Negro"],
+      "brand": "Patrick",
+      "stock": 12,
+      "featured": false,
+      "isNew": true,
+      "freeShipping": true,
+      "rating": 4.7,
+      "reviews": 10
+    },
+    {
+      "id": "M001",
+      "name": "Zapato Tacón Mujer",
+      "category": "mujeres",
+      "description": "Zapato de tacón elegante para mujer, perfecto para eventos formales.",
+      "price": 85900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzmujeres/2.jpeg"
+      ],
+      "sizes": [35, 36, 37, 38, 39, 40],
+      "colors": ["Negro", "Rojo"],
+      "brand": "Piccadilly",
+      "stock": 18,
+      "featured": true,
+      "isNew": false,
+      "freeShipping": true,
+      "rating": 4.6,
+      "reviews": 14
+    },
+    {
+      "id": "M002",
+      "name": "Zapato Casual Mujer",
+      "category": "mujeres",
+      "description": "Zapato casual cómodo para uso diario, con plantilla acolchada.",
+      "price": 75900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzmujeres/3.jpeg"
+      ],
+      "sizes": [35, 36, 37, 38, 39],
+      "colors": ["Beige", "Negro"],
+      "brand": "Moleca",
+      "stock": 22,
+      "featured": true,
+      "isNew": true,
+      "freeShipping": true,
+      "rating": 4.8,
+      "reviews": 18
+    },
+    {
+      "id": "M003",
+      "name": "Sandalia Mujer",
+      "category": "mujeres",
+      "description": "Sandalia cómoda y fresca para temporada de verano.",
+      "price": 65900,
+      "oldPrice": 89900,
+      "discount": 27,
+      "images": [
+        "./assets/img/calzmujeres/4.jpeg"
+      ],
+      "sizes": [35, 36, 37, 38, 39, 40],
+      "colors": ["Dorado", "Plateado"],
+      "brand": "Ipanema",
+      "stock": 30,
+      "featured": false,
+      "isNew": false,
+      "freeShipping": true,
+      "rating": 4.5,
+      "reviews": 22
+    },
+    {
+      "id": "N001",
+      "name": "Zapato Escolar Niño",
+      "category": "ninos",
+      "description": "Zapato escolar resistente y cómodo para niños.",
+      "price": 69900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzninos/2.jpeg"
+      ],
+      "sizes": [28, 29, 30, 31, 32, 33, 34],
+      "colors": ["Negro"],
+      "brand": "Gumball",
+      "stock": 35,
+      "featured": true,
+      "isNew": false,
+      "freeShipping": true,
+      "rating": 4.7,
+      "reviews": 25
+    },
+    {
+      "id": "N002",
+      "name": "Zapato Deportivo Niño",
+      "category": "ninos",
+      "description": "Zapato deportivo con velcro para fácil ajuste.",
+      "price": 55900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzninos/3.jpeg"
+      ],
+      "sizes": [27, 28, 29, 30, 31, 32, 33],
+      "colors": ["Azul", "Rojo"],
+      "brand": "Bubblegummers",
+      "stock": 28,
+      "featured": true,
+      "isNew": true,
+      "freeShipping": true,
+      "rating": 4.6,
+      "reviews": 19
+    },
+    {
+      "id": "NA001",
+      "name": "Zapato Escolar Niña",
+      "category": "ninas",
+      "description": "Zapato escolar elegante y cómodo para niñas.",
+      "price": 69900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzninas/2.jpeg"
+      ],
+      "sizes": [27, 28, 29, 30, 31, 32, 33, 34],
+      "colors": ["Negro"],
+      "brand": "Gumball",
+      "stock": 32,
+      "featured": true,
+      "isNew": false,
+      "freeShipping": true,
+      "rating": 4.8,
+      "reviews": 21
+    },
+    {
+      "id": "NA002",
+      "name": "Sandalia Casual Niña",
+      "category": "ninas",
+      "description": "Sandalia cómoda y colorida para niñas.",
+      "price": 45900,
+      "oldPrice": 59900,
+      "discount": 23,
+      "images": [
+        "./assets/img/calzninas/3.jpeg"
+      ],
+      "sizes": [27, 28, 29, 30, 31, 32],
+      "colors": ["Rosa", "Morado"],
+      "brand": "Bubblegummers",
+      "stock": 25,
+      "featured": false,
+      "isNew": true,
+      "freeShipping": true,
+      "rating": 4.5,
+      "reviews": 16
+    },
+    {
+      "id": "C001",
+      "name": "Zapato Colegial Unisex",
+      "category": "colegiales",
+      "description": "Zapato colegial resistente y duradero para uso escolar.",
+      "price": 75900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzcolegiales/2.jpeg"
+      ],
+      "sizes": [30, 31, 32, 33, 34, 35, 36, 37, 38],
+      "colors": ["Negro"],
+      "brand": "Stardus",
+      "stock": 40,
+      "featured": true,
+      "isNew": false,
+      "freeShipping": true,
+      "rating": 4.7,
+      "reviews": 30
+    },
+    {
+      "id": "D001",
+      "name": "Zapato Industrial",
+      "category": "dotacion",
+      "description": "Zapato de seguridad industrial con puntera de acero.",
+      "price": 95900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzdotacion/2.jpeg"
+      ],
+      "sizes": [38, 39, 40, 41, 42, 43, 44],
+      "colors": ["Negro"],
+      "brand": "Brahma",
+      "stock": 15,
+      "featured": false,
+      "isNew": false,
+      "freeShipping": true,
+      "rating": 4.9,
+      "reviews": 35
+    },
+    {
+      "id": "A001",
+      "name": "Medias Deportivas Pack x3",
+      "category": "accesorios",
+      "description": "Pack de 3 pares de medias deportivas de algodón.",
+      "price": 19900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzaccesorios/2.jpeg"
+      ],
+      "sizes": ["Única"],
+      "colors": ["Blanco", "Negro", "Gris"],
+      "brand": "Mundo Calzado",
+      "stock": 50,
+      "featured": false,
+      "isNew": false,
+      "freeShipping": false,
+      "rating": 4.4,
+      "reviews": 12
+    },
+    {
+      "id": "A002",
+      "name": "Plantillas Ortopédicas",
+      "category": "accesorios",
+      "description": "Plantillas ortopédicas con soporte de arco.",
+      "price": 29900,
+      "oldPrice": null,
+      "discount": 0,
+      "images": [
+        "./assets/img/calzaccesorios/3.jpeg"
+      ],
+      "sizes": ["S", "M", "L"],
+      "colors": ["Beige"],
+      "brand": "Mundo Calzado",
+      "stock": 45,
+      "featured": false,
+      "isNew": true,
+      "freeShipping": false,
+      "rating": 4.6,
+      "reviews": 18
+    }
+  ],
+  "categories": [
+    {
+      "id": "hombres",
+      "name": "Hombres",
+      "description": "Calzado para hombre",
+      "image": "./assets/img/categorias/hombres.jpg"
+    },
+    {
+      "id": "mujeres",
+      "name": "Mujeres",
+      "description": "Calzado para mujer",
+      "image": "./assets/img/categorias/mujeres.jpg"
+    },
+    {
+      "id": "ninos",
+      "name": "Niños",
+      "description": "Calzado para niños",
+      "image": "./assets/img/categorias/ninos.jpg"
+    },
+    {
+      "id": "ninas",
+      "name": "Niñas",
+      "description": "Calzado para niñas",
+      "image": "./assets/img/categorias/ninas.jpg"
+    },
+    {
+      "id": "colegiales",
+      "name": "Colegiales",
+      "description": "Calzado escolar",
+      "image": "./assets/img/categorias/colegiales.jpg"
+    },
+    {
+      "id": "dotacion",
+      "name": "Dotación",
+      "description": "Calzado industrial",
+      "image": "./assets/img/categorias/dotacion.jpg"
+    },
+    {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "description": "Accesorios para calzado",
+      "image": "./assets/img/categorias/accesorios.jpg"
+    }
+  ],
+  "brands": [
+    {
+      "id": "new-balance",
+      "name": "New Balance",
+      "logo": "./assets/img/marcas/newbalance.png"
+    },
+    {
+      "id": "skechers",
+      "name": "Skechers",
+      "logo": "./assets/img/marcas/skechers.png"
+    },
+    {
+      "id": "river-creek",
+      "name": "River Creek",
+      "logo": "./assets/img/marcas/rivercreek.png"
+    },
+    {
+      "id": "brahma",
+      "name": "Brahma",
+      "logo": "./assets/img/marcas/brahma.png"
+    },
+    {
+      "id": "piccadilly",
+      "name": "Piccadilly",
+      "logo": "./assets/img/marcas/piccadilly.png"
+    },
+    {
+      "id": "moleca",
+      "name": "Moleca",
+      "logo": "./assets/img/marcas/moleca.png"
+    },
+    {
+      "id": "ipanema",
+      "name": "Ipanema",
+      "logo": "./assets/img/marcas/ipanema.png"
+    },
+    {
+      "id": "gumball",
+      "name": "Gumball",
+      "logo": "./assets/img/marcas/gumball.png"
+    },
+    {
+      "id": "bubblegummers",
+      "name": "Bubblegummers",
+      "logo": "./assets/img/marcas/bubblegummers.png"
+    },
+    {
+      "id": "stardus",
+      "name": "Stardus",
+      "logo": "./assets/img/marcas/stardus.png"
+    },
+    {
+      "id": "croydon",
+      "name": "Croydon",
+      "logo": "./assets/img/marcas/croydon.png"
+    },
+    {
+      "id": "patrick",
+      "name": "Patrick",
+      "logo": "./assets/img/marcas/patrick.png"
+    }
+  ]
+}

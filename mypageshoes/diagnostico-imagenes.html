@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico de Imágenes</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/standardized-cards.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .diagnostico-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .test-section {
+      margin: 30px 0;
+      padding: 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+    }
+    .test-section h2 {
+      color: #ff0000;
+      margin-bottom: 15px;
+    }
+    .img-test {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .img-test img {
+      display: block;
+      max-width: 200px;
+      height: auto;
+    }
+    .img-test p {
+      margin: 5px 0;
+      font-size: 12px;
+      color: #666;
+    }
+    .success { color: green; }
+    .error { color: red; }
+    .catalogo-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="diagnostico-container">
+    <h1>🔍 Diagnóstico de Imágenes - Sistema de Tarjetas</h1>
+    
+    <div class="test-section">
+      <h2>Test 1: Rutas Relativas Simples</h2>
+      <div class="img-test">
+        <p>Ruta: ./assets/img/calzhombres/2.jpeg</p>
+        <img src="./assets/img/calzhombres/2.jpeg" alt="Test 1" onerror="this.parentElement.innerHTML += '<p class=error>❌ Error al cargar</p>'" onload="this.parentElement.innerHTML += '<p class=success>✅ Cargó correctamente</p>'">
+      </div>
+      <div class="img-test">
+        <p>Ruta: assets/img/calzhombres/3.jpeg</p>
+        <img src="assets/img/calzhombres/3.jpeg" alt="Test 2" onerror="this.parentElement.innerHTML += '<p class=error>❌ Error al cargar</p>'" onload="this.parentElement.innerHTML += '<p class=success>✅ Cargó correctamente</p>'">
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>Test 2: Tarjeta Estándar con CSS Aplicado</h2>
+      <div class="catalogo-container">
+        <div class="producto-card">
+          <div class="img-container">
+            <img src="./assets/img/calzhombres/4.jpeg" alt="Zapato Hombre 4" loading="lazy">
+          </div>
+          <div class="producto-info">
+            <h3>Zapato Hombre 4</h3>
+            <p class="producto-precio">$89.900</p>
+            <button class="btn-add-cart">Añadir al carrito</button>
+          </div>
+        </div>
+        <div class="producto-card">
+          <div class="img-container">
+            <img src="./assets/img/calzhombres/5.jpeg" alt="Zapato Hombre 5" loading="lazy">
+          </div>
+          <div class="producto-info">
+            <h3>Zapato Hombre 5</h3>
+            <p class="producto-precio">$99.900</p>
+            <button class="btn-add-cart">Añadir al carrito</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>Test 3: Tarjetas Generadas Dinámicamente con JS</h2>
+      <div id="catalogo-dinamico" class="catalogo-container"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>Test 4: Información del Sistema</h2>
+      <div id="system-info"></div>
+    </div>
+  </div>
+
+  <script>
+    // Test 3: Generar tarjetas dinámicamente
+    const imagenesPrueba = [
+      './assets/img/calzhombres/6.jpeg',
+      './assets/img/calzhombres/7.jpeg',
+      './assets/img/calzhombres/8.jpeg'
+    ];
+
+    const contenedor = document.getElementById('catalogo-dinamico');
+    
+    imagenesPrueba.forEach((imgSrc, idx) => {
+      const card = document.createElement('div');
+      card.className = 'producto-card';
+      card.innerHTML = `
+        <div class="img-container">
+          <img src="${imgSrc}" alt="Zapato Dinámico ${idx + 1}" loading="lazy" 
+               onerror="console.error('Error cargando:', this.src)"
+               onload="console.log('Cargó correctamente:', this.src)">
+        </div>
+        <div class="producto-info">
+          <h3>Zapato Dinámico ${idx + 1}</h3>
+          <p class="producto-precio">$${(89900 + idx * 10000).toLocaleString('es-CO')}</p>
+          <button class="btn-add-cart">Añadir al carrito</button>
+        </div>
+      `;
+      contenedor.appendChild(card);
+    });
+
+    // Test 4: Información del sistema
+    const systemInfo = document.getElementById('system-info');
+    systemInfo.innerHTML = `
+      <p><strong>URL actual:</strong> ${window.location.href}</p>
+      <p><strong>Directorio base:</strong> ${window.location.pathname}</p>
+      <p><strong>User Agent:</strong> ${navigator.userAgent}</p>
+      <p><strong>Cantidad de imágenes en la página:</strong> ${document.querySelectorAll('img').length}</p>
+    `;
+
+    // Verificar todas las imágenes después de 2 segundos
+    setTimeout(() => {
+      const todasLasImagenes = document.querySelectorAll('img');
+      let cargadas = 0;
+      let fallidas = 0;
+      
+      todasLasImagenes.forEach(img => {
+        if (img.complete && img.naturalHeight !== 0) {
+          cargadas++;
+        } else {
+          fallidas++;
+        }
+      });
+      
+      systemInfo.innerHTML += `
+        <p class="success"><strong>Imágenes cargadas exitosamente:</strong> ${cargadas}</p>
+        <p class="error"><strong>Imágenes fallidas:</strong> ${fallidas}</p>
+      `;
+    }, 2000);
+  </script>
+</body>
+</html>

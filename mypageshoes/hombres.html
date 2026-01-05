@@ -22,8 +22,9 @@
   <link rel="stylesheet" href="css/responsive-mobile.css">
   <link rel="stylesheet" href="css/mobile-navigation.css">
   <link rel="stylesheet" href="css/carrito-mobile-improvements.css">
+  <link rel="stylesheet" href="css/cart-styles.css">
 </head>
-<body>
+<body data-page-type="category" data-category="hombres" data-container-id="catalogo-hombres">
   <!-- Header y navegación igual que index.html -->
   <div class="top-bar #ff0000-theme">
     <div class="promo">
@@ -248,8 +249,12 @@
     <p class="copyright">&copy; 2025 Mundo Calzado. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="js/secciones_js/Hombres_fotos.js"></script>
-  <script src="js/catalogo.js"></script>
+  <!-- Sistema dinámico de productos -->
+  <script src="js/products-renderer.js"></script>
+  
+  <!-- Sistema moderno de carrito -->
+  <script src="js/cart-manager.js"></script>
+  
   <script src="js/busqueda.js"></script>
   <script src="js/filtros-global.js"></script>
   
@@ -264,9 +269,6 @@
   
 
   
-  <!-- Script unificado de carrito -->
-  <script src="js/carrito-simplificado.js"></script>
-  <script src="js/carrito-estilo-fix.js"></script>
 <script src="js/aplicar-whatsapp-all-pages.js"></script>
   <script src="js/chatbot.js"></script>
   <script src="js/mobile-navigation.js"></script>
