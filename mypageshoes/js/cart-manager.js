@@ -389,10 +389,10 @@ class CartManager {
     if (!isLoggedIn) {
       // Guardar la intención de compra y redirigir a login
       sessionStorage.setItem('redirectAfterLogin', 'checkout');
-      window.location.href = './login.html';
+      window.location.href = './login.html?next=pages/checkout.html';
     } else {
       // Redirigir a checkout
-      window.location.href = './checkout.html';
+      window.location.href = './pages/checkout.html';
     }
   }
 
