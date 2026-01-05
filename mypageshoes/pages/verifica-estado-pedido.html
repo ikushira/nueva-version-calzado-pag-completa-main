@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifica tu Pedido - Mundo Calzado</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #333; }
+    header { background: #ff0000; color: white; padding: 30px 20px; text-align: center; }
+    main { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+    h2 { color: #ff0000; margin-top: 30px; }
+    .form-group { margin: 20px 0; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+    .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
+    .btn-submit { background: #ff0000; color: white; padding: 14px 40px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; width: 100%; }
+    .btn-home { background: #666; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; margin: 20px 0; }
+    .status-box { display: none; background: #f9f9f9; padding: 25px; border-radius: 8px; margin: 30px 0; }
+    .status-active { background: #d4edda; border-left: 4px solid #28a745; }
+    .timeline { position: relative; padding-left: 30px; }
+    .timeline-item { position: relative; padding-bottom: 20px; }
+    .timeline-dot { position: absolute; left: -30px; width: 16px; height: 16px; border-radius: 50%; background: #ddd; border: 3px solid white; }
+    .timeline-dot.active { background: #28a745; }
+    footer { background: #333; color: white; text-align: center; padding: 20px; margin-top: 60px; }
+  </style>
+</head>
+<body>
+  <header><h1>📦 Verifica Estado de tu Pedido</h1></header>
+  <main>
+    <h2>Rastrea tu Compra</h2>
+    <p>Ingresa tu número de pedido y email para ver el estado actual de tu envío.</p>
+    
+    <form id="formPedido" style="margin-top: 30px;">
+      <div class="form-group">
+        <label>Número de Pedido *</label>
+        <input type="text" id="numeroPedido" required placeholder="MC-2025-XXXXX" pattern="MC-\d{4}-\d{5}">
+      </div>
+      <div class="form-group">
+        <label>Email de Compra *</label>
+        <input type="email" id="emailPedido" required placeholder="tu@email.com">
+      </div>
+      <button type="submit" class="btn-submit">Consultar Estado</button>
+      <div style="text-align: center;">
+        <a href="../index.html" class="btn-home">Volver</a>
+      </div>
+    </form>
+    
+    <div id="statusResult" class="status-box">
+      <h3>Estado de tu Pedido</h3>
+      <p><strong>Pedido:</strong> <span id="pedidoNum"></span></p>
+      <p><strong>Fecha:</strong> <span id="pedidoFecha"></span></p>
+      
+      <div class="timeline" style="margin-top: 30px;">
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <strong>Pedido Confirmado</strong>
+          <p style="color: #666; font-size: 14px;">2 Ene 2026 - 10:30 AM</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <strong>En Preparación</strong>
+          <p style="color: #666; font-size: 14px;">2 Ene 2026 - 2:00 PM</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <strong>Enviado</strong>
+          <p style="color: #666; font-size: 14px;">3 Ene 2026 - 9:00 AM</p>
+          <p style="color: #666; font-size: 14px;">Guía: 123456789</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <strong>En Tránsito</strong>
+          <p style="color: #666; font-size: 14px;">Estimado: 5 Ene 2026</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <strong>Entregado</strong>
+          <p style="color: #666; font-size: 14px;">Pendiente</p>
+        </div>
+      </div>
+    </div>
+    
+    <h3 style="margin-top: 40px;">Tiempo de Entrega Estimado</h3>
+    <ul>
+      <li><strong>Bogotá y alrededores:</strong> 2-3 días hábiles</li>
+      <li><strong>Principales ciudades:</strong> 3-5 días hábiles</li>
+      <li><strong>Resto del país:</strong> 5-7 días hábiles</li>
+    </ul>
+    
+    <script>
+      document.getElementById('formPedido').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pedido = document.getElementById('numeroPedido').value;
+        document.getElementById('pedidoNum').textContent = pedido;
+        document.getElementById('pedidoFecha').textContent = '2 Enero 2026';
+        document.getElementById('statusResult').style.display = 'block';
+        document.getElementById('statusResult').scrollIntoView({ behavior: 'smooth' });
+      });
+    </script>
+  </main>
+  <footer><p>&copy; 2025 Mundo Calzado</p></footer>
+</body>
+</html>

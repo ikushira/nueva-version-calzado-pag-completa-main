@@ -362,6 +362,62 @@
       color: #333;
       font-weight: 600;
     }
+
+    /* Geolocation Button */
+    .btn-geolocation {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn-geolocation:hover {
+      background-color: #218838;
+    }
+
+    .btn-geolocation:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .btn-geolocation.loading {
+      background-color: #ffc107;
+    }
+
+    .geo-status {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .geo-status.success {
+      color: #28a745;
+    }
+
+    .geo-status.error {
+      color: #dc3545;
+    }
+
+    .geo-coords {
+      margin-top: 15px;
+      padding: 12px;
+      background: #e7f5eb;
+      border-left: 4px solid #28a745;
+      border-radius: 4px;
+      font-size: 13px;
+    }
   </style>
 </head>
 <body>
@@ -468,6 +524,21 @@
           <div class="form-group">
             <label for="notas">Notas de Entrega (opcional)</label>
             <input type="text" id="notas" placeholder="Ej: Apartamento 502, portero en la entrada">
+          </div>
+          
+          <!-- Botón de Geolocalización -->
+          <div class="form-group">
+            <button type="button" id="btn-geolocalizacion" class="btn-geolocation">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              Usar mi Ubicación Actual
+            </button>
+            <small id="geo-status" class="geo-status"></small>
+            <div id="geo-coords" class="geo-coords" style="display: none;">
+              <input type="hidden" id="latitud" name="latitud">
+              <input type="hidden" id="longitud" name="longitud">
+              <p><strong>Coordenadas capturadas:</strong><br>
+              Lat: <span id="lat-display"></span>, Lng: <span id="lng-display"></span></p>
+            </div>
           </div>
         </div>
 
@@ -595,5 +666,144 @@
   <!-- Scripts -->
   <script src="js/cart-manager.js"></script>
   <script src="js/checkout-manager.js"></script>
+  
+  <!-- Geolocation Script -->
+  <script>
+    // Geolocalización
+    document.getElementById('btn-geolocalizacion').addEventListener('click', function() {
+      const btn = this;
+      const status = document.getElementById('geo-status');
+      const coordsDiv = document.getElementById('geo-coords');
+      
+      // Verificar si el navegador soporta Geolocation
+      if (!navigator.geolocation) {
+        status.textContent = '❌ Tu navegador no soporta geolocalización';
+        status.className = 'geo-status error';
+        return;
+      }
+      
+      // Estado de carga
+      btn.disabled = true;
+      btn.classList.add('loading');
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Obteniendo ubicación...';
+      status.textContent = '📍 Solicitando acceso a tu ubicación...';
+      status.className = 'geo-status';
+      
+      // Opciones de geolocalización
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      };
+      
+      // Obtener ubicación
+      navigator.geolocation.getCurrentPosition(
+        // Success callback
+        function(position) {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          const accuracy = position.coords.accuracy;
+          
+          // Guardar coordenadas
+          document.getElementById('latitud').value = lat;
+          document.getElementById('longitud').value = lng;
+          document.getElementById('lat-display').textContent = lat.toFixed(6);
+          document.getElementById('lng-display').textContent = lng.toFixed(6);
+          
+          // Mostrar resultado
+          coordsDiv.style.display = 'block';
+          status.textContent = `✓ Ubicación capturada correctamente (precisión: ${Math.round(accuracy)}m)`;
+          status.className = 'geo-status success';
+          
+          // Restaurar botón
+          btn.disabled = false;
+          btn.classList.remove('loading');
+          btn.innerHTML = '<i class="fa-solid fa-check-circle"></i> Ubicación Capturada';
+          btn.style.backgroundColor = '#28a745';
+          
+          // Intentar obtener dirección inversa (opcional)
+          reverseGeocode(lat, lng);
+        },
+        // Error callback
+        function(error) {
+          let errorMsg = '';
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorMsg = '❌ Permiso denegado. Por favor, permite el acceso a tu ubicación.';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMsg = '❌ Información de ubicación no disponible.';
+              break;
+            case error.TIMEOUT:
+              errorMsg = '❌ Tiempo de espera agotado. Intenta nuevamente.';
+              break;
+            default:
+              errorMsg = '❌ Error desconocido al obtener ubicación.';
+          }
+          
+          status.textContent = errorMsg;
+          status.className = 'geo-status error';
+          
+          // Restaurar botón
+          btn.disabled = false;
+          btn.classList.remove('loading');
+          btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Usar mi Ubicación Actual';
+          btn.style.backgroundColor = '#28a745';
+          
+          coordsDiv.style.display = 'none';
+        },
+        options
+      );
+    });
+    
+    // Función opcional para geocodificación inversa (requiere API key)
+    function reverseGeocode(lat, lng) {
+      // Esta función puede implementarse con Google Maps API, OpenStreetMap Nominatim, etc.
+      // Por ahora solo muestra las coordenadas
+      console.log(`Coordenadas capturadas: ${lat}, ${lng}`);
+      
+      // Ejemplo con OpenStreetMap Nominatim (sin API key)
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`, {
+        headers: {
+          'User-Agent': 'MundoCalzado/1.0'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.address) {
+          const address = data.address;
+          
+          // Autocompletar campos si están vacíos
+          if (!document.getElementById('ciudad').value && address.city) {
+            document.getElementById('ciudad').value = 'otra';
+          }
+          
+          if (!document.getElementById('departamento').value && address.state) {
+            document.getElementById('departamento').value = address.state;
+          }
+          
+          if (!document.getElementById('direccion').value && address.road) {
+            const street = address.road || '';
+            const houseNumber = address.house_number || '';
+            document.getElementById('direccion').value = `${street} ${houseNumber}`.trim();
+          }
+          
+          if (!document.getElementById('barrio').value && address.suburb) {
+            document.getElementById('barrio').value = address.suburb;
+          }
+          
+          if (!document.getElementById('codigo-postal').value && address.postcode) {
+            document.getElementById('codigo-postal').value = address.postcode;
+          }
+          
+          console.log('Dirección autocompletada desde geolocalización');
+        }
+      })
+      .catch(error => {
+        console.log('No se pudo obtener la dirección:', error);
+        // No es crítico, continuar sin autocompletar
+      });
+    }
+  </script>
 </body>
 </html>
