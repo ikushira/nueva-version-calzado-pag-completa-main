@@ -1,0 +1,49 @@
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (si se usa)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.min.css
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+*.cache
+
+# Backups
+*.backup
+*.bak
+*.old
+*_backup/
+
+# Environment variables
+.env
+.env.local
+
+# Archivos de usuarios y datos sensibles
+usuarios_registrados.json
+
+# Scripts auxiliares de desarrollo
+fix-*.ps1
+actualizar-*.ps1
+
+# Carpetas de prueba
+test/
+prueba-*/

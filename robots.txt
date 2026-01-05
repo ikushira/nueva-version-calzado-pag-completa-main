@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Prevenir acceso a archivos de sistema
+Disallow: /.git/
+Disallow: /.vscode/
+Disallow: /mypageshoes/js/backup_scripts/
+
+# Prevenir acceso a archivos sensibles
+Disallow: /mypageshoes/usuarios_registrados.json
+Disallow: /*.ps1
+Disallow: /*.log
+
+# Sitemap
+Sitemap: https://mundocalzado.com/sitemap.xml
