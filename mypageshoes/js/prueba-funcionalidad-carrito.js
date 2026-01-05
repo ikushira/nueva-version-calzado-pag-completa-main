@@ -1,4 +1,4 @@
-// prueba-funcionalidad-carrito.js
+﻿// prueba-funcionalidad-carrito.js
 // Script para probar la funcionalidad del carrito
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             precio: 99900,
             talla: '39',
             cantidad: 1,
-            imagen: 'assets/img/zapato1.jpeg'
+            imagen: './assets/img/zapato1.jpeg'
         };
         
         // Intentar agregar el producto

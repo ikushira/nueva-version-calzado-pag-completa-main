@@ -1,4 +1,4 @@
-// Generador de catálogo para páginas de productos
+﻿// Generador de catálogo para páginas de productos
 // Reutiliza las imágenes del carrusel y muestra cards con descripción y precio
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -60,24 +60,24 @@ document.addEventListener('DOMContentLoaded', function() {
       nombre: 'Marca',
       precio: null,
       imagenes: [
-        { src: 'assets/img/marcas/newbalance.png', nombre: 'New Balance' },
-        { src: 'assets/img/marcas/skechers.png', nombre: 'Skechers' },
-        { src: 'assets/img/marcas/rivercreek.png', nombre: 'River Creek' },
-        { src: 'assets/img/marcas/brahma.png', nombre: 'Brahma' },
-        { src: 'assets/img/marcas/throwing.png', nombre: 'Throwing' },
-        { src: 'assets/img/marcas/verlon.png', nombre: 'Verlon' },
-        { src: 'assets/img/marcas/troya.png', nombre: 'Troya' },
-        { src: 'assets/img/marcas/stardus.png', nombre: 'Stardus' },
-        { src: 'assets/img/marcas/piccadilly.png', nombre: 'Piccadilly' },
-        { src: 'assets/img/marcas/patrick.png', nombre: 'Patrick' },
-        { src: 'assets/img/marcas/moleca.png', nombre: 'Moleca' },
-        { src: 'assets/img/marcas/ipanema.png', nombre: 'Ipanema' },
-        { src: 'assets/img/marcas/gumball.png', nombre: 'Gumball' },
-        { src: 'assets/img/marcas/frattini.png', nombre: 'Frattini' },
-        { src: 'assets/img/marcas/croydon.png', nombre: 'Croydon' },
-        { src: 'assets/img/marcas/cartago.png', nombre: 'Cartago' },
-        { src: 'assets/img/marcas/bubblegummers.png', nombre: 'Bubblegummers' },
-        { src: 'assets/img/marcas/24walks.png', nombre: '24 Walks' },
+        { src: './assets/img/marcas/newbalance.png', nombre: 'New Balance' },
+        { src: './assets/img/marcas/skechers.png', nombre: 'Skechers' },
+        { src: './assets/img/marcas/rivercreek.png', nombre: 'River Creek' },
+        { src: './assets/img/marcas/brahma.png', nombre: 'Brahma' },
+        { src: './assets/img/marcas/throwing.png', nombre: 'Throwing' },
+        { src: './assets/img/marcas/verlon.png', nombre: 'Verlon' },
+        { src: './assets/img/marcas/troya.png', nombre: 'Troya' },
+        { src: './assets/img/marcas/stardus.png', nombre: 'Stardus' },
+        { src: './assets/img/marcas/piccadilly.png', nombre: 'Piccadilly' },
+        { src: './assets/img/marcas/patrick.png', nombre: 'Patrick' },
+        { src: './assets/img/marcas/moleca.png', nombre: 'Moleca' },
+        { src: './assets/img/marcas/ipanema.png', nombre: 'Ipanema' },
+        { src: './assets/img/marcas/gumball.png', nombre: 'Gumball' },
+        { src: './assets/img/marcas/frattini.png', nombre: 'Frattini' },
+        { src: './assets/img/marcas/croydon.png', nombre: 'Croydon' },
+        { src: './assets/img/marcas/cartago.png', nombre: 'Cartago' },
+        { src: './assets/img/marcas/bubblegummers.png', nombre: 'Bubblegummers' },
+        { src: './assets/img/marcas/24walks.png', nombre: '24 Walks' },
       ]
     },
     {
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
           card.innerHTML = `
             ${etiquetas}
             <div class="img-container">
-              <img src="assets/img/${i}.jpeg" alt="${catalogo.nombre} ${i}" loading="lazy" />
+              <img src="./assets/img/${i}.jpeg" alt="${catalogo.nombre} ${i}" loading="lazy" />
             </div>
             <div class="producto-info">
               <h3>${catalogo.nombre} ${i}</h3>

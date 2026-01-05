@@ -1,4 +1,4 @@
-// Checkout.js - Sistema principal de checkout
+﻿// Checkout.js - Sistema principal de checkout
 class CheckoutManager {
     constructor() {
         this.currentStep = 1;
@@ -45,10 +45,10 @@ class CheckoutManager {
 
         const itemsHTML = this.orderItems.map(item => `
             <div class="order-item">
-                <img src="${item.imagen || 'assets/img/placeholder.jpg'}" 
+                <img src="${item.imagen || './assets/img/placeholder.jpg'}" 
                      alt="${item.nombre}" 
                      class="item-image"
-                     onerror="this.src='assets/img/placeholder.jpg'">
+                     onerror="this.src='./assets/img/placeholder.jpg'">
                 <div class="item-info">
                     <div class="item-name">${item.nombre}</div>
                     <div class="item-details">

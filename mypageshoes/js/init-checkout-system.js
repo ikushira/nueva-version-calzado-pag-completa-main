@@ -1,4 +1,4 @@
-// init-checkout-system.js - Script de inicialización del sistema de checkout
+﻿// init-checkout-system.js - Script de inicialización del sistema de checkout
 (function() {
     'use strict';
 
@@ -178,7 +178,7 @@
                 precio: 120000,
                 talla: '39',
                 cantidad: 1,
-                imagen: 'assets/img/placeholder.jpg'
+                imagen: './assets/img/placeholder.jpg'
             },
             {
                 id: 'test_2', 
@@ -186,7 +186,7 @@
                 precio: 80000,
                 talla: '40',
                 cantidad: 1,
-                imagen: 'assets/img/placeholder.jpg'
+                imagen: './assets/img/placeholder.jpg'
             }
         ];
 

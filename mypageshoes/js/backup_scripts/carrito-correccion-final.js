@@ -1,4 +1,4 @@
-// carrito-correccion-final.js
+﻿// carrito-correccion-final.js
 // Versión final para corregir los problemas persistentes del carrito
 // 1. Evitar agregar productos duplicados
 // 2. Asegurar que la imagen del producto se guarde correctamente
@@ -118,18 +118,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (nombre.includes('zapato') || nombre.includes('tenis') || nombre.includes('calzado')) {
             if (nombre.includes('hombre')) {
-                return 'assets/img/calzhombres/zapato1.jpeg';
+                return './assets/img/calzhombres/zapato1.jpeg';
             } else if (nombre.includes('mujer')) {
-                return 'assets/img/calzmujeres/m1.jpeg';
+                return './assets/img/calzmujeres/m1.jpeg';
             } else if (nombre.includes('niño')) {
-                return 'assets/img/calzninos/1.jpeg';
+                return './assets/img/calzninos/1.jpeg';
             } else if (nombre.includes('niña')) {
-                return 'assets/img/calzninas/1.jpeg';
+                return './assets/img/calzninas/1.jpeg';
             }
         }
         
         // Imagen por defecto
-        return 'assets/img/zapato1.jpeg';
+        return './assets/img/zapato1.jpeg';
     }
     
     // Corregir la visualización de productos en el carrito

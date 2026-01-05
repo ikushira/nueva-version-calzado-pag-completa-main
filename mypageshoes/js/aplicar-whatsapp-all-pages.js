@@ -1,4 +1,4 @@
-// Script para agregar o corregir el botón de WhatsApp en todas las páginas
+﻿// Script para agregar o corregir el botón de WhatsApp en todas las páginas
 document.addEventListener('DOMContentLoaded', function() {
     // Verificar si ya existe el CSS
     let cssLinkExists = false;
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         whatsappButton.rel = 'noopener';
 
         const whatsappImg = document.createElement('img');
-        whatsappImg.src = 'assets/img/whatsapp.svg';
+        whatsappImg.src = './assets/img/whatsapp.svg';
         whatsappImg.alt = 'WhatsApp';
         
         whatsappButton.appendChild(whatsappImg);

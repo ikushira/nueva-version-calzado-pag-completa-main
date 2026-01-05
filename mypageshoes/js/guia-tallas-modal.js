@@ -1,4 +1,4 @@
-// Modal Guía de Tallas - Lógica de apertura, cierre y contenido dinámico
+﻿// Modal Guía de Tallas - Lógica de apertura, cierre y contenido dinámico
 
 
 // Inserta el modal dinámicamente al hacer click en el botón "Guía de tallas" si no existe
@@ -10,7 +10,7 @@ function ensureGuiaTallasModal() {
         <button class="modal-gt-close" id="close-modal-gt" aria-label="Cerrar">&times;</button>
         <div class="modal-gt-body">
           <div class="modal-gt-img" id="modal-gt-img">
-            <img src="assets/img/guiatalla1.webp" alt="Guía de tallas" id="img-gt-main" />
+            <img src="./assets/img/guiatalla1.webp" alt="Guía de tallas" id="img-gt-main" />
           </div>
           <div class="modal-gt-panel">
             <div class="modal-gt-select-bar">
@@ -149,7 +149,7 @@ function mostrarPanelGuiaTallas(opcion) {
 function cambiarImagenGuiaTallas(opcion) {
   const img = document.getElementById('img-gt-main');
   if (opcion === 'hombres' || opcion === 'mujeres') {
-    img.src = 'assets/img/zapatomedida.png';
+    img.src = './assets/img/zapatomedida.png';
     img.alt = 'Medida zapato adulto';
     img.style.width = '100%';
     img.style.height = 'auto';
@@ -157,14 +157,14 @@ function cambiarImagenGuiaTallas(opcion) {
     return;
   }
   if (opcion === 'ninos') {
-    img.src = 'assets/img/zapatosmedidasninos.png';
+    img.src = './assets/img/zapatosmedidasninos.png';
     img.alt = 'Medida zapato niños';
     img.style.width = '100%';
     img.style.height = 'auto';
     img.style.objectFit = 'contain';
     return;
   }
-  img.src = 'assets/img/guiatalla1.webp';
+  img.src = './assets/img/guiatalla1.webp';
   img.alt = 'Guía de tallas';
   img.style.width = '';
   img.style.height = '';

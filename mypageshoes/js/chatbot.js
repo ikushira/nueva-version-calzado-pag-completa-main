@@ -1,4 +1,4 @@
-// Chatbot con IA para Mundo Calzado
+﻿// Chatbot con IA para Mundo Calzado
 class MundoCalzadoChatbot {
     constructor() {
         this.isOpen = false;
@@ -18,7 +18,7 @@ class MundoCalzadoChatbot {
         const chatbotButton = document.createElement('div');
         chatbotButton.className = 'chatbot-float';
         chatbotButton.id = 'chatbot-button';
-        chatbotButton.innerHTML = '<img src="assets/img/chatbot-robot.svg" alt="Asistente Virtual">';
+        chatbotButton.innerHTML = '<img src="./assets/img/chatbot-robot.svg" alt="Asistente Virtual">';
         document.body.appendChild(chatbotButton);
 
         // Crear el modal del chatbot

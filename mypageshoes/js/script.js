@@ -1,4 +1,4 @@
-
+﻿
 // Script para Mundo Calzado - Carruseles y funcionalidades
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Cargar imágenes del carrusel desde JSON
-    fetch('assets/img/carrusel1/imagenes-carrusel1.json')
+    fetch('./assets/img/carrusel1/imagenes-carrusel1.json')
         .then(response => response.json())
         .then(imagenes => {
             // Limpiar slides e indicadores existentes
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         slide.className = 'carousel-slide';
         
         slide.innerHTML = `
-            <img src="assets/img/${i}.jpeg" alt="Producto ${i}" loading="lazy">
+            <img src="./assets/img/${i}.jpeg" alt="Producto ${i}" loading="lazy">
             <div class="carousel-caption">
                 <h3>Producto ${i}</h3>
                 <span>$129.900</span>
