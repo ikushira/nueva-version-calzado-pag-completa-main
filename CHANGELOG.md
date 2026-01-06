@@ -4,6 +4,14 @@
 
 ---
 
+## [2.0.2] - 6 Enero 2026 - Rutas de imágenes unificadas
+
+### 🖼️ Ajustes
+- Nueva utilidad `product-images.js` para resolver rutas a `images/products/{id}/{archivo}` con fallback a placeholder.
+- Placeholder PNG centralizado en `mypageshoes/images/placeholder.png` y aplicado con `loading="lazy"` y `onerror` en tarjetas y marcas.
+- Renderer de productos ahora usa contenedor `.product-image` y alt descriptivos.
+- Carrito modernizado consume imágenes normalizadas y placeholders.
+
 ## [2.0.1] - 6 Enero 2026 - Ajustes Header y Banner Global
 
 ### 🛠️ Mejoras
