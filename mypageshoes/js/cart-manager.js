@@ -438,16 +438,23 @@ class CartManager {
       return;
     }
 
-    // Verificar si el usuario está logueado
+    console.log('🛒 Iniciando checkout...');
+
+    // Verificar si el usuario está logueado usando headerManager
     const isLoggedIn = this.checkUserLogin();
+    
+    // Determinar ruta base según ubicación actual
+    const basePath = this.getBasePath();
     
     if (!isLoggedIn) {
       // Guardar la intención de compra y redirigir a login
-      sessionStorage.setItem('redirectAfterLogin', 'checkout');
-      window.location.href = './login.html?next=pages/checkout.html';
+      console.log('⚠️ Usuario no logueado, redirigiendo a login');
+      sessionStorage.setItem('redirect_after_login', 'checkout');
+      window.location.href = `${basePath}login.html?next=${basePath}pages/checkout.html`;
     } else {
       // Redirigir a checkout
-      window.location.href = './pages/checkout.html';
+      console.log('✅ Usuario logueado, redirigiendo a checkout');
+      window.location.href = `${basePath}pages/checkout.html`;
     }
   }
 
@@ -455,9 +462,31 @@ class CartManager {
    * Verifica si el usuario está logueado
    */
   checkUserLogin() {
-    // Verificar en localStorage si hay una sesión activa
-    const userData = localStorage.getItem('userData');
-    return userData !== null;
+    // Primero intentar con el headerManager si está disponible
+    if (window.headerManager && typeof window.headerManager.isLoggedIn === 'function') {
+      return window.headerManager.isLoggedIn();
+    }
+    
+    // Fallback: verificar en localStorage
+    const sessionData = localStorage.getItem('mundo_calzado_session');
+    const userData = localStorage.getItem('userData'); // Compatibilidad
+    
+    return sessionData !== null || userData !== null;
+  }
+
+  /**
+   * Obtener ruta base según ubicación
+   */
+  getBasePath() {
+    const currentPath = window.location.pathname.replace(/\\/g, '/');
+    
+    // Si estamos en index.html (root)
+    if (currentPath.endsWith('index.html') || currentPath.endsWith('/') || !currentPath.includes('mypageshoes')) {
+      return 'mypageshoes/';
+    }
+    
+    // Si estamos en mypageshoes/
+    return './';
   }
 
   /**

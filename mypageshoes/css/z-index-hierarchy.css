@@ -1,0 +1,116 @@
+/**
+ * z-index-hierarchy.css
+ * Definición centralizada de z-indexes para evitar conflictos
+ * 
+ * Jerarquía:
+ * 1-99: Elementos normales
+ * 100-999: Elementos elevados (dropdowns, tooltips)
+ * 1000-9999: Modales y overlays
+ * 10000+: Elementos críticos (notificaciones, alerts)
+ */
+
+:root {
+  /* Elementos base */
+  --z-base: 1;
+  --z-header: 100;
+  --z-dropdown: 200;
+  
+  /* Botones flotantes */
+  --z-floating-buttons: 900;
+  --z-chatbot-button: 901;
+  --z-whatsapp-button: 902;
+  
+  /* Modales y overlays */
+  --z-modal-overlay: 9000;
+  --z-modal-cart: 9100;
+  --z-modal-content: 9200;
+  
+  /* Elementos críticos */
+  --z-notification: 10000;
+  --z-alert: 10100;
+}
+
+/* Aplicar z-indexes */
+
+/* Header y navegación */
+.main-header,
+.top-bar,
+.main-nav {
+  z-index: var(--z-header);
+}
+
+/* Botones flotantes - DEBAJO de los modales */
+.whatsapp-float,
+.whatsapp-button {
+  z-index: var(--z-whatsapp-button) !important;
+}
+
+.chatbot-button,
+.chatbot-float {
+  z-index: var(--z-chatbot-button) !important;
+}
+
+/* Chatbot panel - más alto que botones pero menos que modales */
+.chatbot-panel,
+.chatbot-container {
+  z-index: 950 !important;
+}
+
+/* Modal del carrito - ENCIMA de todo excepto notificaciones */
+.modal-carrito {
+  z-index: var(--z-modal-overlay) !important;
+}
+
+.modal-carrito-content {
+  z-index: var(--z-modal-content) !important;
+}
+
+/* Botón finalizar compra dentro del modal */
+.btn-finalizar-compra {
+  z-index: var(--z-modal-content) !important;
+  position: relative;
+}
+
+/* Notificaciones - MÁXIMA prioridad */
+.cart-notification,
+.notification-toast {
+  z-index: var(--z-notification) !important;
+}
+
+/* Modales generales */
+.modal,
+.overlay {
+  z-index: var(--z-modal-overlay);
+}
+
+/* Cookie consent */
+.cookie-consent {
+  z-index: 9500;
+}
+
+/* Dropdowns y tooltips */
+.dropdown,
+.tooltip {
+  z-index: var(--z-dropdown);
+}
+
+/* Asegurar que elementos dentro del carrito no causen problemas */
+.carrito-producto,
+.cart-item {
+  position: relative;
+  z-index: 1;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  /* En móvil, los botones flotantes deben estar más bajos para no interferir */
+  .whatsapp-float,
+  .chatbot-button {
+    bottom: 80px; /* Más espacio desde abajo */
+  }
+  
+  /* Asegurar que el botón del carrito sea accesible */
+  .btn-carrito {
+    z-index: var(--z-header);
+  }
+}
