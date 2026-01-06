@@ -98,52 +98,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!carousel) return; // Salir si no existe el carrusel
 
-    // Limpiar el carrusel
-    carousel.innerHTML = '';
-
-    // Cargar productos desde JSON para el carrusel
-    async function loadCarouselProducts() {
-        try {
-            const response = await fetch('./data/products.json');
-            const data = await response.json();
-            const featuredProducts = data.products.filter(p => p.featured || p.isNew).slice(0, 20);
-            
-            featuredProducts.forEach(product => {
-                const slide = document.createElement('div');
-                slide.className = 'carousel-slide';
-                
-                // Usar sistema de imágenes
-                const imgSrc = window.getProductImage ? window.getProductImage(product, 0) : (product.images?.[0] || './images/placeholder.png');
-                const placeholder = window.getPlaceholderImage ? window.getPlaceholderImage() : './images/placeholder.png';
-                
-                slide.innerHTML = `
-                    <img src="${imgSrc}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='${placeholder}';">
-                    <div class="carousel-caption">
-                        <h3>${product.name}</h3>
-                        <span>$${product.price.toLocaleString('es-CO')}</span>
-                        <button class="btn-blue" data-product-id="${product.id}">Añadir al carrito</button>
-                    </div>
-                `;
-                
-                carousel.appendChild(slide);
-            });
-            
-            // Actualizar totalSlides después de cargar
-            totalSlides = featuredProducts.length;
-            updateCarousel();
-        } catch (error) {
-            console.error('Error cargando productos para carrusel:', error);
-            // Fallback: mostrar mensaje
-            carousel.innerHTML = '<div class="carousel-error">No se pudieron cargar los productos</div>';
-        }
-    }
-    
-    // Iniciar carga de productos
-    loadCarouselProducts();
-
     // Variables del carrusel
     let currentPosition = 0;
-    let totalSlides = 20; // Se actualizará al cargar productos
+    let totalSlides = 0;
     let autoPlayInterval = null;
     
     // Función para obtener cuántos productos mostrar según el ancho de pantalla
@@ -162,6 +119,59 @@ document.addEventListener('DOMContentLoaded', function() {
         if (width <= 900) return 200; // 180px + 20px margin
         if (width <= 1200) return 220; // 200px + 20px margin
         return 240; // 220px + 20px margen
+    }
+
+    // Cargar productos y renderizar el carrusel
+    async function loadCarouselProducts() {
+        try {
+            // Limpiar el carrusel
+            carousel.innerHTML = '';
+            
+            const response = await fetch('./data/products.json');
+            const data = await response.json();
+            const products = data.products;
+            
+            // Tomar productos destacados o los primeros 20
+            const featuredProducts = products.filter(p => p.featured).slice(0, 20);
+            const carouselProducts = featuredProducts.length > 0 ? featuredProducts : products.slice(0, 20);
+            
+            totalSlides = carouselProducts.length;
+            
+            // Generar slides de productos
+            carouselProducts.forEach((product, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'carousel-slide';
+                
+                // Obtener imagen usando el sistema de imágenes
+                const imgSrc = window.getProductImage ? window.getProductImage(product, 0) : (product.images?.[0] || './images/placeholder.png');
+                const placeholder = window.getPlaceholderImage ? window.getPlaceholderImage() : './images/placeholder.png';
+                
+                slide.innerHTML = `
+                    <img src="${imgSrc}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='${placeholder}';">
+                    <div class="carousel-caption">
+                        <h3>${product.name}</h3>
+                        <span>$${product.price.toLocaleString('es-CO')}</span>
+                        <button class="btn-blue" data-product-id="${product.id}">Añadir al carrito</button>
+                    </div>
+                `;
+                
+                carousel.appendChild(slide);
+            });
+            
+            console.log(`✅ Carrusel cargado con ${totalSlides} productos`);
+            
+            // Inicializar controles del carrusel
+            initCarouselControls();
+            
+        } catch (error) {
+            console.error('❌ Error cargando productos para el carrusel:', error);
+            // Fallback: mostrar mensaje de error
+            carousel.innerHTML = `
+                <div class="carousel-error">
+                    <p>Error cargando productos</p>
+                </div>
+            `;
+        }
     }
 
     // Función para actualizar la posición del carrusel
@@ -236,37 +246,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Event listeners para navegación manual
-    if (carouselPrevBtn) {
-        carouselPrevBtn.addEventListener('click', function() {
-            stopAutoPlay(); // Detener auto-play al hacer clic manual
-            prevSlide();
-            setTimeout(startAutoPlay, 10000); // Reanudar auto-play después de 10 segundos
+    // Función para inicializar controles del carrusel
+    function initCarouselControls() {
+        // Event listeners para navegación manual
+        if (carouselPrevBtn) {
+            carouselPrevBtn.addEventListener('click', function() {
+                stopAutoPlay(); // Detener auto-play al hacer clic manual
+                prevSlide();
+                setTimeout(startAutoPlay, 10000); // Reanudar auto-play después de 10 segundos
+            });
+        }
+
+        if (carouselNextBtn) {
+            carouselNextBtn.addEventListener('click', function() {
+                stopAutoPlay(); // Detener auto-play al hacer clic manual
+                nextSlide();
+                setTimeout(startAutoPlay, 10000); // Reanudar auto-play después de 10 segundos
+            });
+        }
+
+        // Detener auto-play cuando el usuario hace hover sobre el carrusel
+        carousel.addEventListener('mouseenter', stopAutoPlay);
+        carousel.addEventListener('mouseleave', startAutoPlay);
+
+        // Actualizar carrusel al cambiar tamaño de ventana
+        window.addEventListener('resize', function() {
+            updateCarousel();
         });
-    }
 
-    if (carouselNextBtn) {
-        carouselNextBtn.addEventListener('click', function() {
-            stopAutoPlay(); // Detener auto-play al hacer clic manual
-            nextSlide();
-            setTimeout(startAutoPlay, 10000); // Reanudar auto-play después de 10 segundos
-        });
-    }
-
-    // Detener auto-play cuando el usuario hace hover sobre el carrusel
-    carousel.addEventListener('mouseenter', stopAutoPlay);
-    carousel.addEventListener('mouseleave', startAutoPlay);
-
-    // Actualizar carrusel al cambiar tamaño de ventana
-    window.addEventListener('resize', function() {
+        // Inicializar carrusel
         updateCarousel();
-    });
+        
+        // Iniciar auto-play después de 3 segundos
+        setTimeout(startAutoPlay, 3000);
+    }
 
-    // Inicializar carrusel
-    updateCarousel();
-    
-    // Iniciar auto-play después de 3 segundos
-    setTimeout(startAutoPlay, 3000);
+    // Cargar productos en el carrusel
+    loadCarouselProducts();
 
     // ===============================
     // FUNCIONALIDADES ADICIONALES

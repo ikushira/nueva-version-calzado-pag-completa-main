@@ -1,177 +1,263 @@
 /**
- * SISTEMA DE GESTIÓN DE IMÁGENES DE PRODUCTOS
- * ===========================================
- * Maneja la carga, resolución de rutas y fallbacks de imágenes de productos
+ * product-images.js
+ * Sistema completo para manejo de imágenes de productos
+ * Incluye: normalización de rutas, fallbacks, lazy loading, error handling
  */
 
-(function() {
-    'use strict';
+(function(global) {
+  'use strict';
 
-    // Configuración de rutas
-    const IMAGE_CONFIG = {
-        placeholderPath: './assets/img/placeholder.svg',
-        fallbackCategories: {
-            'hombres': './assets/img/calzhombres/',
-            'mujeres': './assets/img/calzmujeres/',
-            'ninas': './assets/img/calzninas/',
-            'ninos': './assets/img/calzninos/',
-            'colegiales': './assets/img/colegiales/',
-            'ofertas': './assets/img/ofertas/',
-            'nuevos': './assets/img/Lo_nuevo/',
-            'marcas': './assets/img/marcas/',
-            'dotacion': './assets/img/dotacion/',
-            'accesorios': './assets/img/complementos/',
-        }
+  // === CONFIGURACIÓN ===
+  const CONFIG = {
+    placeholderImage: 'images/placeholder.png',
+    productImageBase: 'images/products',
+    lazyLoadingEnabled: true,
+    errorRetries: 1
+  };
+
+  // === UTILIDADES DE RUTA ===
+  
+  /**
+   * Verifica si estamos dentro de la carpeta mypageshoes/
+   */
+  const isInsideMyPageshoes = () => {
+    const path = window.location.pathname.replace(/\\/g, '/');
+    return path.includes('/mypageshoes/');
+  };
+
+  /**
+   * Resuelve una ruta relativa según la ubicación actual
+   */
+  const resolveAssetPath = (relativePath) => {
+    if (!relativePath) return CONFIG.placeholderImage;
+    
+    const cleanPath = relativePath
+      .replace(/^\.\//, '')
+      .replace(/^\//, '');
+    
+    if (isInsideMyPageshoes()) {
+      // Si ya estamos en mypageshoes/, quitar prefijo si existe
+      return cleanPath.startsWith('mypageshoes/') 
+        ? cleanPath.replace(/^mypageshoes\//, '') 
+        : cleanPath;
+    }
+    
+    // Si estamos en root, agregar prefijo si no existe
+    return cleanPath.startsWith('mypageshoes/') 
+      ? cleanPath 
+      : `mypageshoes/${cleanPath}`;
+  };
+
+  /**
+   * Normaliza el nombre de una imagen desde diferentes formatos
+   */
+  const normalizeImageName = (imageEntry) => {
+    if (!imageEntry || typeof imageEntry !== 'string') {
+      return null;
+    }
+    
+    // Extraer solo el nombre del archivo de la ruta
+    const parts = imageEntry.split('/');
+    const fileName = parts[parts.length - 1];
+    
+    return fileName || null;
+  };
+
+  // === FUNCIONES PRINCIPALES ===
+
+  /**
+   * Obtiene la ruta de imagen de un producto
+   * @param {Object} product - Objeto del producto
+   * @param {Number} index - Índice de la imagen (default: 0)
+   * @returns {String} Ruta de la imagen
+   */
+  const getProductImage = (product, index = 0) => {
+    if (!product) {
+      console.warn('getProductImage: producto no válido');
+      return resolveAssetPath(CONFIG.placeholderImage);
+    }
+
+    // Verificar si el producto tiene imágenes
+    const images = Array.isArray(product.images) ? product.images : [];
+    
+    if (images.length === 0) {
+      console.warn(`getProductImage: producto ${product.id} no tiene imágenes`);
+      return resolveAssetPath(CONFIG.placeholderImage);
+    }
+
+    // Obtener la imagen seleccionada o la primera disponible
+    const selectedImage = images[index] || images[0];
+    
+    // Si la imagen ya tiene una ruta completa (desde el JSON), usarla directamente
+    if (selectedImage && (selectedImage.startsWith('./assets/') || selectedImage.startsWith('assets/'))) {
+      return resolveAssetPath(selectedImage);
+    }
+    
+    const fileName = normalizeImageName(selectedImage);
+    
+    if (!fileName) {
+      console.warn(`getProductImage: no se pudo normalizar imagen para producto ${product.id}`);
+      return resolveAssetPath(CONFIG.placeholderImage);
+    }
+
+    // Construir ruta siguiendo convención: mypageshoes/images/products/{id}/{filename}
+    const imagePath = `${CONFIG.productImageBase}/${product.id}/${fileName}`;
+    
+    return resolveAssetPath(imagePath);
+  };
+
+  /**
+   * Obtiene la ruta del placeholder
+   */
+  const getPlaceholderImage = () => {
+    return resolveAssetPath(CONFIG.placeholderImage);
+  };
+
+  /**
+   * Crea un elemento <img> con configuración optimizada
+   * @param {Object} product - Objeto del producto
+   * @param {Number} index - Índice de la imagen
+   * @param {Object} options - Opciones adicionales
+   * @returns {HTMLImageElement}
+   */
+  const createProductImage = (product, index = 0, options = {}) => {
+    const {
+      alt = product.name || 'Producto',
+      className = 'product-img',
+      lazy = CONFIG.lazyLoadingEnabled,
+      width = null,
+      height = null
+    } = options;
+
+    const img = document.createElement('img');
+    const imageSrc = getProductImage(product, index);
+    
+    // Configurar atributos básicos
+    img.alt = alt;
+    img.className = className;
+    
+    if (width) img.width = width;
+    if (height) img.height = height;
+
+    // Lazy loading
+    if (lazy) {
+      img.loading = 'lazy';
+    }
+
+    // Configurar src
+    img.src = imageSrc;
+
+    // Error handling con fallback
+    img.onerror = function() {
+      if (this.src !== getPlaceholderImage()) {
+        console.warn(`Error cargando imagen: ${this.src}`);
+        this.src = getPlaceholderImage();
+        this.alt = 'Imagen no disponible';
+      }
     };
 
-    /**
-     * Obtiene la ruta de una imagen de producto
-     * @param {Object|string} product - Objeto de producto o ID
-     * @param {number} index - Índice de la imagen (default: 0)
-     * @returns {string} Ruta de la imagen
-     */
-    window.getProductImage = function(product, index = 0) {
-        try {
-            // Si es un string, asumir que es un ID y retornar placeholder
-            if (typeof product === 'string') {
-                return IMAGE_CONFIG.placeholderPath;
-            }
+    return img;
+  };
 
-            // Si el producto tiene imágenes
-            if (product && product.images && Array.isArray(product.images) && product.images.length > 0) {
-                const imagePath = product.images[index] || product.images[0];
-                
-                // Retornar la ruta tal como viene del JSON
-                if (imagePath) {
-                    return imagePath;
-                }
-            }
+  /**
+   * Renderiza imagen de producto en un contenedor
+   * @param {HTMLElement} container - Contenedor donde renderizar
+   * @param {Object} product - Objeto del producto
+   * @param {Object} options - Opciones adicionales
+   */
+  const renderProductImage = (container, product, options = {}) => {
+    if (!container) {
+      console.error('renderProductImage: contenedor no válido');
+      return;
+    }
 
-            // Fallback: buscar en la carpeta de la categoría
-            if (product && product.category && IMAGE_CONFIG.fallbackCategories[product.category]) {
-                const categoryPath = IMAGE_CONFIG.fallbackCategories[product.category];
-                return categoryPath + '1.jpeg';
-            }
+    const img = createProductImage(product, options.index || 0, options);
+    
+    // Limpiar contenedor y agregar imagen
+    container.innerHTML = '';
+    container.appendChild(img);
+  };
 
-            // Último recurso: placeholder
-            return IMAGE_CONFIG.placeholderPath;
+  /**
+   * Inicializa imágenes de productos en la página
+   * Busca elementos con data-product-id y los renderiza
+   */
+  const initializeProductImages = () => {
+    const imageContainers = document.querySelectorAll('[data-product-id]');
+    
+    if (imageContainers.length === 0) {
+      console.log('initializeProductImages: no se encontraron contenedores');
+      return;
+    }
 
-        } catch (error) {
-            console.error('Error obteniendo imagen del producto:', error);
-            return IMAGE_CONFIG.placeholderPath;
-        }
-    };
+    console.log(`🖼️ Inicializando ${imageContainers.length} imágenes de productos`);
 
-    /**
-     * Obtiene todas las imágenes de un producto
-     * @param {Object} product - Objeto de producto
-     * @returns {Array<string>} Array de rutas de imágenes
-     */
-    window.getProductImages = function(product) {
-        if (!product || !product.images || !Array.isArray(product.images)) {
-            return [IMAGE_CONFIG.placeholderPath];
-        }
-
-        return product.images;
-    };
-
-    /**
-     * Obtiene la ruta del placeholder
-     * @returns {string} Ruta del placeholder
-     */
-    window.getPlaceholderImage = function() {
-        return IMAGE_CONFIG.placeholderPath;
-    };
-
-    /**
-     * Crea un elemento img con manejo de errores
-     * @param {Object} product - Objeto de producto
-     * @param {number} index - Índice de la imagen
-     * @param {Object} options - Opciones adicionales
-     * @returns {HTMLImageElement} Elemento img configurado
-     */
-    window.createProductImage = function(product, index = 0, options = {}) {
-        const {
-            className = '',
-            alt = product?.name || 'Producto',
-            lazy = true,
-            onClick = null
-        } = options;
-
-        const img = document.createElement('img');
-        img.className = className;
-        img.alt = alt;
-        
-        // Configurar lazy loading
-        if (lazy) {
-            img.loading = 'lazy';
-        }
-
-        // Configurar src y fallback
-        const src = window.getProductImage(product, index);
-        img.src = src;
-        
-        // Manejo de errores con fallback en cascada
-        let errorCount = 0;
-        img.onerror = function() {
-            errorCount++;
-            
-            if (errorCount === 1 && product?.images && product.images.length > 1 && index + 1 < product.images.length) {
-                // Intentar con la siguiente imagen del producto
-                this.src = window.getProductImage(product, index + 1);
-            } else if (errorCount === 2 && product?.category) {
-                // Intentar con imagen genérica de la categoría
-                const categoryPath = IMAGE_CONFIG.fallbackCategories[product.category];
-                if (categoryPath) {
-                    this.src = categoryPath + '1.jpeg';
-                } else {
-                    this.src = IMAGE_CONFIG.placeholderPath;
-                }
-            } else {
-                // Usar placeholder
-                this.src = IMAGE_CONFIG.placeholderPath;
-                this.onerror = null; // Evitar loop infinito
-            }
+    imageContainers.forEach(container => {
+      const productId = container.dataset.productId;
+      const imageIndex = parseInt(container.dataset.imageIndex || '0', 10);
+      
+      // Aquí se debería cargar el producto desde los datos
+      // Por ahora, solo configuramos el onerror si ya existe una imagen
+      const existingImg = container.querySelector('img');
+      if (existingImg && !existingImg.onerror) {
+        existingImg.loading = 'lazy';
+        existingImg.onerror = function() {
+          if (this.src !== getPlaceholderImage()) {
+            console.warn(`Error cargando imagen: ${this.src}`);
+            this.src = getPlaceholderImage();
+            this.alt = 'Imagen no disponible';
+          }
         };
+      }
+    });
 
-        // Click handler opcional
-        if (onClick && typeof onClick === 'function') {
-            img.style.cursor = 'pointer';
-            img.addEventListener('click', () => onClick(product, index));
-        }
+    console.log('✅ Imágenes de productos inicializadas');
+  };
 
-        return img;
-    };
+  /**
+   * Actualiza todas las imágenes con el atributo onerror
+   */
+  const addFallbackToAllImages = () => {
+    const images = document.querySelectorAll('img[src*="products/"], img[src*="calz"]');
+    const placeholder = getPlaceholderImage();
+    
+    console.log(`🔧 Agregando fallback a ${images.length} imágenes`);
 
-    /**
-     * Precarga imágenes de productos
-     * @param {Array<Object>} products - Array de productos
-     */
-    window.preloadProductImages = function(products) {
-        if (!Array.isArray(products)) return;
+    images.forEach(img => {
+      if (!img.onerror) {
+        img.loading = 'lazy';
+        img.onerror = function() {
+          if (this.src !== placeholder) {
+            console.warn(`Error cargando imagen: ${this.src}`);
+            this.src = placeholder;
+            this.alt = 'Imagen no disponible';
+          }
+        };
+      }
+    });
+  };
 
-        products.forEach(product => {
-            if (product.images && product.images.length > 0) {
-                const img = new Image();
-                img.src = window.getProductImage(product, 0);
-            }
-        });
-    };
+  // === EXPORTAR AL GLOBAL ===
+  global.getProductImage = getProductImage;
+  global.getPlaceholderImage = getPlaceholderImage;
+  global.resolveAssetPath = resolveAssetPath;
+  global.createProductImage = createProductImage;
+  global.renderProductImage = renderProductImage;
+  global.initializeProductImages = initializeProductImages;
+  global.addFallbackToAllImages = addFallbackToAllImages;
 
-    /**
-     * Verifica si una imagen existe
-     * @param {string} url - URL de la imagen
-     * @returns {Promise<boolean>} True si existe, false si no
-     */
-    window.imageExists = function(url) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-            img.src = url;
-        });
-    };
+  // === AUTO-INICIALIZACIÓN ===
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeProductImages();
+      addFallbackToAllImages();
+    });
+  } else {
+    // DOM ya está listo
+    initializeProductImages();
+    addFallbackToAllImages();
+  }
 
-    console.log('✓ Sistema de imágenes de productos inicializado');
+  console.log('✅ Product Images System cargado');
 
-})();
+})(window);

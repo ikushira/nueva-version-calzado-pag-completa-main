@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test de Imágenes - Mundo Calzado</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #d32f2f;
+      border-bottom: 2px solid #d32f2f;
+      padding-bottom: 10px;
+    }
+    .test-section {
+      margin: 30px 0;
+      padding: 20px;
+      background: #f9f9f9;
+      border-left: 4px solid #d32f2f;
+    }
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .test-card {
+      background: white;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .test-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .test-card h4 {
+      margin: 10px 0 5px 0;
+      font-size: 14px;
+    }
+    .test-card p {
+      margin: 5px 0;
+      font-size: 12px;
+      color: #666;
+    }
+    .status {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .status.ok {
+      background: #4caf50;
+      color: white;
+    }
+    .status.error {
+      background: #f44336;
+      color: white;
+    }
+    .log {
+      background: #263238;
+      color: #00ff00;
+      padding: 15px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-top: 20px;
+    }
+    .log-entry {
+      margin: 5px 0;
+    }
+    .log-entry.error {
+      color: #ff5252;
+    }
+    .log-entry.success {
+      color: #69f0ae;
+    }
+    .log-entry.warn {
+      color: #ffd740;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 Test de Sistema de Imágenes - Mundo Calzado</h1>
+    
+    <div class="test-section">
+      <h2>📦 Estado del Sistema</h2>
+      <p>
+        <strong>product-images.js:</strong> 
+        <span class="status" id="status-product-images">Cargando...</span>
+      </p>
+      <p>
+        <strong>products.json:</strong> 
+        <span class="status" id="status-products-json">Cargando...</span>
+      </p>
+      <p>
+        <strong>Productos cargados:</strong> 
+        <span id="total-products">0</span>
+      </p>
+    </div>
+
+    <div class="test-section">
+      <h2>🖼️ Prueba de Imágenes de Productos</h2>
+      <p>Mostrando los primeros 12 productos del catálogo</p>
+      <div class="test-grid" id="products-grid"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>📋 Log del Sistema</h2>
+      <div class="log" id="system-log"></div>
+    </div>
+  </div>
+
+  <script src="js/product-images.js"></script>
+  <script>
+    // Sistema de logging
+    const logContainer = document.getElementById('system-log');
+    
+    function log(message, type = 'info') {
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      logContainer.appendChild(entry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+      console.log(message);
+    }
+
+    // Verificar funciones globales
+    function checkSystem() {
+      log('Iniciando diagnóstico del sistema...', 'info');
+      
+      // Verificar product-images.js
+      const hasProductImages = typeof window.getProductImage === 'function' &&
+                              typeof window.getPlaceholderImage === 'function' &&
+                              typeof window.resolveAssetPath === 'function';
+      
+      const statusProductImages = document.getElementById('status-product-images');
+      if (hasProductImages) {
+        statusProductImages.textContent = 'Cargado ✓';
+        statusProductImages.className = 'status ok';
+        log('✓ product-images.js cargado correctamente', 'success');
+        log(`  - getProductImage: ${typeof window.getProductImage}`, 'info');
+        log(`  - getPlaceholderImage: ${typeof window.getPlaceholderImage}`, 'info');
+        log(`  - resolveAssetPath: ${typeof window.resolveAssetPath}`, 'info');
+      } else {
+        statusProductImages.textContent = 'Error ✗';
+        statusProductImages.className = 'status error';
+        log('✗ product-images.js no está completamente cargado', 'error');
+      }
+    }
+
+    // Cargar y mostrar productos
+    async function loadAndTestProducts() {
+      try {
+        log('Cargando productos desde JSON...', 'info');
+        const response = await fetch('./data/products.json');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        const products = data.products;
+        
+        log(`✓ JSON cargado: ${products.length} productos encontrados`, 'success');
+        
+        document.getElementById('status-products-json').textContent = 'Cargado ✓';
+        document.getElementById('status-products-json').className = 'status ok';
+        document.getElementById('total-products').textContent = products.length;
+        
+        // Mostrar primeros 12 productos
+        const grid = document.getElementById('products-grid');
+        const testProducts = products.slice(0, 12);
+        
+        log(`Renderizando ${testProducts.length} productos de prueba...`, 'info');
+        
+        testProducts.forEach((product, index) => {
+          const card = document.createElement('div');
+          card.className = 'test-card';
+          
+          // Obtener ruta de imagen
+          let imgSrc;
+          let imgMethod = 'Directa (JSON)';
+          
+          if (typeof window.getProductImage === 'function') {
+            imgSrc = window.getProductImage(product, 0);
+            imgMethod = 'getProductImage()';
+          } else {
+            imgSrc = product.images?.[0] || './images/placeholder.png';
+          }
+          
+          const placeholder = typeof window.getPlaceholderImage === 'function' 
+            ? window.getPlaceholderImage() 
+            : './images/placeholder.png';
+          
+          card.innerHTML = `
+            <img src="${imgSrc}" 
+                 alt="${product.name}" 
+                 loading="lazy"
+                 onerror="this.onerror=null; this.src='${placeholder}'; this.nextElementSibling.querySelector('.img-status').textContent='ERROR'; this.nextElementSibling.querySelector('.img-status').className='status error';">
+            <div>
+              <h4>${product.name}</h4>
+              <p><strong>ID:</strong> ${product.id}</p>
+              <p><strong>Método:</strong> ${imgMethod}</p>
+              <p><strong>Ruta:</strong> <code style="font-size:10px;word-break:break-all;">${imgSrc}</code></p>
+              <p class="img-status status ok">OK ✓</p>
+            </div>
+          `;
+          
+          grid.appendChild(card);
+          
+          log(`  [${index + 1}] ${product.name} (${product.id}) → ${imgSrc}`, 'info');
+        });
+        
+        log('✓ Renderizado completado', 'success');
+        
+      } catch (error) {
+        log(`✗ Error cargando productos: ${error.message}`, 'error');
+        document.getElementById('status-products-json').textContent = 'Error ✗';
+        document.getElementById('status-products-json').className = 'status error';
+      }
+    }
+
+    // Ejecutar pruebas
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        checkSystem();
+        loadAndTestProducts();
+      }, 500);
+    });
+  </script>
+</body>
+</html>

@@ -266,4 +266,25 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
+
+  // Agregar fallback automático a todas las imágenes del catálogo
+  setTimeout(() => {
+    const placeholder = window.getPlaceholderImage ? window.getPlaceholderImage() : './images/placeholder.png';
+    const catalogoImages = document.querySelectorAll('.producto-card img');
+    
+    catalogoImages.forEach(img => {
+      if (!img.onerror) {
+        img.loading = 'lazy';
+        img.onerror = function() {
+          if (this.src !== placeholder) {
+            console.warn(`Error cargando imagen: ${this.src}`);
+            this.src = placeholder;
+            this.alt = 'Imagen no disponible';
+          }
+        };
+      }
+    });
+    
+    console.log(`✅ Fallback agregado a ${catalogoImages.length} imágenes del catálogo`);
+  }, 100);
 });
