@@ -4,6 +4,38 @@
 
 ---
 
+## [2.0.5] - Enero 2026 - Panel Admin y Backend Wompi
+
+### 🛡️ Panel Administrativo
+- **mypageshoes/admin/** - Panel completo con protección por rol isAdmin/admin.
+- **Dashboard** con estadísticas: productos totales, órdenes, usuarios, ventas.
+- **CRUD Productos**: crear, editar, eliminar con modal de formulario completo.
+- **Gestión Órdenes**: tabla con cambio de estado en tiempo real, filtros por estado.
+- **Gestión Usuarios**: vista de usuarios registrados con roles.
+- **admin.js** verifica autenticación con gestorUsuarios y headerUtils.
+- **admin.css** responsive con stats cards, tablas, modales y badges.
+
+### 💳 Backend de Pagos
+- **server/** - Backend Express para integración Wompi.
+- **POST /api/payments/wompi/init** - Inicializa transacción con firma de integridad.
+- **POST /api/payments/wompi/webhook** - Maneja notificaciones de Wompi con verificación HMAC.
+- **GET /api/payments/wompi/transaction/:id** - Consulta estado de transacción.
+- **wompi.js** con generación de firmas SHA-256 y procesamiento de eventos.
+- **.env.example** documentado con WOMPI_PUBLIC_KEY, WOMPI_PRIVATE_KEY, WOMPI_EVENTS_SECRET.
+- **package.json** con Express ^4.18.2, axios ^1.6.2, cors ^2.8.5, dotenv ^16.3.1.
+- **README.md** con instrucciones de setup: npm install, configuración .env, npm run dev.
+
+**Archivos creados:**
+- `mypageshoes/admin/index.html` - Interfaz del panel
+- `mypageshoes/admin/admin.js` - Lógica de administración
+- `mypageshoes/admin/admin.css` - Estilos del panel
+- `server/src/index.js` - Servidor Express
+- `server/src/routes/payments.js` - Rutas de pagos
+- `server/src/controllers/wompi.js` - Controlador Wompi
+- `server/package.json` - Dependencias backend
+- `server/.env.example` - Template variables de entorno
+- `server/README.md` - Documentación backend
+
 ## [2.0.4] - Enero 2026 - Sistema de redirección con ?next
 
 ### 🔐 Mejoras de Autenticación
