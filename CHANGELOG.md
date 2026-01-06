@@ -4,6 +4,52 @@
 
 ---
 
+## [2.0.4] - Enero 2026 - Sistema de redirección con ?next
+
+### 🔐 Mejoras de Autenticación
+- Checkout ahora redirige a login con `?next=` para volver después del login exitoso.
+- `checkUserAuth()` verifica tanto headerUtils como localStorage para soporte completo.
+- Login y registro ahora soportan parámetro `?next=` para redirigir al destino previsto.
+- Compatible con legacy `?redirect=checkout` para retrocompatibilidad.
+
+### 🛒 Carrito Actualizado
+- checkout-manager.js ahora usa `window.cartManager` con verificación de disponibilidad.
+- Redirección a nuevos.html cuando el carrito está vacío.
+- Totales actualizados con verificación de elementos DOM antes de renderizar.
+
+**Archivos modificados:**
+- `mypageshoes/js/checkout-manager.js` - checkUserAuth con ?next y validaciones mejoradas
+- `mypageshoes/js/login-system.js` - handleLogin y handleRegister con soporte ?next
+
+## [2.0.3] - Enero 2026 - Migración a cart-manager unificado
+
+### 🛒 Sistema de Carrito Unificado
+- **Storage key consolidado**: `mundo_calzado_cart` como estándar único.
+- **Migración automática** desde keys legacy: `mundoCalzadoCart` y `carrito`.
+- **API completa**: addToCart(), updateCartItem(), removeFromCart(), clearCart() con soporte de tallas.
+- **Renderizado mejorado**: Miniaturas de 80x80px con `object-fit: cover` y fallback a placeholder.
+- **Eliminados scripts obsoletos**: carrito-nuevo.js, carrito-simplificado.js, carrito-estilo-fix.js.
+
+### 📄 Archivos Migrados (16+ páginas)
+- ✅ index.html
+- ✅ mypageshoes/hombres.html, nuevos.html, mujeres.html, ninas.html, ninos.html
+- ✅ mypageshoes/colegiales.html, dotacion.html, accesorios.html, marcas.html, ofertas.html
+- ✅ mypageshoes/cuenta.html, editar_perfil.html, direccion_cuenta.html
+- ✅ mypageshoes/login.html, guia-tallas.html
+
+### 🎨 Z-Index Jerarquizado
+- modal-carrito: 9999 (máxima prioridad)
+- chatbot-float: 9900 (reducido desde 10000)
+- whatsapp-float: 9898 (reducido desde 9998)
+- btn-finalizar-compra: z-index: 1 con position: relative
+
+**Archivos modificados:**
+- `mypageshoes/js/cart-manager.js` - Storage unificado, API size-aware, renderizado mejorado
+- `mypageshoes/css/carrito.css` - Thumbnails 80x80, z-index botón checkout
+- `mypageshoes/css/chatbot.css` - z-index 9900
+- `mypageshoes/css/whatsapp-widget.css` - z-index 9898
+- 16+ archivos HTML migrados
+
 ## [2.0.2] - 6 Enero 2026 - Rutas de imágenes unificadas
 
 ### 🖼️ Ajustes

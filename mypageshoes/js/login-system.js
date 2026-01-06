@@ -210,11 +210,19 @@ class LoginSystem {
                 }));
             }
 
-            this.showSuccess('¡Registro exitoso! Redirigiendo a tu perfil...');
+            this.showSuccess('¡Registro exitoso! Redirigiendo...');
+            
+            // Verificar si hay redirección pendiente con ?next
+            const urlParams = new URLSearchParams(window.location.search);
+            const nextURL = urlParams.get('next');
             
             // Redirigir después de un breve delay
             setTimeout(() => {
-                window.location.href = 'cuenta.html';
+                if (nextURL) {
+                    window.location.href = nextURL;
+                } else {
+                    window.location.href = 'cuenta.html';
+                }
             }, 1500);
 
         } catch (error) {
@@ -267,15 +275,21 @@ class LoginSystem {
                     localStorage.setItem('usuarioActual', JSON.stringify(datosUsuarioActivo));
                 }
 
-                // Verificar si hay redirección pendiente
+                // Verificar si hay redirección pendiente con ?next o ?redirect
                 const urlParams = new URLSearchParams(window.location.search);
-                const redirect = urlParams.get('redirect');
+                const nextURL = urlParams.get('next');
+                const redirectParam = urlParams.get('redirect');
 
                 // Redirigir según corresponda
                 setTimeout(() => {
-                    if (redirect === 'checkout') {
+                    if (nextURL) {
+                        // Si hay ?next, ir a esa URL
+                        window.location.href = nextURL;
+                    } else if (redirectParam === 'checkout') {
+                        // Compatibilidad con redirect=checkout
                         window.location.href = 'checkout.html';
                     } else {
+                        // Por defecto, ir a cuenta
                         window.location.href = 'cuenta.html';
                     }
                 }, 1000);

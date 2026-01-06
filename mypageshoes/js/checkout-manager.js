@@ -33,24 +33,35 @@ class CheckoutManager {
   }
 
   checkUserAuth() {
-    const userData = localStorage.getItem('userData');
-    if (!userData) {
-      // Redirigir al login
+    const currentUser = window.headerUtils ? window.headerUtils.getCurrentUser() : null;
+    const legacyUser = localStorage.getItem('userData');
+    
+    if (!currentUser && !legacyUser) {
+      // Guardar URL actual para redireccionar después del login
+      const currentURL = window.location.pathname + window.location.search;
       alert('Debes iniciar sesión para continuar con la compra');
-      window.location.href = './login.html';
+      window.location.href = `../login.html?next=${encodeURIComponent(currentURL)}`;
+      return false;
     }
+    return true;
   }
 
   loadOrderItems() {
-    const cart = cartManager.getCart();
+    if (!window.cartManager) {
+      console.error('❌ CartManager no disponible');
+      return;
+    }
+    
+    const cart = window.cartManager.getCart();
     
     if (cart.length === 0) {
       alert('Tu carrito está vacío');
-      window.location.href = './hombres.html';
+      window.location.href = '../nuevos.html';
       return;
     }
 
     const orderItemsContainer = document.getElementById('order-items');
+    if (!orderItemsContainer) return;
     
     orderItemsContainer.innerHTML = cart.map(item => `
       <div class="summary-item">
@@ -74,15 +85,21 @@ class CheckoutManager {
   }
 
   updateOrderTotals() {
-    const subtotal = cartManager.getSubtotal();
-    const shipping = cartManager.getShippingCost();
-    const total = cartManager.getTotal();
+    if (!window.cartManager) return;
+    
+    const subtotal = window.cartManager.getSubtotal();
+    const shipping = window.cartManager.getShippingCost();
+    const total = window.cartManager.getTotal();
 
-    document.getElementById('order-subtotal').textContent = `$${subtotal.toLocaleString('es-CO')}`;
-    document.getElementById('order-shipping').textContent = shipping === 0 
+    const subtotalEl = document.getElementById('order-subtotal');
+    const shippingEl = document.getElementById('order-shipping');
+    const totalEl = document.getElementById('order-total');
+    
+    if (subtotalEl) subtotalEl.textContent = `$${subtotal.toLocaleString('es-CO')}`;
+    if (shippingEl) shippingEl.textContent = shipping === 0 
       ? 'GRATIS' 
       : `$${shipping.toLocaleString('es-CO')}`;
-    document.getElementById('order-total').textContent = `$${total.toLocaleString('es-CO')}`;
+    if (totalEl) totalEl.textContent = `$${total.toLocaleString('es-CO')}`;
 
     this.orderData.totals = { subtotal, shipping, total };
   }
