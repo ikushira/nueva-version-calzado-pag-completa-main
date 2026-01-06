@@ -101,26 +101,49 @@ document.addEventListener('DOMContentLoaded', function() {
     // Limpiar el carrusel
     carousel.innerHTML = '';
 
-    // Generar slides de productos (2.jpeg a 34.jpeg)
-    for (let i = 2; i <= 34; i++) {
-        const slide = document.createElement('div');
-        slide.className = 'carousel-slide';
-        
-        slide.innerHTML = `
-            <img src="./assets/img/${i}.jpeg" alt="Producto ${i}" loading="lazy">
-            <div class="carousel-caption">
-                <h3>Producto ${i}</h3>
-                <span>$129.900</span>
-                <button class="btn-blue">Añadir al carrito</button>
-            </div>
-        `;
-        
-        carousel.appendChild(slide);
+    // Cargar productos desde JSON para el carrusel
+    async function loadCarouselProducts() {
+        try {
+            const response = await fetch('./data/products.json');
+            const data = await response.json();
+            const featuredProducts = data.products.filter(p => p.featured || p.isNew).slice(0, 20);
+            
+            featuredProducts.forEach(product => {
+                const slide = document.createElement('div');
+                slide.className = 'carousel-slide';
+                
+                // Usar sistema de imágenes
+                const imgSrc = window.getProductImage ? window.getProductImage(product, 0) : (product.images?.[0] || './images/placeholder.png');
+                const placeholder = window.getPlaceholderImage ? window.getPlaceholderImage() : './images/placeholder.png';
+                
+                slide.innerHTML = `
+                    <img src="${imgSrc}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='${placeholder}';">
+                    <div class="carousel-caption">
+                        <h3>${product.name}</h3>
+                        <span>$${product.price.toLocaleString('es-CO')}</span>
+                        <button class="btn-blue" data-product-id="${product.id}">Añadir al carrito</button>
+                    </div>
+                `;
+                
+                carousel.appendChild(slide);
+            });
+            
+            // Actualizar totalSlides después de cargar
+            totalSlides = featuredProducts.length;
+            updateCarousel();
+        } catch (error) {
+            console.error('Error cargando productos para carrusel:', error);
+            // Fallback: mostrar mensaje
+            carousel.innerHTML = '<div class="carousel-error">No se pudieron cargar los productos</div>';
+        }
     }
+    
+    // Iniciar carga de productos
+    loadCarouselProducts();
 
     // Variables del carrusel
     let currentPosition = 0;
-    const totalSlides = 33; // Del 2 al 34 = 33 productos
+    let totalSlides = 20; // Se actualizará al cargar productos
     let autoPlayInterval = null;
     
     // Función para obtener cuántos productos mostrar según el ancho de pantalla
