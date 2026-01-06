@@ -3,7 +3,7 @@
   position: fixed;
   right: 24px;
   bottom: 100px; /* Posicionado encima del botón de WhatsApp */
-  z-index: 10000; /* Mayor z-index que WhatsApp */
+  z-index: 9900; /* Reducido para no tapar carrito (9999) */
   background: linear-gradient(135deg, #4A90E2, #5A9BD4);
   border-radius: 50%;
   padding: 12px;
