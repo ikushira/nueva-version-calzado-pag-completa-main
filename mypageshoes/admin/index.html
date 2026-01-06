@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - Mundo Calzado</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="./admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-panel">
+    <!-- Header Administrativo -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <h1><i class="fas fa-shield-alt"></i> Panel Administrativo</h1>
+            <div class="admin-user-info">
+                <span id="admin-user-name">Administrador</span>
+                <button id="btn-logout" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegación del Panel -->
+    <nav class="admin-nav">
+        <button class="admin-nav-item active" data-section="dashboard">
+            <i class="fas fa-chart-line"></i> Dashboard
+        </button>
+        <button class="admin-nav-item" data-section="productos">
+            <i class="fas fa-box"></i> Productos
+        </button>
+        <button class="admin-nav-item" data-section="ordenes">
+            <i class="fas fa-shopping-cart"></i> Órdenes
+        </button>
+        <button class="admin-nav-item" data-section="usuarios">
+            <i class="fas fa-users"></i> Usuarios
+        </button>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <main class="admin-main">
+        <!-- Sección Dashboard -->
+        <section id="section-dashboard" class="admin-section active">
+            <h2>Estadísticas Generales</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-box stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-productos">0</span>
+                        <span class="stat-label">Productos Totales</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-shopping-cart stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-ordenes">0</span>
+                        <span class="stat-label">Órdenes Totales</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-usuarios">0</span>
+                        <span class="stat-label">Usuarios Registrados</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-dollar-sign stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-ventas">$0</span>
+                        <span class="stat-label">Ventas Totales</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Productos -->
+        <section id="section-productos" class="admin-section">
+            <div class="section-header">
+                <h2>Gestión de Productos</h2>
+                <button id="btn-nuevo-producto" class="btn-primary">
+                    <i class="fas fa-plus"></i> Nuevo Producto
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productos-table-body">
+                        <tr>
+                            <td colspan="8" class="text-center">Cargando productos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sección Órdenes -->
+        <section id="section-ordenes" class="admin-section">
+            <div class="section-header">
+                <h2>Gestión de Órdenes</h2>
+                <div class="filter-group">
+                    <select id="filter-orden-estado" class="form-select">
+                        <option value="">Todos los estados</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="procesando">Procesando</option>
+                        <option value="enviado">Enviado</option>
+                        <option value="entregado">Entregado</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Método Pago</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordenes-table-body">
+                        <tr>
+                            <td colspan="7" class="text-center">No hay órdenes registradas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sección Usuarios -->
+        <section id="section-usuarios" class="admin-section">
+            <div class="section-header">
+                <h2>Gestión de Usuarios</h2>
+            </div>
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Fecha Registro</th>
+                            <th>Órdenes</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuarios-table-body">
+                        <tr>
+                            <td colspan="6" class="text-center">Cargando usuarios...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal para Crear/Editar Producto -->
+    <div id="modal-producto" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-producto-title">Nuevo Producto</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="form-producto" class="admin-form">
+                <div class="form-group">
+                    <label for="producto-nombre">Nombre del Producto *</label>
+                    <input type="text" id="producto-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="producto-categoria">Categoría *</label>
+                    <select id="producto-categoria" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="hombres">Hombres</option>
+                        <option value="mujeres">Mujeres</option>
+                        <option value="ninos">Niños</option>
+                        <option value="ninas">Niñas</option>
+                        <option value="colegiales">Colegiales</option>
+                        <option value="dotacion">Dotación</option>
+                        <option value="accesorios">Accesorios</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="producto-precio">Precio *</label>
+                        <input type="number" id="producto-precio" min="0" step="1000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="producto-precio-anterior">Precio Anterior</label>
+                        <input type="number" id="producto-precio-anterior" min="0" step="1000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="producto-descripcion">Descripción</label>
+                    <textarea id="producto-descripcion" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="producto-marca">Marca</label>
+                    <input type="text" id="producto-marca">
+                </div>
+                <div class="form-group">
+                    <label for="producto-tallas">Tallas Disponibles (separadas por coma)</label>
+                    <input type="text" id="producto-tallas" placeholder="36, 37, 38, 39, 40">
+                </div>
+                <div class="form-group">
+                    <label for="producto-imagenes">URLs de Imágenes (una por línea)</label>
+                    <textarea id="producto-imagenes" rows="3" placeholder="imagen1.jpg&#10;imagen2.jpg&#10;imagen3.jpg"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary modal-close">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/gestor-usuarios.js"></script>
+    <script src="./admin.js"></script>
+</body>
+</html>
