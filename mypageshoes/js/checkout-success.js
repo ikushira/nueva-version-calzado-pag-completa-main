@@ -21,45 +21,72 @@ class CheckoutSuccess {
         try {
             // Obtener parámetros de la URL
             const urlParams = new URLSearchParams(window.location.search);
-            const orderId = urlParams.get('order_id') || this.generateOrderId();
-            const amount = urlParams.get('amount') || '0';
-            const method = urlParams.get('method') || 'No especificado';
+            const ordenParam = urlParams.get('orden');
             
-            // Actualizar la información en la página
-            this.updateOrderInfo(orderId, amount, method);
+            // Intentar cargar la última orden del localStorage
+            let orderData = null;
+            if (ordenParam) {
+                // Buscar orden específica
+                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                orderData = orders.find(order => order.orderNumber === ordenParam);
+            }
+            
+            // Si no se encuentra, usar la última orden
+            if (!orderData) {
+                const lastOrderStr = localStorage.getItem('lastOrder');
+                if (lastOrderStr) {
+                    orderData = JSON.parse(lastOrderStr);
+                }
+            }
+            
+            if (orderData) {
+                // Guardar en variable global para las funciones de factura/WhatsApp
+                window.currentOrderData = orderData;
+                
+                // Actualizar la información en la página
+                this.updateOrderInfo(orderData);
+            } else {
+                // Fallback si no hay datos de orden
+                const orderId = ordenParam || this.generateOrderId();
+                this.updateOrderInfo({
+                    orderNumber: orderId,
+                    totals: { total: 0 },
+                    payment: { metodo: 'No especificado' },
+                    estado: 'pendiente'
+                });
+            }
             
             // Limpiar carrito después de pago exitoso
             this.clearCart();
             
             // Registrar evento de conversión para analytics
-            this.trackPurchase(orderId, amount);
-            
-            // Opcional: Guardar información del pedido
-            this.saveOrderInfo(orderId, amount, method);
+            if (orderData) {
+                this.trackPurchase(orderData.orderNumber, orderData.totals.total);
+            }
             
         } catch (error) {
             console.error('Error configurando página de éxito:', error);
         }
     }
 
-    updateOrderInfo(orderId, amount, method) {
+    updateOrderInfo(orderData) {
         // Actualizar número de orden
         const orderNumberElement = document.getElementById('orderNumber');
         if (orderNumberElement) {
-            orderNumberElement.textContent = orderId;
+            orderNumberElement.textContent = orderData.orderNumber;
         }
 
         // Actualizar monto total
         const totalAmountElement = document.getElementById('totalAmount');
         if (totalAmountElement) {
-            const formattedAmount = '$' + new Intl.NumberFormat('es-CO').format(amount);
+            const formattedAmount = '$' + new Intl.NumberFormat('es-CO').format(orderData.totals.total);
             totalAmountElement.textContent = formattedAmount;
         }
 
         // Actualizar método de pago
         const paymentMethodElement = document.getElementById('paymentMethod');
         if (paymentMethodElement) {
-            paymentMethodElement.textContent = this.formatPaymentMethod(method);
+            paymentMethodElement.textContent = this.formatPaymentMethod(orderData.payment.metodo);
         }
     }
 
@@ -218,4 +245,28 @@ class CheckoutSuccess {
 // Inicializar cuando se carga la página
 if (typeof window !== 'undefined') {
     window.checkoutSuccess = new CheckoutSuccess();
+}
+
+/**
+ * Función global para ver factura
+ */
+function verFactura() {
+    if (window.currentOrderData && window.invoiceGenerator) {
+        window.invoiceGenerator.openInvoice(window.currentOrderData);
+    } else {
+        alert('No se pudo cargar la factura. Por favor intenta nuevamente.');
+        console.error('Datos de orden o generador de facturas no disponible');
+    }
+}
+
+/**
+ * Función global para compartir por WhatsApp
+ */
+function compartirWhatsApp() {
+    if (window.currentOrderData && window.invoiceGenerator) {
+        window.invoiceGenerator.shareViaWhatsApp(window.currentOrderData);
+    } else {
+        alert('No se pudo compartir por WhatsApp. Por favor intenta nuevamente.');
+        console.error('Datos de orden o generador de facturas no disponible');
+    }
 }

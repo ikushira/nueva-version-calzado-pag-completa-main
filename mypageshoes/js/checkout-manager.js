@@ -128,6 +128,12 @@ class CheckoutManager {
       btnFinalizar.addEventListener('click', () => this.submitOrder());
     }
 
+    // Geolocation button
+    const btnGeolocation = document.getElementById('btn-compartir-ubicacion');
+    if (btnGeolocation) {
+      btnGeolocation.addEventListener('click', () => this.getGeolocation());
+    }
+
     // Auto-format card number
     const cardNumberInput = document.getElementById('numero-tarjeta');
     if (cardNumberInput) {
@@ -148,6 +154,96 @@ class CheckoutManager {
         }
         e.target.value = value;
       });
+    }
+
+    // Setup auto-save
+    this.setupAutoSave();
+  }
+
+  /**
+   * Obtiene la geolocalización del usuario
+   */
+  getGeolocation() {
+    const btnGeolocation = document.getElementById('btn-compartir-ubicacion');
+    
+    if (!navigator.geolocation) {
+      alert('Tu navegador no soporta geolocalización');
+      return;
+    }
+
+    // Cambiar texto del botón
+    const originalText = btnGeolocation.innerHTML;
+    btnGeolocation.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Obteniendo ubicación...';
+    btnGeolocation.disabled = true;
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        
+        // Guardar coordenadas
+        this.orderData.shipping.coordinates = {
+          lat: latitude,
+          lng: longitude
+        };
+
+        // Actualizar campos ocultos si existen
+        const latInput = document.getElementById('latitude');
+        const lngInput = document.getElementById('longitude');
+        if (latInput) latInput.value = latitude;
+        if (lngInput) lngInput.value = longitude;
+
+        // Mostrar mensaje de éxito
+        btnGeolocation.innerHTML = '<i class="fa-solid fa-check"></i> Ubicación obtenida';
+        btnGeolocation.style.backgroundColor = '#28a745';
+        
+        console.log('📍 Ubicación obtenida:', { latitude, longitude });
+
+        // Intentar obtener dirección aproximada usando reverse geocoding (opcional)
+        this.reverseGeocode(latitude, longitude);
+
+        setTimeout(() => {
+          btnGeolocation.innerHTML = originalText;
+          btnGeolocation.style.backgroundColor = '';
+          btnGeolocation.disabled = false;
+        }, 3000);
+      },
+      (error) => {
+        console.error('❌ Error obteniendo ubicación:', error);
+        btnGeolocation.innerHTML = originalText;
+        btnGeolocation.disabled = false;
+        
+        let errorMessage = 'No se pudo obtener tu ubicación. ';
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage += 'Permisos denegados.';
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage += 'Posición no disponible.';
+            break;
+          case error.TIMEOUT:
+            errorMessage += 'Tiempo de espera agotado.';
+            break;
+          default:
+            errorMessage += 'Error desconocido.';
+        }
+        alert(errorMessage);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
+    );
+  }
+
+  /**
+   * Reverse geocoding (opcional - requiere API)
+   */
+  async reverseGeocode(lat, lng) {
+    // Aquí se podría integrar con una API de geocoding como Google Maps o OpenStreetMap
+    // Por ahora, solo logueamos las coordenadas
+    console.log('🗺️ Reverse geocoding no implementado aún. Coordenadas:', { lat, lng });
+  }
     }
 
     // CVV only numbers
@@ -266,8 +362,16 @@ class CheckoutManager {
       // Save order
       this.saveOrder();
       
+      // Generate invoice
+      if (window.invoiceGenerator) {
+        console.log('📄 Generando factura...');
+        // La factura se abrirá en la página de éxito
+      }
+      
       // Clear cart
-      cartManager.clearCart();
+      if (window.cartManager) {
+        window.cartManager.clearCart();
+      }
       
       // Redirect to success page
       window.location.href = './checkout-success.html?orden=' + this.orderData.orderNumber;

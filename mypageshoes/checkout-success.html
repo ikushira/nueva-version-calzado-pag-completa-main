@@ -165,7 +165,15 @@
             </div>
             
             <div class="actions">
-                <a href="cuenta.html" class="btn btn-primary">
+                <button onclick="verFactura()" class="btn btn-primary">
+                    <i class="fas fa-file-invoice"></i>
+                    Ver Factura
+                </button>
+                <button onclick="compartirWhatsApp()" class="btn" style="background: #25d366; color: white;">
+                    <i class="fab fa-whatsapp"></i>
+                    Compartir por WhatsApp
+                </button>
+                <a href="cuenta.html" class="btn btn-secondary">
                     <i class="fas fa-user"></i>
                     Ver Mi Cuenta
                 </a>
@@ -177,7 +185,8 @@
         </div>
     </div>
 
+    <script src="js/invoice-generator.js"></script>
     <script src="js/checkout-success.js"></script>
-  <script src="js/mobile-navigation.js"></script>
+    <script src="js/mobile-navigation.js"></script>
 </body>
 </html>
