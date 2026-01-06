@@ -2,43 +2,63 @@
 
 > 🚀 Tienda e-commerce completa con sistema de pagos, administración y autenticación
 
-![Estado](https://img.shields.io/badge/Estado-Finalizado-green)
-![Fase](https://img.shields.io/badge/Fase-Listo%20para%20Producción-blue)
-![Versión](https://img.shields.io/badge/Versión-2.0.5-brightgreen)
+![Estado](https://img.shields.io/badge/Estado-En%20Producción-green)
+![Fase](https://img.shields.io/badge/Fase-Listo%20para%20Deploy-blue)
+![Versión](https://img.shields.io/badge/Versión-2.1.0-brightgreen)
 
 ---
 
 ## 📋 Tabla de Contenidos
 
 - [Descripción](#descripción)
+- [Nuevas Funcionalidades (v2.1.0)](#nuevas-funcionalidades-v210)
 - [Estructura del Proyecto](#estructura-del-proyecto)
-- [Características Completas](#características-completas)
 - [Instalación y Configuración](#instalación-y-configuración)
-- [Backend y Pagos](#backend-y-pagos)
-- [Panel Administrativo](#panel-administrativo)
+- [Configuración Firebase](#configuración-firebase)
+- [Backend y Pagos Wompi](#backend-y-pagos-wompi)
 - [Deployment](#deployment)
-- [Variables de Entorno](#variables-de-entorno)
+- [Testing](#testing)
 - [Tecnologías](#tecnologías)
 
 ---
 
 ## 📝 Descripción
 
-**Mundo Calzado** es una tienda online completa de calzado para toda la familia. Incluye sistema de autenticación, carrito de compras unificado, checkout con geolocalización, integración de pagos Wompi, y panel administrativo con protección por roles.
+**Mundo Calzado** es una tienda online completa de calzado para toda la familia. Incluye sistema de autenticación, carrito de compras unificado, checkout con geolocalización, integración de pagos Wompi, facturación con WhatsApp, y panel administrativo con protección por roles.
 
-### Características Completas
+---
 
-✅ **Catálogo de Productos** por categorías (Hombres, Mujeres, Niños, Niñas, Colegiales, Dotación)  
-✅ **Sistema de Autenticación** con gestorUsuarios y protección de rutas  
-✅ **Carrito Unificado** (`mundo_calzado_cart`) con soporte de tallas y migración automática  
-✅ **Checkout Completo** con geolocalización, validación de sesión y redirección ?next  
-✅ **Integración de Pagos Wompi** con backend Express, webhooks y firma de integridad  
-✅ **Panel Administrativo** con protección isAdmin, CRUD productos/órdenes/usuarios  
-✅ **Sistema de Imágenes** con rutas normalizadas y placeholder fallback  
-✅ **Diseño Responsive** para móviles, tablets y desktop  
-✅ **Cookie Consent** implementado en index.html  
-✅ **Chatbot y WhatsApp** flotantes con z-index jerarquizado  
-✅ **15+ Páginas Footer** (políticas, ayuda, contacto, etc.)  
+## 🎉 Nuevas Funcionalidades (v2.1.0)
+
+### 1. Header Global y Sesión Dinámica
+- ✅ Banner negro "POR COMPRA DE 2 PARES EN ADELANTE, ENVÍO GRATIS!!" en todas las páginas
+- ✅ Sistema de sesión con `header-manager.js`
+- ✅ Cambio automático entre "Iniciar sesión" ↔ "Cerrar sesión / Mi perfil"
+- ✅ Verificación de sesión desde `localStorage.mundo_calzado_session`
+
+### 2. Sistema Unificado de Imágenes
+- ✅ Convención única: `mypageshoes/images/products/{id}/{filename}`
+- ✅ Lazy loading automático en todas las imágenes
+- ✅ Fallback con `onerror` a `placeholder.png`
+- ✅ Auto-inicialización: `initializeProductImages()` y `addFallbackToAllImages()`
+
+### 3. Carrito Mejorado
+- ✅ Integración con `headerManager` para verificar sesión
+- ✅ Redirect a `login.html?next=` si usuario no logueado
+- ✅ Z-index optimizado: botones flotantes NO tapan "IR A PAGAR"
+- ✅ Persistencia completa en `localStorage.mundo_calzado_cart`
+
+### 4. Checkout Completo con Facturación
+- ✅ Botón "Compartir ubicación" con Geolocation API
+- ✅ Guarda coordenadas GPS en pedido
+- ✅ `invoice-generator.js` - Genera facturas HTML imprimibles
+- ✅ Compartir factura por WhatsApp con mensaje formateado
+- ✅ Botones en `checkout-success.html`: "Ver Factura" y "Compartir WhatsApp"
+
+### 5. Firebase Auth Scaffold
+- ✅ `firebase-config.example.js` con instrucciones completas
+- ✅ Template para Firebase Auth + Firestore
+- ✅ Placeholder para todas las claves API
 
 ---
 
@@ -46,58 +66,316 @@
 
 ```
 proyecto-calzado/
-├── index.html                 # Página principal (ROOT)
-├── CHANGELOG.md               # Versiones 2.0.1 - 2.0.5 documentadas
-├── INSTRUCCIONES_PAGOS.md     # Guía completa Wompi
-├── README.md                  # Este archivo
-├── QA_CHECKLIST.md            # Checklist de calidad
-├── mypageshoes/               # 🔥 Aplicación principal
-│   ├── *.html                 # Páginas del sitio
-│   ├── admin/                 # 🛡️ Panel administrativo
-│   │   ├── index.html         # Dashboard con stats y tablas
-│   │   ├── admin.js           # Lógica con protección isAdmin
-│   │   └── admin.css          # Estilos responsive
-│   ├── pages/                 # Páginas secundarias (18 archivos)
-│   │   ├── checkout.html      # Checkout con geolocalización
-│   │   ├── ayuda.html         # Centro de ayuda
-│   │   ├── politicas.html     # Políticas de la empresa
+├── index.html                         # Página principal
+├── CHANGELOG.md                       # Registro de versiones
+├── INSTRUCCIONES_PAGOS.md             # Guía Wompi completa
+├── README.md                          # Este archivo
+├── QA_CHECKLIST.md                    # Checklist de verificación
+├── mypageshoes/
+│   ├── *.html                         # 15 páginas principales
+│   ├── admin/                         # Panel administrativo
+│   ├── pages/                         # 18 páginas secundarias
+│   ├── css/
+│   │   ├── header-user-menu.css       # 🆕 Estilos header logueado
+│   │   ├── z-index-hierarchy.css      # 🆕 Jerarquía de capas
 │   │   └── ...
-│   ├── assets/                # Recursos multimedia
-│   │   └── img/               # Imágenes por categoría
-│   ├── css/                   # Hojas de estilo (25+ archivos)
-│   │   ├── variables.css      # Variables CSS globales
-│   │   ├── carrito.css        # Thumbnails 80x80, z-index
-│   │   ├── cookie-consent.css # Banner de cookies
+│   ├── js/
+│   │   ├── header-manager.js          # 🆕 Gestión de sesión
+│   │   ├── product-images.js          # 🆕 Sistema de imágenes reescrito
+│   │   ├── cart-manager.js            # ✨ Mejorado con redirect
+│   │   ├── checkout-manager.js        # ✨ Con geolocation
+│   │   ├── invoice-generator.js       # 🆕 Generador de facturas
+│   │   ├── firebase-config.example.js # 🆕 Template Firebase
 │   │   └── ...
-│   ├── js/                    # Scripts JavaScript (40+ archivos)
-│   │   ├── mobile-navigation.js    # headerUtils con banner global
-│   │   ├── cart-manager.js         # Carrito unificado
-│   │   ├── checkout-manager.js     # Checkout con ?next
-│   │   ├── login-system.js         # Auth con redirección
-│   │   ├── product-images.js       # Resolver rutas imágenes
-│   │   ├── gestor-usuarios.js      # Gestión de usuarios
-│   │   ├── cookie-consent.js       # Sistema de cookies
-│   │   └── ...
-│   ├── data/
-│   │   └── products.json      # Base de datos productos
-│   └── images/
-│       ├── products/          # {id}/{imagen.jpg}
-│       └── placeholder.png    # Fallback 1x1 transparente
-└── server/                    # 💳 Backend de pagos
+│   ├── images/
+│   │   ├── products/{id}/             # Imágenes organizadas por ID
+│   │   └── placeholder.png            # Fallback imagen
+│   └── data/
+│       └── products.json              # Base de datos productos
+└── server/                            # Backend Node.js
     ├── src/
-    │   ├── index.js           # Express server con CORS
-    │   ├── routes/
-    │   │   └── payments.js    # Rutas Wompi
-    │   └── controllers/
-    │       └── wompi.js       # Lógica pagos + webhooks
-    ├── package.json           # Express, axios, cors, dotenv
-    ├── .env.example           # Template variables
-    └── README.md              # Docs backend
+    │   ├── index.js
+    │   ├── routes/payments.js
+    │   └── controllers/wompi.js
+    ├── package.json
+    ├── .env.example
+    └── README.md
 ```
-1. **Reorganización de archivos:** Todos los archivos movidos a `mypageshoes/` excepto `index.html`
-2. **Actualización de rutas:**
-   - Index.html: todas las rutas apuntan a `mypageshoes/`
-   - HTML internos: breadcrumbs actualizados para apuntar a `../index.html`
+
+---
+
+## 🚀 Instalación y Configuración
+
+### Requisitos Previos
+
+- Node.js 16+ (para backend)
+- Servidor web local (Live Server, http-server, etc.)
+- Cuenta en Firebase (para auth)
+- Cuenta en Wompi (para pagos)
+
+### 1. Clonar Repositorio
+
+```bash
+git clone https://github.com/ikushira/nueva-version-calzado-pag-completa-main.git
+cd nueva-version-calzado-pag-completa-main
+```
+
+### 2. Configurar Frontend
+
+El frontend es estático y se puede servir con cualquier servidor web:
+
+```bash
+# Opción 1: Live Server (VS Code)
+# Clic derecho en index.html > Open with Live Server
+
+# Opción 2: http-server (npm)
+npx http-server -p 5500
+
+# Opción 3: Python
+python -m http.server 5500
+```
+
+### 3. Configurar Backend (Pagos Wompi)
+
+```bash
+cd server
+npm install
+cp .env.example .env
+# Editar .env con tus credenciales de Wompi
+npm run dev
+```
+
+El servidor estará en `http://localhost:3000`
+
+---
+
+## 🔐 Configuración Firebase
+
+### 1. Crear Proyecto en Firebase
+
+1. Ve a [Firebase Console](https://console.firebase.google.com/)
+2. Crea un nuevo proyecto: "Mundo Calzado"
+3. Habilita **Authentication** → Email/Password
+4. Habilita **Firestore Database**
+
+### 2. Obtener Credenciales
+
+1. En Firebase Console: **Configuración del proyecto** → **Tus aplicaciones**
+2. Agrega una **App web**
+3. Copia las credenciales
+
+### 3. Configurar en el Proyecto
+
+```bash
+cd mypageshoes/js
+cp firebase-config.example.js firebase-config.js
+# Editar firebase-config.js con tus credenciales
+```
+
+Reemplaza los placeholders:
+```javascript
+const firebaseConfig = {
+  apiKey: "TU_API_KEY_AQUI",
+  authDomain: "tu-proyecto.firebaseapp.com",
+  projectId: "tu-proyecto-id",
+  // ... resto de configuración
+};
+```
+
+### 4. Incluir Firebase SDK en HTML
+
+Agrega en `<head>` de las páginas que usen auth:
+
+```html
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+```
+
+---
+
+## 💳 Backend y Pagos Wompi
+
+### Configuración Rápida
+
+1. **Obtén tus claves de Wompi:**
+   - Sandbox: https://comercios.wompi.co/
+   - Copia: `PUBLIC_KEY` y `PRIVATE_KEY`
+
+2. **Configura el .env:**
+```env
+WOMPI_PUBLIC_KEY=pub_test_xxxxxxxxxx
+WOMPI_PRIVATE_KEY=prv_test_xxxxxxxxxx
+WOMPI_ENV=test
+WOMPI_WEBHOOK_SECRET=tu_webhook_secret
+PORT=3000
+FRONTEND_URL=http://localhost:5500
+```
+
+3. **Ejecuta el servidor:**
+```bash
+cd server
+npm install
+npm run dev
+```
+
+4. **Actualiza la URL en el frontend:**
+
+En `mypageshoes/js/checkout-manager.js`:
+```javascript
+const API_URL = 'http://localhost:3000'; // Desarrollo
+// const API_URL = 'https://tu-api-produccion.com'; // Producción
+```
+
+### Endpoints Disponibles
+
+- **POST** `/api/payments/wompi/init` - Iniciar transacción
+- **POST** `/api/payments/wompi/webhook` - Webhook de Wompi
+- **GET** `/api/payments/wompi/transaction/:id` - Consultar estado
+
+Ver [INSTRUCCIONES_PAGOS.md](./INSTRUCCIONES_PAGOS.md) para más detalles.
+
+---
+
+## 🌐 Deployment
+
+### Frontend (Netlify / Vercel / GitHub Pages)
+
+#### Netlify
+```bash
+# Instalar Netlify CLI
+npm install -g netlify-cli
+
+# Deploy
+netlify deploy --prod
+```
+
+#### Vercel
+```bash
+# Instalar Vercel CLI
+npm install -g vercel
+
+# Deploy
+vercel --prod
+```
+
+#### GitHub Pages
+1. Empuja el código a GitHub
+2. Ve a Settings → Pages
+3. Selecciona la rama `main` → Guardar
+
+### Backend (Heroku / Railway / Render)
+
+#### Heroku
+```bash
+heroku create mundo-calzado-api
+git subtree push --prefix server heroku main
+heroku config:set WOMPI_PUBLIC_KEY=pub_prod_xxx
+heroku config:set WOMPI_PRIVATE_KEY=prv_prod_xxx
+```
+
+#### Railway
+```bash
+railway login
+cd server
+railway init
+railway up
+```
+
+### Configuración Post-Deploy
+
+1. **Actualizar URL del backend** en frontend:
+```javascript
+// checkout-manager.js
+const API_URL = 'https://tu-api-produccion.com';
+```
+
+2. **Configurar webhook en Wompi:**
+   - URL: `https://tu-api.com/api/payments/wompi/webhook`
+   - Evento: `transaction.updated`
+
+3. **Actualizar número de WhatsApp:**
+```javascript
+// invoice-generator.js
+this.whatsappNumber = '573XXXXXXXXX'; // Tu número real
+```
+
+---
+
+## 🧪 Testing
+
+### Checklist de Verificación
+
+- [ ] Banner negro aparece en todas las páginas
+- [ ] "Iniciar sesión" cambia a "Cerrar sesión" al loguearse
+- [ ] Imágenes cargan correctamente o muestran placeholder
+- [ ] Agregar al carrito funciona desde cualquier página
+- [ ] Botón "IR A PAGAR" redirige a login si no logueado
+- [ ] Checkout guarda ubicación GPS al hacer clic en botón
+- [ ] Factura se genera correctamente después del pago
+- [ ] Botón "Compartir por WhatsApp" abre WhatsApp con mensaje
+- [ ] Botones flotantes NO tapan elementos importantes
+- [ ] Responsive funciona en móvil (320px - 768px)
+
+### Tarjetas de Prueba Wompi
+
+**Aprobada:**
+- Número: `4242 4242 4242 4242`
+- CVV: `123`
+- Fecha: Cualquier fecha futura
+
+**Rechazada:**
+- Número: `4111 1111 1111 1111`
+
+---
+
+## 🛠️ Tecnologías
+
+### Frontend
+- HTML5, CSS3, JavaScript ES6+
+- Font Awesome 6.4.0
+- Google Fonts (Inter)
+- Geolocation API
+- LocalStorage API
+
+### Backend
+- Node.js 16+
+- Express 4.18.2
+- Axios 1.6.2
+- CORS 2.8.5
+- Dotenv 16.3.1
+
+### Servicios Externos
+- Firebase (Auth + Firestore)
+- Wompi (Pagos)
+- WhatsApp Business API
+
+---
+
+## 📞 Soporte
+
+**¿Problemas con la configuración?**
+
+1. Revisa [CHANGELOG.md](./CHANGELOG.md) para ver cambios recientes
+2. Consulta [INSTRUCCIONES_PAGOS.md](./INSTRUCCIONES_PAGOS.md) para Wompi
+3. Verifica [QA_CHECKLIST.md](./QA_CHECKLIST.md) para testing
+
+**Contacto:**
+- Email: soporte@mundocalzado.com
+- GitHub Issues: [Reportar problema](https://github.com/ikushira/nueva-version-calzado-pag-completa-main/issues)
+
+---
+
+## 📄 Licencia
+
+Copyright © 2026 Mundo Calzado. Todos los derechos reservados.
+
+---
+
+**Última actualización:** 6 de Enero de 2026  
+**Versión:** 2.1.0  
+**Rama:** `fix/finalize-site`
    - JavaScript: 21 archivos con rutas normalizadas (`./assets/img/`)
    - CSS: sin rutas de assets (verificado)
 3. **Control de versiones:** Git inicializado, rama `refactor/move-mypageshoes` activa

@@ -4,6 +4,122 @@
 
 ---
 
+## [2.1.0] - 6 Enero 2026 - Finalización y Preparación para Producción
+
+### 🎯 Header Global y Gestión de Sesión
+- **Banner negro estandarizado** en todas las páginas con mensaje "POR COMPRA DE 2 PARES EN ADELANTE, ENVÍO GRATIS!!"
+- **header-manager.js** - Sistema completo de gestión de sesión
+  - Cambio dinámico entre "Iniciar sesión" y "Cerrar sesión/Mi perfil"
+  - Verificación de sesión desde `localStorage` con clave `mundo_calzado_session`
+  - Redirección inteligente según rutas (root vs mypageshoes/)
+- **header-user-menu.css** - Estilos para menú de usuario logueado con responsive
+- Enlaces actualizados: "Contáctanos" y "Sigue tu pedido" funcionando en todas las páginas
+- **15 archivos HTML** actualizados con banner y sistema de sesión
+
+**Archivos creados/modificados:**
+- `mypageshoes/js/header-manager.js` (nuevo)
+- `mypageshoes/css/header-user-menu.css` (nuevo)
+- `index.html` + 15 archivos en `mypageshoes/*.html` (actualizados)
+
+### 🖼️ Sistema Unificado de Imágenes
+- **product-images.js** completamente reescrito con:
+  - Convención única de rutas: `mypageshoes/images/products/{id}/{filename}`
+  - Lazy loading automático (`loading="lazy"`)
+  - Fallback con `onerror` a `placeholder.png`
+  - Funciones: `getProductImage()`, `createProductImage()`, `renderProductImage()`
+  - Auto-inicialización al cargar página con `initializeProductImages()` y `addFallbackToAllImages()`
+- Todas las imágenes de productos ahora tienen manejo consistente de errores
+
+**Archivos modificados:**
+- `mypageshoes/js/product-images.js` (reescrito, +237 líneas)
+
+### 🛒 Carrito - Lógica Completa y Z-Index Optimizado
+- **cart-manager.js** mejorado:
+  - Integración con `headerManager` para verificar sesión
+  - Redirect a `login.html?next=` si usuario no logueado en checkout
+  - Método `getBasePath()` para rutas relativas inteligentes
+  - Soporte completo: add, update, remove, clear con persistencia en localStorage
+- **z-index-hierarchy.css** - Sistema centralizado de capas:
+  - Botones flotantes (WhatsApp/Chatbot): z-index 900
+  - Modal del carrito: z-index 9000
+  - Notificaciones: z-index 10000
+  - Botones flotantes ahora NO tapan "IR A PAGAR"
+- **19 archivos HTML** actualizados con z-index-hierarchy.css
+
+**Archivos creados/modificados:**
+- `mypageshoes/css/z-index-hierarchy.css` (nuevo)
+- `mypageshoes/js/cart-manager.js` (mejorado)
+- 19 archivos HTML (actualizados)
+
+### 💳 Checkout y Sistema de Facturación
+- **checkout-manager.js** con geolocation:
+  - Botón "Compartir ubicación" usando Geolocation API
+  - Guarda coordenadas en `orderData.shipping.coordinates`
+  - Validación completa de formularios antes de enviar
+  - Integración con invoice-generator para factura post-pago
+- **invoice-generator.js** - Sistema completo de facturas:
+  - Genera HTML de factura con todos los detalles (cliente, productos, totales)
+  - Función `shareViaWhatsApp()` con mensaje formateado
+  - Función `openInvoice()` para imprimir/ver factura
+  - Número de WhatsApp configurable (placeholder: 573001234567)
+- **checkout-success.html** actualizado:
+  - Botones "Ver Factura" y "Compartir por WhatsApp"
+  - Carga datos de orden desde `localStorage.lastOrder`
+  - Funciones globales `verFactura()` y `compartirWhatsApp()`
+- **checkout-success.js** mejorado para cargar datos de orden completos
+
+**Archivos creados/modificados:**
+- `mypageshoes/js/invoice-generator.js` (nuevo, +400 líneas)
+- `mypageshoes/js/checkout-manager.js` (mejorado, +100 líneas)
+- `mypageshoes/checkout-success.html` (actualizado)
+- `mypageshoes/js/checkout-success.js` (mejorado)
+
+### 🔐 Auth - Scaffold de Firebase
+- **firebase-config.example.js** - Template de configuración Firebase
+  - Instrucciones paso a paso para obtener credenciales
+  - Inicialización de Firebase Auth y Firestore
+  - Exportación a window para uso global
+  - Placeholder para todas las claves API
+
+**Archivos creados:**
+- `mypageshoes/js/firebase-config.example.js` (nuevo)
+
+### 📊 Commits Realizados
+1. `fix(header): make banner global and update links` - Banner y header-manager
+2. `fix(images): unify image paths and add fallback` - Sistema de imágenes
+3. `feat(cart): implement full cart logic and persistence` - Carrito y z-index
+4. `feat(checkout): add checkout page and order creation` - Checkout y facturas
+5. `feat(auth): integrate firebase auth scaffold` - Configuración Firebase
+
+### 📝 Estado Actual
+
+**✅ Completado:**
+- [x] Header global con banner en todas las páginas
+- [x] Sistema de sesión con login/logout dinámico
+- [x] Imágenes con rutas unificadas y fallbacks
+- [x] Carrito completo con persistencia y flujo de pago
+- [x] Z-index corregido (botones no tapan CTA)
+- [x] Checkout con geolocation
+- [x] Sistema de facturación con HTML printable
+- [x] WhatsApp share para facturas
+- [x] Firebase Auth scaffold
+- [x] Estructura backend Wompi (server/)
+
+**⚠️ Pendiente Manual:**
+- [ ] Configurar Firebase (copiar firebase-config.example.js → firebase-config.js)
+- [ ] Agregar claves Wompi en server/.env
+- [ ] Crear páginas legales faltantes (políticas, términos, etc.)
+- [ ] Implementar perfil completo (cuenta.html con direcciones y pedidos)
+- [ ] Panel admin con CRUD productos
+- [ ] Testing en móviles y diferentes navegadores
+- [ ] Configurar webhook de Wompi en producción
+
+**📦 Archivos Nuevos:** 7
+**📝 Archivos Modificados:** 40+
+**📊 Líneas de Código:** +2000
+
+---
+
 ## [2.0.5] - Enero 2026 - Panel Admin y Backend Wompi
 
 ### 🛡️ Panel Administrativo
