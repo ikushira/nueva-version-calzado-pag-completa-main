@@ -190,6 +190,106 @@ class MobileNavigation {
     }
 }
 
+// Utilidades de encabezado global
+const headerUtils = {
+    isInsideMyPageshoes() {
+        return window.location.pathname.replace(/\\/g, '/').includes('/mypageshoes/');
+    },
+
+    resolvePath(relativePath) {
+        const cleanPath = relativePath.replace(/^\.\//, '').replace(/^\//, '');
+        if (this.isInsideMyPageshoes()) {
+            return cleanPath.replace(/^mypageshoes\//, '');
+        }
+        return cleanPath.startsWith('mypageshoes/') ? cleanPath : `mypageshoes/${cleanPath}`;
+    },
+
+    getCurrentUser() {
+        try {
+            const posibleClaves = ['usuarioActual', 'usuarioActivo'];
+            for (const clave of posibleClaves) {
+                const valor = localStorage.getItem(clave);
+                if (valor) return JSON.parse(valor);
+            }
+        } catch (error) {
+            console.warn('No se pudo leer el usuario desde localStorage', error);
+        }
+        return null;
+    },
+
+    logout() {
+        ['usuarioActual', 'usuarioActivo'].forEach((clave) => localStorage.removeItem(clave));
+        window.location.href = this.resolvePath('index.html');
+    },
+
+    ensureTopBar() {
+        let topBar = document.querySelector('.top-bar');
+        if (!topBar) {
+            topBar = document.createElement('div');
+            topBar.className = 'top-bar #ff0000-theme';
+            const header = document.querySelector('.main-header');
+            if (header && header.parentNode) {
+                header.parentNode.insertBefore(topBar, header);
+            } else {
+                document.body.insertBefore(topBar, document.body.firstChild);
+            }
+        }
+
+        const contactHref = this.resolvePath('pages/contactanos.html');
+        const trackHref = this.resolvePath('pages/sigue-tu-pedido.html');
+
+        topBar.innerHTML = `
+      <div class="promo">
+        <span class="promo-strong"><i class="fa-solid fa-fire"></i> POR COMPRA DE 2 PARES EN ADELANTE, ENVÍO GRATIS!!</span>
+        <span class="promo-timer"><i class="fa-regular fa-clock"></i> Promoción activa, aplica solo online</span>
+      </div>
+      <div class="top-links">
+        <a class="top-link-contact" href="${contactHref}" role="button"><i class="fa-regular fa-envelope"></i> Contáctanos</a>
+        <a class="top-link-track" href="${trackHref}" role="button"><i class="fa-solid fa-truck"></i> Sigue tu pedido</a>
+      </div>
+    `;
+    },
+
+    ensureHeaderAuthState() {
+        const headerActions = document.querySelector('.header-actions');
+        if (!headerActions) return;
+
+        const usuario = this.getCurrentUser();
+        const loginLink = headerActions.querySelector('.header-login');
+        let perfilLink = headerActions.querySelector('.header-profile');
+
+        if (!perfilLink) {
+            perfilLink = document.createElement('a');
+            perfilLink.className = 'header-profile';
+            perfilLink.innerHTML = '<i class="fa-regular fa-id-card"></i><span>Mi perfil</span>';
+            const carritoBtn = headerActions.querySelector('#btn-carrito');
+            if (carritoBtn) {
+                headerActions.insertBefore(perfilLink, carritoBtn);
+            } else {
+                headerActions.appendChild(perfilLink);
+            }
+        }
+
+        perfilLink.href = this.resolvePath('pages/cuenta.html');
+        perfilLink.style.display = usuario ? 'flex' : 'none';
+
+        if (loginLink) {
+            if (usuario) {
+                loginLink.setAttribute('href', '#');
+                loginLink.innerHTML = '<i class="fa-solid fa-arrow-right-from-bracket"></i><span>Cerrar sesión</span>';
+                loginLink.onclick = (e) => {
+                    e.preventDefault();
+                    this.logout();
+                };
+            } else {
+                loginLink.setAttribute('href', this.resolvePath('login.html'));
+                loginLink.innerHTML = '<i class="fa-regular fa-user"></i><span>Iniciar sesión</span>';
+                loginLink.onclick = null;
+            }
+        }
+    }
+};
+
 // Función para agregar estilos dinámicos si es necesario
 function addMobileNavigationStyles() {
     // Verificar si ya se agregaron los estilos
@@ -217,6 +317,16 @@ function addMobileNavigationStyles() {
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
+    // Banner superior y estado de sesión
+    headerUtils.ensureTopBar();
+    headerUtils.ensureHeaderAuthState();
+
+    window.addEventListener('storage', (event) => {
+        if (event.key === 'usuarioActual' || event.key === 'usuarioActivo') {
+            headerUtils.ensureHeaderAuthState();
+        }
+    });
+
     // Agregar estilos adicionales
     addMobileNavigationStyles();
     

@@ -4,6 +4,14 @@
 
 ---
 
+## [2.0.1] - 6 Enero 2026 - Ajustes Header y Banner Global
+
+### 🛠️ Mejoras
+- Banner negro unificado con mensaje "POR COMPRA DE 2 PARES EN ADELANTE, ENVÍO GRATIS!!" en todas las páginas.
+- Enlaces superiores actualizados: Contáctanos → pages/contactanos.html y Sigue tu pedido → pages/sigue-tu-pedido.html.
+- Removidos accesos "Nuestras tiendas" y "Sostenibilidad" del header para evitar acciones sin destino.
+- Estado de sesión dinámico: muestra "Mi perfil" y "Cerrar sesión" cuando hay usuario en localStorage; redirige a cuenta o limpia sesión según corresponda.
+
 ## [2.0.0] - 5 Enero 2026 - FINALIZACIÓN SPRINT COMPLETO
 
 ### 🎯 Resumen Ejecutivo
