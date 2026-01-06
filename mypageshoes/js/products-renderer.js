@@ -4,6 +4,12 @@
  * Reemplaza el sistema anterior de arrays estáticos
  */
 
+const imgResolver = {
+  resolve: (path) => (window.resolveAssetPath ? window.resolveAssetPath(path) : path),
+  placeholder: () => (window.getPlaceholderImage ? window.getPlaceholderImage() : 'images/placeholder.png'),
+  product: (product, index = 0) => (window.getProductImage ? window.getProductImage(product, index) : (product?.images?.[index] || product?.images?.[0] || ''))
+};
+
 class ProductsRenderer {
   constructor() {
     this.products = [];
@@ -121,11 +127,13 @@ class ProductsRenderer {
       `<button type="button" class="talla-btn" data-size="${size}">${size}</button>`
     ).join('');
 
+    const imgSrc = imgResolver.product(product, 0) || imgResolver.placeholder();
+    const fallback = imgResolver.placeholder();
+
     card.innerHTML = `
       ${etiquetas}
-      <div class="img-container">
-        <img src="${product.images[0]}" alt="${product.name}" loading="lazy" 
-             onerror="this.src='./assets/img/placeholder.svg'; this.onerror=null;">
+      <div class="img-container product-image">
+        <img src="${imgSrc}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='${fallback}';">
       </div>
       <div class="producto-info">
         <h3>${product.name}</h3>
@@ -280,9 +288,10 @@ class ProductsRenderer {
     this.brands.forEach(brand => {
       const card = document.createElement('div');
       card.className = 'producto-card producto-card-marca';
+      const brandLogo = imgResolver.resolve(brand.logo || '');
       card.innerHTML = `
-        <div class="img-container">
-          <img src="${brand.logo}" alt="${brand.name}" loading="lazy">
+        <div class="img-container product-image">
+          <img src="${brandLogo}" alt="${brand.name}" loading="lazy" onerror="this.onerror=null; this.src='${imgResolver.placeholder()}';">
         </div>
         <div class="producto-info">
           <h3 class="marca-nombre">${brand.name}</h3>

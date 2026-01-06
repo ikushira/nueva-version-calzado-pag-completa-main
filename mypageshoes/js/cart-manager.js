@@ -8,7 +8,9 @@ class CartManager {
   constructor() {
     this.cart = [];
     this.initialized = false;
-    this.storageKey = 'mundoCalzadoCart';
+    this.storageKey = 'mundo_calzado_cart';
+    this.legacyKeys = ['mundoCalzadoCart', 'carrito'];
+    this.placeholder = window.getPlaceholderImage ? window.getPlaceholderImage() : './assets/img/placeholder.svg';
     this.listeners = [];
   }
 
@@ -79,19 +81,22 @@ class CartManager {
       // Botón eliminar producto
       if (e.target.closest('.btn-eliminar-producto')) {
         const productId = e.target.closest('.btn-eliminar-producto').dataset.productId;
-        this.removeProduct(productId);
+        const size = e.target.closest('.btn-eliminar-producto').dataset.size;
+        this.removeProduct(productId, size);
       }
 
       // Botón incrementar cantidad
       if (e.target.closest('.btn-incrementar')) {
         const productId = e.target.closest('.btn-incrementar').dataset.productId;
-        this.incrementQuantity(productId);
+        const size = e.target.closest('.btn-incrementar').dataset.size;
+        this.incrementQuantity(productId, size);
       }
 
       // Botón decrementar cantidad
       if (e.target.closest('.btn-decrementar')) {
         const productId = e.target.closest('.btn-decrementar').dataset.productId;
-        this.decrementQuantity(productId);
+        const size = e.target.closest('.btn-decrementar').dataset.size;
+        this.decrementQuantity(productId, size);
       }
     });
   }
@@ -99,21 +104,26 @@ class CartManager {
   /**
    * Agrega un producto al carrito
    */
-  addProduct(product, size = null) {
+  addProduct(product, size = null, qty = 1) {
     // Validar producto
     if (!product || !product.id) {
       console.error('❌ Producto inválido');
       return false;
     }
 
+    const quantityToAdd = qty > 0 ? qty : 1;
+    const safeSize = size || (Array.isArray(product.sizes) ? product.sizes[0] : 'Única');
+    const imageSrc = window.getProductImage ? window.getProductImage(product, 0) : (product.images ? product.images[0] : null);
+    const normalizedImage = imageSrc || this.placeholder;
+
     // Buscar si el producto ya existe con la misma talla
     const existingIndex = this.cart.findIndex(item => 
-      item.id === product.id && item.size === size
+      item.id === product.id && item.size === safeSize
     );
 
     if (existingIndex !== -1) {
       // Incrementar cantidad
-      this.cart[existingIndex].quantity++;
+      this.cart[existingIndex].quantity += quantityToAdd;
       console.log(`📦 Cantidad actualizada: ${product.name} (${this.cart[existingIndex].quantity})`);
     } else {
       // Agregar nuevo producto
@@ -121,9 +131,9 @@ class CartManager {
         id: product.id,
         name: product.name,
         price: product.price,
-        image: product.images[0],
-        size: size || product.sizes[0],
-        quantity: 1,
+        image: normalizedImage,
+        size: safeSize,
+        quantity: quantityToAdd,
         category: product.category,
         brand: product.brand
       };
@@ -144,9 +154,13 @@ class CartManager {
   /**
    * Elimina un producto del carrito
    */
-  removeProduct(productId) {
+  removeProduct(productId, size = null) {
     const initialLength = this.cart.length;
-    this.cart = this.cart.filter(item => item.id !== productId);
+    this.cart = this.cart.filter(item => {
+      if (item.id !== productId) return true;
+      if (size && item.size !== size) return true;
+      return false;
+    });
     
     if (this.cart.length < initialLength) {
       console.log(`🗑️ Producto eliminado: ${productId}`);
@@ -160,8 +174,8 @@ class CartManager {
   /**
    * Incrementa la cantidad de un producto
    */
-  incrementQuantity(productId) {
-    const item = this.cart.find(item => item.id === productId);
+  incrementQuantity(productId, size = null) {
+    const item = this.cart.find(item => item.id === productId && (!size || item.size === size));
     if (item) {
       item.quantity++;
       console.log(`➕ Cantidad incrementada: ${item.name} (${item.quantity})`);
@@ -174,8 +188,8 @@ class CartManager {
   /**
    * Decrementa la cantidad de un producto
    */
-  decrementQuantity(productId) {
-    const item = this.cart.find(item => item.id === productId);
+  decrementQuantity(productId, size = null) {
+    const item = this.cart.find(item => item.id === productId && (!size || item.size === size));
     if (item) {
       if (item.quantity > 1) {
         item.quantity--;
@@ -262,10 +276,18 @@ class CartManager {
    */
   loadFromStorage() {
     try {
-      const data = localStorage.getItem(this.storageKey);
-      if (data) {
-        this.cart = JSON.parse(data);
-        console.log(`📦 Carrito cargado: ${this.cart.length} productos`);
+      const keysToTry = [this.storageKey, ...this.legacyKeys];
+      for (const key of keysToTry) {
+        const data = localStorage.getItem(key);
+        if (data) {
+          this.cart = JSON.parse(data);
+          console.log(`📦 Carrito cargado (${key}): ${this.cart.length} productos`);
+          // Migrar al key oficial si era legacy
+          if (key !== this.storageKey) {
+            this.saveToStorage();
+          }
+          break;
+        }
       }
     } catch (error) {
       console.error('❌ Error cargando carrito:', error);
@@ -316,29 +338,62 @@ class CartManager {
 
       // Renderizar productos
       listaCarrito.innerHTML = this.cart.map(item => `
-        <div class="carrito-producto" data-product-id="${item.id}">
+        <div class="carrito-producto" data-product-id="${item.id}" data-size="${item.size}">
           <div class="carrito-producto-imagen">
-            <img src="${item.image}" alt="${item.name}" onerror="this.src='./assets/img/placeholder.jpg'">
+            <img src="${item.image || this.placeholder}" alt="${item.name}" loading="lazy" onerror="this.onerror=null; this.src='${this.placeholder}';">
           </div>
           <div class="carrito-producto-info">
             <h4 class="carrito-producto-nombre">${item.name}</h4>
-            <p class="carrito-producto-talla">Talla: ${item.size}</p>
+            <p class="carrito-producto-talla">Talla: ${item.size || 'Única'}</p>
             <p class="carrito-producto-precio">$${item.price.toLocaleString('es-CO')}</p>
           </div>
           <div class="carrito-producto-cantidad">
-            <button class="btn-cantidad btn-decrementar" data-product-id="${item.id}">-</button>
+            <button class="btn-cantidad btn-decrementar" data-product-id="${item.id}" data-size="${item.size}">-</button>
             <span class="cantidad-valor">${item.quantity}</span>
-            <button class="btn-cantidad btn-incrementar" data-product-id="${item.id}">+</button>
+            <button class="btn-cantidad btn-incrementar" data-product-id="${item.id}" data-size="${item.size}">+</button>
           </div>
           <div class="carrito-producto-subtotal">
             <p>$${(item.price * item.quantity).toLocaleString('es-CO')}</p>
           </div>
-          <button class="btn-eliminar-producto" data-product-id="${item.id}">
+          <button class="btn-eliminar-producto" data-product-id="${item.id}" data-size="${item.size}">
             <i class="fa-solid fa-trash"></i>
           </button>
         </div>
       `).join('');
     }
+  }
+
+  /**
+   * API compatible con requisitos: agrega por id/size/qty
+   */
+  addToCart(productId, size, qty = 1) {
+    const resolver = window.productsRenderer && window.productsRenderer.getProductById ? window.productsRenderer : null;
+    const product = resolver ? resolver.getProductById(productId) : null;
+    if (!product) {
+      console.error('❌ Producto no encontrado para agregar al carrito', productId);
+      return false;
+    }
+    return this.addProduct(product, size, qty);
+  }
+
+  /**
+   * Actualiza cantidad exacta del item
+   */
+  updateCartItem(productId, size, qty) {
+    const item = this.cart.find(it => it.id === productId && it.size === size);
+    if (item && qty > 0) {
+      item.quantity = qty;
+      this.saveToStorage();
+      this.updateUI();
+      this.notifyListeners();
+    }
+  }
+
+  /**
+   * Elimina item específico con talla
+   */
+  removeFromCart(productId, size) {
+    this.removeProduct(productId, size);
   }
 
   /**
@@ -460,7 +515,10 @@ if (document.readyState === 'loading') {
 
 // Función global para agregar al carrito (mantener compatibilidad)
 window.agregarAlCarrito = function(product, size) {
-  return cartManager.addProduct(product, size);
+  if (typeof product === 'object') {
+    return cartManager.addProduct(product, size);
+  }
+  return cartManager.addToCart(product, size);
 };
 
 // Exportar para uso global
