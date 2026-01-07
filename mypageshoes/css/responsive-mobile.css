@@ -569,7 +569,8 @@ img {
 
 /* ===== LOADING Y PERFORMANCE ===== */
 
-/* Lazy loading para imágenes */
+/* Lazy loading para imágenes - DESHABILITADO para evitar problemas de visibilidad */
+/*
 img[loading="lazy"] {
   opacity: 0;
   transition: opacity 0.3s;
@@ -578,6 +579,7 @@ img[loading="lazy"] {
 img[loading="lazy"].loaded {
   opacity: 1;
 }
+*/
 
 /* ===== ACCESIBILIDAD MÓVIL ===== */
 

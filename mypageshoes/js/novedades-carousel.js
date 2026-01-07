@@ -7,8 +7,54 @@ window.addEventListener('DOMContentLoaded', function() {
   const nextBtn = document.getElementById('novedades-carousel-next');
   const indicators = document.getElementById('novedades-carousel-indicators');
 
-  if (!novedadesCarousel || typeof imagenesCarrusel2 === 'undefined' || !Array.isArray(imagenesCarrusel2) || imagenesCarrusel2.length === 0) {
-    console.error('Novedades: No se encontró el contenedor o la lista de imágenes está vacía.');
+  if (!novedadesCarousel) {
+    console.error('Novedades: No se encontró el contenedor del carrusel.');
+    return;
+  }
+
+  // Verificar si ya hay slides en el HTML (fallback estático)
+  let slides = novedadesCarousel.querySelectorAll('.novedades-slide');
+  let dots = indicators ? indicators.querySelectorAll('.novedades-indicator') : [];
+  
+  if (slides.length > 0) {
+    console.log('✅ Novedades: Usando slides estáticos del HTML:', slides.length);
+    
+    let current = 0;
+    
+    function goToSlide(idx) {
+      slides[current].style.display = 'none';
+      if (dots[current]) dots[current].classList.remove('active');
+      current = idx;
+      slides[current].style.display = 'flex';
+      if (dots[current]) dots[current].classList.add('active');
+    }
+    
+    function nextSlide() {
+      goToSlide((current + 1) % slides.length);
+    }
+    function prevSlide() {
+      goToSlide((current - 1 + slides.length) % slides.length);
+    }
+    
+    // Agregar listeners a indicadores
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => goToSlide(idx));
+    });
+    
+    if (nextBtn) nextBtn.onclick = nextSlide;
+    if (prevBtn) prevBtn.onclick = prevSlide;
+    
+    // Autoplay
+    let autoplay = setInterval(nextSlide, 5000);
+    novedadesCarousel.addEventListener('mouseenter', () => clearInterval(autoplay));
+    novedadesCarousel.addEventListener('mouseleave', () => { autoplay = setInterval(nextSlide, 5000); });
+    
+    return; // Salir, ya usamos el HTML estático
+  }
+
+  // Si no hay slides estáticos, intentar generar dinámicamente
+  if (typeof imagenesCarrusel2 === 'undefined' || !Array.isArray(imagenesCarrusel2) || imagenesCarrusel2.length === 0) {
+    console.error('Novedades: No hay slides estáticos ni lista de imágenes disponible.');
     return;
   }
 
@@ -39,20 +85,6 @@ window.addEventListener('DOMContentLoaded', function() {
         <div class="producto-info" style="padding:0 12px 18px 12px;display:flex;flex-direction:column;align-items:center;">
           <h3 class="producto-nombre" style="margin-bottom:8px;font-size:1.15rem;font-weight:700;color:#232323;text-align:center;">Producto ${idx+1}</h3>
           <p class="producto-precio" style="margin-bottom:12px;color:#0d6efd;font-weight:bold;font-size:1.1rem;text-align:center;">$129.900</p>
-          <div class="producto-tallas" style="margin-bottom:12px;width:100%;">
-            <div class="tallas-label" style="margin-bottom:6px;font-size:0.98rem;color:#555;text-align:left;">Selecciona tu talla:</div>
-            <div class="tallas-list" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:8px;">
-              <button type="button" class="talla-btn">35</button>
-              <button type="button" class="talla-btn">36</button>
-              <button type="button" class="talla-btn">37</button>
-              <button type="button" class="talla-btn">38</button>
-              <button type="button" class="talla-btn">39</button>
-              <button type="button" class="talla-btn">40</button>
-              <button type="button" class="talla-btn">41</button>
-              <button type="button" class="talla-btn">42</button>
-            </div>
-            <button type="button" class="btn-guia-tallas" style="width:100%;margin-bottom:0;">Guía de tallas</button>
-          </div>
           <button class="btn-add-cart" style="width:100%;margin-top:auto;">Añadir al carrito</button>
         </div>
       `;
@@ -62,17 +94,19 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   // Renderizar indicadores
-  indicators.innerHTML = '';
-  for (let i = 0; i < totalSlides; i++) {
-    const dot = document.createElement('span');
-    dot.className = 'novedades-indicator' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goToSlide(i));
-    indicators.appendChild(dot);
+  if (indicators) {
+    indicators.innerHTML = '';
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.className = 'novedades-indicator' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goToSlide(i));
+      indicators.appendChild(dot);
+    }
   }
 
   let current = 0;
-  const slides = novedadesCarousel.querySelectorAll('.novedades-slide');
-  const dots = indicators.querySelectorAll('.novedades-indicator');
+  slides = novedadesCarousel.querySelectorAll('.novedades-slide');
+  dots = indicators ? indicators.querySelectorAll('.novedades-indicator') : [];
 
   function goToSlide(idx) {
     slides[current].style.display = 'none';

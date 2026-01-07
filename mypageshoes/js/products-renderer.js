@@ -106,7 +106,7 @@ class ProductsRenderer {
       etiquetas += `<span class="etiqueta-oferta">-${product.discount}%</span>`;
     }
     if (product.freeShipping) {
-      etiquetas += '<span class="etiqueta-envio">*ENVÍO GRATIS <i class="fa-solid fa-rocket"></i></span>';
+      etiquetas += '<span class="etiqueta-envio">ENVIO GRATIS X 2 PARES! <i class="fa-solid fa-rocket"></i></span>';
     }
 
     // Precio con descuento
@@ -143,7 +143,7 @@ class ProductsRenderer {
           <div class="tallas-list">
             ${tallasHTML}
           </div>
-          <button type="button" class="btn-guia-tallas">Guía de tallas</button>
+          <button type="button" class="btn-guia-tallas">Guia de tallas</button>
         </div>
         <button class="btn-add-cart" data-product-id="${product.id}">Añadir al carrito</button>
       </div>

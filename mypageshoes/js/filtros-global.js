@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var f = filtro.toLowerCase();
         
         // Categorías principales
-        if (["hombres","mujeres","niñas","niños","colegiales","dotación","nuevos","ofertas","marcas"].some(s=>f.includes(s.replace('ñ','n')))) {
+        if (["hombres","mujeres","ninas","ninos","colegiales","dotacion","nuevos","ofertas","marcas"].some(s=>f.includes(s.replace('ñ','n')))) {
           destino = secciones.find(s=>f.includes(s.nombre));
         } 
         // Subcategorías de productos

@@ -1,0 +1,332 @@
+/**
+ * cart-display-fix.css
+ * Fix definitivo para visualización correcta de productos en el carrito
+ * Este archivo debe cargarse AL FINAL de todos los CSS del carrito
+ */
+
+/* IMPORTANTE: Forzar visualización de productos en el carrito */
+
+/* Contenedor de productos del carrito */
+.carrito-lista {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  max-height: calc(100vh - 350px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+/* Cada producto en el carrito */
+.carrito-producto {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 8px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.carrito-producto:hover {
+  background-color: #f9f9f9;
+}
+
+/* Imagen del producto - VISIBLE */
+.carrito-producto-imagen {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex-shrink: 0;
+  width: 70px;
+  height: 70px;
+  min-width: 70px;
+  min-height: 70px;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+}
+
+.carrito-producto-imagen img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Información del producto - VISIBLE */
+.carrito-producto-info {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Nombre del producto - VISIBLE */
+.carrito-producto-nombre {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Talla del producto - VISIBLE */
+.carrito-producto-talla {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-size: 12px;
+  color: #666;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+/* Precio del producto - VISIBLE */
+.carrito-producto-precio {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff0000;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Controles de cantidad - VISIBLE */
+.carrito-producto-cantidad {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-cantidad {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-cantidad:hover {
+  background-color: #ff0000;
+  color: #fff;
+  border-color: #ff0000;
+}
+
+.cantidad-valor {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-width: 24px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Subtotal del producto - VISIBLE */
+.carrito-producto-subtotal {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex-shrink: 0;
+  text-align: right;
+  min-width: 70px;
+}
+
+.carrito-producto-subtotal p {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Botón eliminar - VISIBLE */
+.btn-eliminar-producto {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background-color: transparent;
+  color: #999;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-eliminar-producto:hover {
+  background-color: #ffe0e0;
+  color: #ff0000;
+}
+
+.btn-eliminar-producto i {
+  font-size: 14px;
+}
+
+/* Sección de totales - VISIBLE */
+.carrito-total {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  padding: 15px 8px 0 8px;
+  margin: 0;
+  border-top: 2px solid #e0e0e0;
+}
+
+.carrito-resumen {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin: 0 0 15px 0;
+}
+
+.carrito-linea {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 14px;
+}
+
+.carrito-total-final {
+  font-size: 16px;
+  font-weight: 700;
+  padding-top: 10px;
+  margin-top: 8px;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Mensaje de envío gratis */
+.envio-gratis-mensaje {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-align: center;
+  margin: 8px 0;
+}
+
+/* Botón IR A PAGAR */
+.btn-ir-pagar {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100%;
+  padding: 12px;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.btn-ir-pagar:hover {
+  background-color: #cc0000;
+}
+
+.btn-ir-pagar i {
+  margin-right: 8px;
+}
+
+/* Responsive para móviles */
+@media (max-width: 576px) {
+  .carrito-producto {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .carrito-producto-imagen {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+  }
+  
+  .carrito-producto-info {
+    flex: 1;
+    min-width: calc(100% - 80px);
+  }
+  
+  .carrito-producto-cantidad {
+    flex-basis: 100%;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  
+  .carrito-producto-subtotal {
+    flex-basis: auto;
+    margin-top: 8px;
+  }
+}
+
+/* Asegurar que no haya elementos ocultos por otros CSS */
+.carrito-producto *,
+.carrito-producto-imagen *,
+.carrito-producto-info *,
+.carrito-producto-nombre,
+.carrito-producto-talla,
+.carrito-producto-precio {
+  max-width: 100%;
+}
+
+/* Prevenir colapso de flex items */
+.carrito-producto > * {
+  flex-shrink: 0;
+}
+
+.carrito-producto-info {
+  flex-shrink: 1;
+  flex-grow: 1;
+}

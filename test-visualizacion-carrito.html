@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Visualización Carrito</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #ff0000;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+    .test-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      background: white;
+    }
+    .test-imagen {
+      flex-shrink: 0;
+      width: 70px;
+      height: 70px;
+      min-width: 70px;
+      min-height: 70px;
+      border-radius: 6px;
+      overflow: hidden;
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .test-imagen img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .test-info {
+      flex: 1;
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .test-nombre {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .test-talla {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+    .test-precio {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ff0000;
+    }
+    .status {
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .status.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+    }
+    .info {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .info strong {
+      color: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 Test de Visualización del Carrito</h1>
+    
+    <div id="status" class="status">Cargando...</div>
+    
+    <!-- Test Item 1 -->
+    <div class="test-item">
+      <div class="test-imagen">
+        <img src="images/placeholder.jpg" alt="Producto Test 1" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23ddd%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23999%22%3ESin imagen%3C/text%3E%3C/svg%3E'">
+      </div>
+      <div class="test-info">
+        <h4 class="test-nombre">Zapato Nike Air Max</h4>
+        <p class="test-talla">Talla: 36</p>
+        <p class="test-precio">$129.900</p>
+      </div>
+    </div>
+    
+    <!-- Test Item 2 -->
+    <div class="test-item">
+      <div class="test-imagen">
+        <img src="images/placeholder.jpg" alt="Producto Test 2" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23ddd%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23999%22%3ESin imagen%3C/text%3E%3C/svg%3E'">
+      </div>
+      <div class="test-info">
+        <h4 class="test-nombre">Bota Adidas Predator</h4>
+        <p class="test-talla">Talla: 42</p>
+        <p class="test-precio">$259.900</p>
+      </div>
+    </div>
+    
+    <div class="info">
+      <strong>✅ Qué debes ver:</strong><br>
+      • Dos productos con cuadros de imagen (70x70px)<br>
+      • Nombres visibles: "Zapato Nike Air Max" y "Bota Adidas Predator"<br>
+      • Tallas y precios claramente visibles<br><br>
+      
+      <strong>❌ Si NO lo ves:</strong><br>
+      • Hay un conflicto de CSS en tu navegador<br>
+      • Intenta abrir en modo incógnito<br>
+      • Limpia caché completamente
+    </div>
+  </div>
+  
+  <script>
+    // Verificar que todo es visible
+    setTimeout(() => {
+      const imagenes = document.querySelectorAll('.test-imagen');
+      const nombres = document.querySelectorAll('.test-nombre');
+      const statusEl = document.getElementById('status');
+      
+      let allVisible = true;
+      let issues = [];
+      
+      imagenes.forEach((img, i) => {
+        const computed = window.getComputedStyle(img);
+        if (computed.display === 'none' || computed.visibility === 'hidden' || computed.opacity === '0') {
+          allVisible = false;
+          issues.push(`Imagen ${i+1} oculta`);
+        }
+      });
+      
+      nombres.forEach((nombre, i) => {
+        const computed = window.getComputedStyle(nombre);
+        if (computed.display === 'none' || computed.visibility === 'hidden' || computed.opacity === '0') {
+          allVisible = false;
+          issues.push(`Nombre ${i+1} oculto`);
+        }
+      });
+      
+      if (allVisible) {
+        statusEl.className = 'status success';
+        statusEl.textContent = '✅ TODO SE VE CORRECTAMENTE - El carrito debería funcionar';
+        console.log('✅ Test exitoso - Todos los elementos visibles');
+      } else {
+        statusEl.className = 'status error';
+        statusEl.textContent = '❌ PROBLEMA DETECTADO: ' + issues.join(', ');
+        console.error('❌ Problemas:', issues);
+      }
+      
+      // Log de estilos computados
+      console.log('=== ESTILOS COMPUTADOS ===');
+      imagenes.forEach((img, i) => {
+        const computed = window.getComputedStyle(img);
+        console.log(`Imagen ${i+1}:`, {
+          display: computed.display,
+          visibility: computed.visibility,
+          opacity: computed.opacity,
+          width: computed.width,
+          height: computed.height
+        });
+      });
+      
+      nombres.forEach((nombre, i) => {
+        const computed = window.getComputedStyle(nombre);
+        console.log(`Nombre ${i+1}:`, {
+          display: computed.display,
+          visibility: computed.visibility,
+          opacity: computed.opacity
+        });
+      });
+    }, 100);
+  </script>
+</body>
+</html>

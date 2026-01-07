@@ -82,7 +82,13 @@ class CookieConsent {
   }
 
   showBanner() {
-    const banner = document.createElement('div');
+    // Verificar si el banner ya existe
+    let banner = document.getElementById('cookie-consent-banner');
+    if (banner) {
+      banner.remove();
+    }
+    
+    banner = document.createElement('div');
     banner.id = 'cookie-consent-banner';
     banner.className = 'cookie-banner';
     banner.innerHTML = `
@@ -91,7 +97,7 @@ class CookieConsent {
           <h3>🍪 Cookies y Privacidad</h3>
           <p>Usamos cookies para mejorar tu experiencia de compra, recordar tu sesión y analizar el uso del sitio. 
           Al hacer clic en "Aceptar", aceptas el uso de cookies según nuestra 
-          <a href="pages/politicas.html" target="_blank">Política de Privacidad</a>.</p>
+          <a href="mypageshoes/pages/politicas.html" target="_blank">Política de Privacidad</a>.</p>
         </div>
         <div class="cookie-banner-actions">
           <button id="cookie-reject" class="cookie-btn cookie-btn-secondary">Rechazar</button>
@@ -102,10 +108,16 @@ class CookieConsent {
     `;
 
     document.body.appendChild(banner);
+    console.log('🍪 Banner de cookies mostrado');
+    
+    // Vincular eventos antes de animar
     this.bindBannerEvents();
 
     // Animar entrada
-    setTimeout(() => banner.classList.add('show'), 100);
+    setTimeout(() => {
+      banner.classList.add('show');
+      console.log('✨ Banner animado');
+    }, 100);
   }
 
   showPreferences() {
@@ -181,31 +193,56 @@ class CookieConsent {
   }
 
   bindBannerEvents() {
-    document.getElementById('cookie-accept').addEventListener('click', () => {
-      this.saveConsent(true);
-      this.removeBanner();
-    });
-
-    document.getElementById('cookie-reject').addEventListener('click', () => {
-      this.saveConsent(false, {
-        necessary: true,
-        analytics: false,
-        marketing: false
+    const acceptBtn = document.getElementById('cookie-accept');
+    const rejectBtn = document.getElementById('cookie-reject');
+    const preferencesBtn = document.getElementById('cookie-preferences');
+    
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', () => {
+        console.log('✅ Usuario aceptó todas las cookies');
+        this.saveConsent(true);
+        this.removeBanner();
       });
-      this.removeBanner();
-    });
+    }
 
-    document.getElementById('cookie-preferences').addEventListener('click', () => {
-      this.showPreferences();
-    });
+    if (rejectBtn) {
+      rejectBtn.addEventListener('click', () => {
+        console.log('❌ Usuario rechazó cookies opcionales');
+        this.saveConsent(false, {
+          necessary: true,
+          analytics: false,
+          marketing: false
+        });
+        this.removeBanner();
+      });
+    }
+
+    if (preferencesBtn) {
+      preferencesBtn.addEventListener('click', () => {
+        console.log('⚙️ Usuario abre preferencias');
+        this.showPreferences();
+      });
+    }
   }
 
   removeBanner() {
     const banner = document.getElementById('cookie-consent-banner');
     if (banner) {
+      console.log('🗑️ Ocultando banner de cookies');
       banner.classList.remove('show');
-      setTimeout(() => banner.remove(), 300);
+      setTimeout(() => {
+        banner.remove();
+        console.log('✅ Banner removido del DOM');
+      }, 300);
     }
+  }
+
+  // Método para resetear consentimiento (útil para testing)
+  resetConsent() {
+    localStorage.removeItem(this.consentKey);
+    localStorage.removeItem(this.preferencesKey);
+    console.log('🔄 Consentimiento de cookies reseteado');
+    this.showBanner();
   }
 }
 

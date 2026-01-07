@@ -1,5 +1,5 @@
-﻿// Lista de imágenes para la sección Niños
-// Agrega aquí las rutas de las imágenes de productos para niños
+﻿// Lista de imágenes para la sección Ninos
+// Agrega aquí las rutas de las imágenes de productos para ninos
 
 const imagenesNinos = [
   './assets/img/calzninos/n1.jpeg',

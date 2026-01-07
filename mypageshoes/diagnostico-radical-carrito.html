@@ -2,8 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnóstico Radical del Carrito</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">>
+  <title>Diagn�stico Radical del Carrito</title>
+  
+  <link rel="stylesheet" href="css/responsive-viewport.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/standardized-cards.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -113,15 +115,15 @@
         <button id="cerrar-carrito" class="cerrar-carrito">&times;</button>
       </div>
       <div id="carrito-lista" class="carrito-lista">
-        <!-- Aquí se mostrarán los productos del carrito -->
+        <!-- Aqu� se mostrar�n los productos del carrito -->
       </div>
       <div id="carrito-vacio" class="carrito-vacio">
-        <!-- Usamos un icono visual para representar el carrito vacío -->
+        <!-- Usamos un icono visual para representar el carrito vac�o -->
         <div class="carrito-vacio-icon">
           <i class="fa-solid fa-box-open fa-4x carrito-vacio-icon-color"></i>
         </div>
-        <p class="carrito-vacio-txt">Tu carrito está vacío</p>
-        <p class="carrito-vacio-desc">Aún no tienes artículos en tu carrito de compra.</p>
+        <p class="carrito-vacio-txt">Tu carrito est� vac�o</p>
+        <p class="carrito-vacio-desc">A�n no tienes art�culos en tu carrito de compra.</p>
         <button id="btn-elegir-productos" class="btn-elegir-productos"><i class="fa-solid fa-shoe-prints"></i> Explorar productos</button>
       </div>
       <div id="carrito-total" class="carrito-total oculto">
@@ -132,8 +134,8 @@
   </div>
 
   <div class="container">
-    <h1>Diagnóstico Radical del Carrito</h1>
-    <p>Esta página permite verificar que el carrito funcione correctamente con la nueva solución radical.</p>
+    <h1>Diagn�stico Radical del Carrito</h1>
+    <p>Esta p�gina permite verificar que el carrito funcione correctamente con la nueva soluci�n radical.</p>
     
     <div class="card">
       <h2>Controles del carrito</h2>
@@ -159,7 +161,7 @@
     </div>
     
     <h2>Productos de prueba</h2>
-    <p>Haz clic en "Añadir al carrito" para probar la solución radical. Selecciona una talla primero:</p>
+    <p>Haz clic en "A�adir al carrito" para probar la soluci�n radical. Selecciona una talla primero:</p>
     
     <div class="productos-test">
       <!-- Producto de prueba 1 -->
@@ -178,7 +180,7 @@
               <button type="button" class="talla-btn">40</button>
             </div>
           </div>
-          <button class="btn-add-cart">Añadir al carrito</button>
+          <button class="btn-add-cart">A�adir al carrito</button>
         </div>
       </div>
       
@@ -198,7 +200,7 @@
               <button type="button" class="talla-btn">37</button>
             </div>
           </div>
-          <button class="btn-add-cart">Añadir al carrito</button>
+          <button class="btn-add-cart">A�adir al carrito</button>
         </div>
       </div>
     </div>
@@ -206,7 +208,7 @@
     <div class="card">
       <h2>Registro de actividad</h2>
       <div class="log-container" id="log-container">
-        <div class="log-entry">Iniciando diagnóstico del carrito...</div>
+        <div class="log-entry">Iniciando diagn�stico del carrito...</div>
       </div>
     </div>
     
@@ -218,7 +220,7 @@
   </div>
   
   <script>
-    // Funciones para el diagnóstico
+    // Funciones para el diagn�stico
     document.addEventListener('DOMContentLoaded', function() {
       const logContainer = document.getElementById('log-container');
       const carritoStatus = document.getElementById('carrito-status');
@@ -227,7 +229,7 @@
       const btnInfo = document.getElementById('btn-info');
       const btnDetectarDuplicados = document.getElementById('btn-detectar-duplicados');
       
-      // Función para agregar mensaje al log
+      // Funci�n para agregar mensaje al log
       function log(mensaje, tipo = 'info') {
         const tiempo = new Date().toLocaleTimeString();
         const entry = document.createElement('div');
@@ -251,20 +253,20 @@
         log(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '), 'error');
       };
       
-      // Función para actualizar estado del carrito
+      // Funci�n para actualizar estado del carrito
       function actualizarEstadoCarrito() {
         if (window.carrito) {
           carritoStatus.innerHTML = `
             <p><strong>Productos en carrito:</strong> ${window.carrito.length}</p>
-            <p><strong>Inicializado:</strong> ${window.carritoInicializado ? 'Sí' : 'No'}</p>
-            <p><strong>Fix radical aplicado:</strong> ${window.manejarClickBotones ? 'Sí' : 'No'}</p>
+            <p><strong>Inicializado:</strong> ${window.carritoInicializado ? 'S�' : 'No'}</p>
+            <p><strong>Fix radical aplicado:</strong> ${window.manejarClickBotones ? 'S�' : 'No'}</p>
           `;
         } else {
-          carritoStatus.innerHTML = '<p class="error">El carrito no está disponible</p>';
+          carritoStatus.innerHTML = '<p class="error">El carrito no est� disponible</p>';
         }
       }
       
-      // Función para verificar scripts cargados
+      // Funci�n para verificar scripts cargados
       function verificarScriptsCargados() {
         const scripts = document.querySelectorAll('script');
         let tieneCarrito = false;
@@ -276,12 +278,12 @@
         });
         
         scriptsStatus.innerHTML = `
-          <p><strong>carrito.js:</strong> ${tieneCarrito ? '✅ Cargado' : '❌ No cargado'}</p>
-          <p><strong>carrito-fix-radical.js:</strong> ${tieneFixRadical ? '✅ Cargado' : '❌ No cargado'}</p>
+          <p><strong>carrito.js:</strong> ${tieneCarrito ? '? Cargado' : '? No cargado'}</p>
+          <p><strong>carrito-fix-radical.js:</strong> ${tieneFixRadical ? '? Cargado' : '? No cargado'}</p>
         `;
       }
       
-      // Botón para vaciar carrito
+      // Bot�n para vaciar carrito
       if (btnVaciar) {
         btnVaciar.addEventListener('click', function() {
           log('Vaciando carrito...');
@@ -297,10 +299,10 @@
         });
       }
       
-      // Botón para mostrar info del carrito
+      // Bot�n para mostrar info del carrito
       if (btnInfo) {
         btnInfo.addEventListener('click', function() {
-          log('Obteniendo información del carrito...');
+          log('Obteniendo informaci�n del carrito...');
           if (window.carrito) {
             log(`Contenido del carrito: ${JSON.stringify(window.carrito)}`, 'info');
             
@@ -312,12 +314,12 @@
             log(`Cantidad total de items: ${cantidadTotal}`, 'info');
             log(`Valor total: $${valorTotal.toLocaleString('es-CO')}`, 'info');
           } else {
-            log('No se pudo obtener información: carrito no encontrado', 'error');
+            log('No se pudo obtener informaci�n: carrito no encontrado', 'error');
           }
         });
       }
       
-      // Botón para detectar duplicados
+      // Bot�n para detectar duplicados
       if (btnDetectarDuplicados) {
         btnDetectarDuplicados.addEventListener('click', function() {
           log('Buscando productos duplicados...');
@@ -345,7 +347,7 @@
       }
       
       // Inicializar
-      log('Página de diagnóstico cargada', 'info');
+      log('P�gina de diagn�stico cargada', 'info');
       verificarScriptsCargados();
       
       // Verificar estado del carrito cada segundo por un tiempo
@@ -368,3 +370,6 @@
   <script src="js/chatbot.js"></script>
 </body>
 </html>
+
+
+

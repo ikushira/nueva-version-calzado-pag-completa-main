@@ -2,8 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnóstico de Tarjetas de Productos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">>
+  <title>Diagn�stico de Tarjetas de Productos</title>
+  
+  <link rel="stylesheet" href="css/responsive-viewport.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/standardized-cards.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -76,10 +78,10 @@
 </head>
 <body>
   <div class="diagnostico-container">
-    <h1 class="diagnostico-titulo">Diagnóstico de Tarjetas de Productos</h1>
+    <h1 class="diagnostico-titulo">Diagn�stico de Tarjetas de Productos</h1>
     
     <div class="diagnostico-seccion">
-      <h2 class="diagnostico-titulo">Análisis de CSS Cargados</h2>
+      <h2 class="diagnostico-titulo">An�lisis de CSS Cargados</h2>
       <div class="diagnostico-info">
         <h3>Archivos CSS detectados:</h3>
         <div id="css-list"></div>
@@ -107,7 +109,7 @@
                     <button type="button" class="talla-btn">40</button>
                   </div>
                 </div>
-                <button class="btn-add-cart">Añadir al carrito</button>
+                <button class="btn-add-cart">A�adir al carrito</button>
               </div>
             </div>
           </div>
@@ -121,22 +123,22 @@
     </div>
     
     <div class="diagnostico-seccion">
-      <h2 class="diagnostico-titulo">Tarjetas Dinámicas</h2>
-      <p>Se cargarán 3 tarjetas dinámicamente como en las páginas de productos:</p>
+      <h2 class="diagnostico-titulo">Tarjetas Din�micas</h2>
+      <p>Se cargar�n 3 tarjetas din�micamente como en las p�ginas de productos:</p>
       <div id="tarjetas-dinamicas" class="catalogo-container">
-        <!-- Las tarjetas se cargarán dinámicamente -->
+        <!-- Las tarjetas se cargar�n din�micamente -->
       </div>
     </div>
 
     <div class="diagnostico-seccion">
-      <h2 class="diagnostico-titulo">Enlaces a Páginas de Productos</h2>
-      <p>Comprueba cómo se ven las tarjetas en las diferentes páginas:</p>
+      <h2 class="diagnostico-titulo">Enlaces a P�ginas de Productos</h2>
+      <p>Comprueba c�mo se ven las tarjetas en las diferentes p�ginas:</p>
       <a href="../index.html" class="btn-link">Inicio</a>
       <a href="hombres.html" class="btn-link">Hombres</a>
       <a href="mujeres.html" class="btn-link">Mujeres</a>
       <a href="accesorios.html" class="btn-link">Accesorios</a>
-      <a href="ninos.html" class="btn-link">Niños</a>
-      <a href="ninas.html" class="btn-link">Niñas</a>
+      <a href="ninos.html" class="btn-link">Ni�os</a>
+      <a href="ninas.html" class="btn-link">Ni�as</a>
     </div>
   </div>
   
@@ -190,7 +192,7 @@ object-fit: ${imagenEstilos.objectFit}
         `;
       }, 500);
       
-      // Cargar tarjetas dinámicamente
+      // Cargar tarjetas din�micamente
       const tarjetasDinamicas = document.getElementById('tarjetas-dinamicas');
       
       for (let i = 1; i <= 3; i++) {
@@ -198,10 +200,10 @@ object-fit: ${imagenEstilos.objectFit}
         card.className = 'producto-card';
         card.innerHTML = `
           <div class="img-container">
-            <img src="assets/img/calzhombres/${i+5}.jpeg" alt="Zapato Dinámico ${i}" loading="lazy" />
+            <img src="assets/img/calzhombres/${i+5}.jpeg" alt="Zapato Din�mico ${i}" loading="lazy" />
           </div>
           <div class="producto-info">
-            <h3>Zapato Dinámico ${i}</h3>
+            <h3>Zapato Din�mico ${i}</h3>
             <p class="producto-precio">$75.000</p>
             <div class="producto-tallas">
               <div class="tallas-label">Selecciona tu talla:</div>
@@ -211,7 +213,7 @@ object-fit: ${imagenEstilos.objectFit}
                 <button type="button" class="talla-btn">40</button>
               </div>
             </div>
-            <button class="btn-add-cart">Añadir al carrito</button>
+            <button class="btn-add-cart">A�adir al carrito</button>
           </div>
         `;
         tarjetasDinamicas.appendChild(card);
@@ -228,3 +230,6 @@ object-fit: ${imagenEstilos.objectFit}
   <script src="js/chatbot.js"></script>
 </body>
 </html>
+
+
+

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug Carrito - Ver Datos</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      background: #1e1e1e;
+      color: #d4d4d4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #252526;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    h1 {
+      color: #4ec9b0;
+      border-bottom: 2px solid #4ec9b0;
+      padding-bottom: 10px;
+    }
+    .section {
+      margin: 20px 0;
+      padding: 15px;
+      background: #1e1e1e;
+      border-left: 3px solid #569cd6;
+      border-radius: 4px;
+    }
+    .section h2 {
+      color: #569cd6;
+      margin-top: 0;
+    }
+    pre {
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      color: #ce9178;
+    }
+    .warning {
+      background: #332200;
+      border-left-color: #dcdcaa;
+      color: #dcdcaa;
+    }
+    .error {
+      background: #330000;
+      border-left-color: #f48771;
+      color: #f48771;
+    }
+    .success {
+      background: #003300;
+      border-left-color: #4ec9b0;
+      color: #4ec9b0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #3e3e42;
+    }
+    th {
+      background: #094771;
+      color: #fff;
+    }
+    img {
+      border: 1px solid #569cd6;
+      border-radius: 4px;
+    }
+    button {
+      background: #0e639c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover {
+      background: #1177bb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Debug del Carrito - Análisis Completo</h1>
+    
+    <div class="section">
+      <h2>📦 Contenido del localStorage</h2>
+      <div id="localStorage-content"></div>
+    </div>
+    
+    <div class="section">
+      <h2>🖼️ Análisis de Imágenes</h2>
+      <div id="image-analysis"></div>
+    </div>
+    
+    <div class="section">
+      <h2>📊 Tabla de Productos</h2>
+      <div id="products-table"></div>
+    </div>
+    
+    <div class="section">
+      <h2>🎨 Vista Previa Visual</h2>
+      <div id="visual-preview"></div>
+    </div>
+    
+    <div class="section">
+      <button onclick="limpiarCarrito()">🗑️ Limpiar Carrito</button>
+      <button onclick="location.reload()">🔄 Recargar</button>
+      <button onclick="copiarJSON()">📋 Copiar JSON</button>
+    </div>
+  </div>
+  
+  <script>
+    function analizarCarrito() {
+      const data = localStorage.getItem('mundo_calzado_cart');
+      const containerLS = document.getElementById('localStorage-content');
+      const containerImg = document.getElementById('image-analysis');
+      const containerTable = document.getElementById('products-table');
+      const containerPreview = document.getElementById('visual-preview');
+      
+      if (!data) {
+        containerLS.innerHTML = '<p class="warning">⚠️ No hay datos en localStorage</p>';
+        return;
+      }
+      
+      try {
+        const cart = JSON.parse(data);
+        
+        // Mostrar JSON
+        containerLS.innerHTML = `
+          <div class="success">✅ Datos encontrados (${cart.length} productos)</div>
+          <pre>${JSON.stringify(cart, null, 2)}</pre>
+        `;
+        
+        // Análisis de imágenes
+        let imgAnalysis = '<table><tr><th>Producto</th><th>Ruta de Imagen</th><th>Estado</th><th>Preview</th></tr>';
+        
+        cart.forEach((item, i) => {
+          const hasImage = item.image && item.image.trim() !== '';
+          const imgSrc = hasImage ? item.image : 'Sin imagen';
+          const status = hasImage ? '✅ OK' : '❌ FALTA';
+          
+          imgAnalysis += `
+            <tr>
+              <td>${item.name || 'Sin nombre'}</td>
+              <td><code>${imgSrc}</code></td>
+              <td>${status}</td>
+              <td>${hasImage ? `<img src="${item.image}" width="50" height="50" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2250%22 height=%2250%22%3E%3Crect fill=%22%23f00%22 width=%2250%22 height=%2250%22/%3E%3C/svg%3E'">` : 'N/A'}</td>
+            </tr>
+          `;
+        });
+        
+        imgAnalysis += '</table>';
+        containerImg.innerHTML = imgAnalysis;
+        
+        // Tabla de productos
+        let productTable = '<table><tr><th>ID</th><th>Nombre</th><th>Talla</th><th>Precio</th><th>Cant.</th></tr>';
+        
+        cart.forEach(item => {
+          productTable += `
+            <tr>
+              <td>${item.id || 'N/A'}</td>
+              <td>${item.name || 'Sin nombre'}</td>
+              <td>${item.size || 'N/A'}</td>
+              <td>$${(item.price || 0).toLocaleString('es-CO')}</td>
+              <td>${item.quantity || 0}</td>
+            </tr>
+          `;
+        });
+        
+        productTable += '</table>';
+        containerTable.innerHTML = productTable;
+        
+        // Vista previa visual
+        let preview = '';
+        cart.forEach(item => {
+          preview += `
+            <div style="display: flex; gap: 12px; padding: 12px; background: #1e1e1e; margin: 10px 0; border-radius: 6px;">
+              <div style="width: 70px; height: 70px; background: #333; border-radius: 6px; overflow: hidden; flex-shrink: 0;">
+                ${item.image ? `<img src="${item.image}" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.background='#f00'">` : '<div style="width: 100%; height: 100%; background: #666; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px;">Sin imagen</div>'}
+              </div>
+              <div style="flex: 1;">
+                <h4 style="margin: 0 0 5px 0; color: #4ec9b0;">${item.name || 'Sin nombre'}</h4>
+                <p style="margin: 0; color: #808080; font-size: 12px;">Talla: ${item.size || 'N/A'}</p>
+                <p style="margin: 0; color: #ce9178; font-weight: bold;">$${(item.price || 0).toLocaleString('es-CO')}</p>
+              </div>
+              <div style="color: #569cd6; font-weight: bold;">x${item.quantity || 0}</div>
+            </div>
+          `;
+        });
+        
+        containerPreview.innerHTML = preview || '<p class="warning">No hay productos para mostrar</p>';
+        
+      } catch (e) {
+        containerLS.innerHTML = `<p class="error">❌ Error al parsear JSON: ${e.message}</p>`;
+        console.error('Error:', e);
+      }
+    }
+    
+    function limpiarCarrito() {
+      if (confirm('¿Seguro que quieres limpiar el carrito?')) {
+        localStorage.removeItem('mundo_calzado_cart');
+        location.reload();
+      }
+    }
+    
+    function copiarJSON() {
+      const data = localStorage.getItem('mundo_calzado_cart');
+      if (data) {
+        navigator.clipboard.writeText(data).then(() => {
+          alert('✅ JSON copiado al portapapeles');
+        });
+      }
+    }
+    
+    // Ejecutar al cargar
+    analizarCarrito();
+  </script>
+</body>
+</html>

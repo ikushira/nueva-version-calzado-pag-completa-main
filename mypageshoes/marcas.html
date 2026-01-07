@@ -2,8 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">>
   <title>Mundo Calzado | Marcas</title>
+  
+  <link rel="stylesheet" href="css/responsive-viewport.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/standardized-cards.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -16,32 +18,32 @@
   <link rel="stylesheet" href="css/footer-enhanced.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/image-size-fix.css">
+    <link rel="stylesheet" href="css/image-size-fix.css">
   <link rel="stylesheet" href="css/chatbot.css">
   <link rel="stylesheet" href="css/responsive-mobile.css">
   <link rel="stylesheet" href="css/mobile-navigation.css">
-  <link rel="stylesheet" href="css/carrito-mobile-improvements.css">
+  <link rel="stylesheet" href="css/carrito-mobile-improvements.css">`n  <link rel="stylesheet" href="css/cart-display-fix.css">`n  <link rel="stylesheet" href="css/cart-image-force.css">
   <link rel="stylesheet" href="css/header-user-menu.css">
   <link rel="stylesheet" href="css/z-index-hierarchy.css">
 </head>
 <body>
   <div class="top-bar #ff0000-theme">
     <div class="promo">
-      <span class="promo-strong"><i class="fa-solid fa-fire"></i> POR COMPRA DE 2 PARES EN ADELANTE, ENVÍO GRATIS!!</span>
+      <span class="promo-strong"><i class="fa-solid fa-fire"></i> POR COMPRA DE 2 PARES EN ADELANTE, ENV�O GRATIS!!</span>
       <span class="promo-timer"><i class="fa-regular fa-clock"></i> APROVECHA ESTA OPORTUNIDAD!</span>
     </div>
     <div class="top-links">
-      <a href="pages/contactanos.html" role="button"><i class="fa-regular fa-envelope"></i> Contáctanos</a>
+      <a href="pages/contactanos.html" role="button"><i class="fa-regular fa-envelope"></i> Cont�ctanos</a>
       <a href="pages/sigue-tu-pedido.html" role="button"><i class="fa-solid fa-truck"></i> Sigue tu pedido</a>
     </div>
   </div>
   <header class="main-header #ff0000-theme">
     <div class="logo">MUNDO CALZADO</div>
-    <input type="text" class="search-bar" id="main-search" placeholder="¿Qué zapatos estás buscando?">
+    <input type="text" class="search-bar" id="main-search" placeholder="�Qu� zapatos est�s buscando?">
     <div class="header-actions">
       <a href="login.html" class="header-login">
         <i class="fa-regular fa-user"></i>
-        <span>Iniciar sesión</span>
+        <span>Iniciar sesi�n</span>
       </a>
       <button id="btn-carrito" class="btn-carrito">
         <i class="fa-solid fa-cart-shopping"></i>
@@ -58,15 +60,15 @@
         <button id="cerrar-carrito" class="cerrar-carrito">&times;</button>
       </div>
       <div id="carrito-lista" class="carrito-lista">
-        <!-- Aquí se mostrarán los productos del carrito -->
+        <!-- Aqu� se mostrar�n los productos del carrito -->
       </div>
       <div id="carrito-vacio" class="carrito-vacio">
-        <!-- Usamos un icono visual para representar el carrito vacío -->
+        <!-- Usamos un icono visual para representar el carrito vac�o -->
         <div class="carrito-vacio-icon">
           <i class="fa-solid fa-box-open fa-4x carrito-vacio-icon-color"></i>
         </div>
-        <p class="carrito-vacio-txt">Tu carrito está vacío</p>
-        <p class="carrito-vacio-desc">Aún no tienes artículos en tu carrito de compra.</p>
+        <p class="carrito-vacio-txt">Tu carrito est� vac�o</p>
+        <p class="carrito-vacio-desc">A�n no tienes art�culos en tu carrito de compra.</p>
         <button id="btn-elegir-productos" class="btn-elegir-productos"><i class="fa-solid fa-shoe-prints"></i> Explorar productos</button>
       </div>
       <div id="carrito-total" class="carrito-total oculto">
@@ -81,10 +83,10 @@
       <li><a href="nuevos.html">Nuevos</a></li>
       <li><a href="mujeres.html">Mujeres</a></li>
       <li><a href="hombres.html">Hombres</a></li>
-      <li><a href="ninas.html">Niñas</a></li>
-      <li><a href="ninos.html">Niños</a></li>
+      <li><a href="ninas.html">Ni�as</a></li>
+      <li><a href="ninos.html">Ni�os</a></li>
       <li><a href="colegiales.html">Colegiales</a></li>
-      <li><a href="dotacion.html">Dotación</a></li>
+      <li><a href="dotacion.html">Dotaci�n</a></li>
       <li><a href="accesorios.html">Accesorios</a></li>
       <li><a href="marcas.html" class="ofertas">Marcas</a></li>
       <li><a href="ofertas.html" class="ofertas">Ofertas</a></li>
@@ -98,7 +100,7 @@
     <span class="breadcrumb-current">Marcas</span>
   </nav>
   <div class="catalogo-actions">
-    <!-- Botón Guía de tallas si aplica -->
+    <!-- Bot�n Gu�a de tallas si aplica -->
   </div>
   <!-- Sidebar de filtros estilo bosquejo -->
   <div id="filtroSidebar" class="filtro-sidebar-sketch filtro-sidebar-left">
@@ -127,14 +129,14 @@
       </div>
       <hr>
       <div class="filtro-group-sketch">
-        <div class="filtro-group-title-sketch" onclick="toggleFiltroSub('categoria')">Categoría <i class="fa-solid fa-angle-down"></i></div>
+        <div class="filtro-group-title-sketch" onclick="toggleFiltroSub('categoria')">Categor�a <i class="fa-solid fa-angle-down"></i></div>
         <div class="filtro-group-list-sketch visually-hidden filtro-categoria-list" id="filtro-categoria">
           <label class="filtro-link" data-filtro="Zapatos Mujer"><input type="checkbox"> Zapatos Mujer</label>
           <label class="filtro-link" data-filtro="Zapatos Hombre"><input type="checkbox"> Zapatos Hombre</label>
-          <label class="filtro-link" data-filtro="Zapatos Niños"><input type="checkbox"> Zapatos Niños</label>
-          <label class="filtro-link" data-filtro="Zapatos Niñas"><input type="checkbox"> Zapatos Niñas</label>
+          <label class="filtro-link" data-filtro="Zapatos Ni�os"><input type="checkbox"> Zapatos Ni�os</label>
+          <label class="filtro-link" data-filtro="Zapatos Ni�as"><input type="checkbox"> Zapatos Ni�as</label>
           <label class="filtro-link" data-filtro="Zapatos Colegiales"><input type="checkbox"> Zapatos Colegiales</label>
-          <label class="filtro-link" data-filtro="Dotación"><input type="checkbox"> Dotación</label>
+          <label class="filtro-link" data-filtro="Dotaci�n"><input type="checkbox"> Dotaci�n</label>
         </div>
       </div>
       <div class="filtro-group-sketch">
@@ -143,7 +145,7 @@
           <label class="filtro-link" data-filtro="amarillo"><input type="checkbox"> amarillo</label>
           <label class="filtro-link" data-filtro="beige"><input type="checkbox"> beige</label>
           <label class="filtro-link" data-filtro="blanco"><input type="checkbox"> blanco</label>
-          <label class="filtro-link" data-filtro="café"><input type="checkbox"> café</label>
+          <label class="filtro-link" data-filtro="caf�"><input type="checkbox"> caf�</label>
           <label class="filtro-link" data-filtro="verde"><input type="checkbox"> verde</label>
           <label class="filtro-link" data-filtro="dorado"><input type="checkbox"> dorado</label>
           <label class="filtro-link" data-filtro="multicolor"><input type="checkbox"> multicolor</label>
@@ -174,31 +176,31 @@
   <footer class="footer">
     <div class="footer-main">
       <div class="footer-col">
-        <h4>Políticas</h4>
+        <h4>Pol�ticas</h4>
         <a href="pages/condiciones-promociones.html">Condiciones Promociones vigentes</a>
         <a href="pages/canjear-bonos.html">Canjear bonos empresariales</a>
-        <a href="pages/codigo-etica.html">Código de ética y buen gobierno</a>
-        <a href="pages/politica-cambios-tiendas.html">Política de cambios y garantías tiendas físicas</a>
-        <a href="pages/politica-cambios-online.html">Política de cambios y garantías tienda online</a>
-        <a href="pages/politicas.html">Política de privacidad, tratamiento y protección de datos personales</a>
+        <a href="pages/codigo-etica.html">C�digo de �tica y buen gobierno</a>
+        <a href="pages/politica-cambios-tiendas.html">Pol�tica de cambios y garant�as tiendas f�sicas</a>
+        <a href="pages/politica-cambios-online.html">Pol�tica de cambios y garant�as tienda online</a>
+        <a href="pages/politicas.html">Pol�tica de privacidad, tratamiento y protecci�n de datos personales</a>
       </div>
       <div class="footer-col">
         <h4>Descubre Mundo Calzado</h4>
-        <a href="pages/quienes-somos.html">¿Quiénes somos?</a>
+        <a href="pages/quienes-somos.html">�Qui�nes somos?</a>
         <a href="pages/trabaja-con-nosotros.html">Trabaja con nosotros</a>
         <a href="pages/encuentra-nuestras-tiendas.html">Encuentra nuestras tiendas</a>
-        <a href="pages/registro-descuento-cumpleanos.html">Registro de descuento de cumpleaños</a>
+        <a href="pages/registro-descuento-cumpleanos.html">Registro de descuento de cumplea�os</a>
       </div>
       <div class="footer-col">
         <h4>Necesitas ayuda</h4>
-        <a href="pages/ayuda.html">Contáctanos</a>
+        <a href="pages/ayuda.html">Cont�ctanos</a>
         <a href="pages/gestiona-cambios.html">Gestiona tus cambios</a>
-        <a href="pages/portal-autogestion-proveedores.html">Portal Autogestión de proveedores</a>
+        <a href="pages/portal-autogestion-proveedores.html">Portal Autogesti�n de proveedores</a>
         <a href="pages/verifica-estado-pedido.html">Verifica el estado de tu pedido</a>
-        <a href="pages/descubre.html">Descubre más beneficios</a>
+        <a href="pages/descubre.html">Descubre m�s beneficios</a>
       </div>
       <div class="footer-col footer-social">
-        <h4>Síguenos en nuestras #ff0000es:</h4>
+        <h4>S�guenos en nuestras #ff0000es:</h4>
         <div class="social-icons">
           <a href="#"><img src="assets/img/instagram.svg" alt="Instagram" /></a>
           <a href="#"><img src="assets/img/facebook.png" alt="Facebook" /></a>
@@ -207,7 +209,7 @@
         </div>
         <h4>Medios de pago disponibles:</h4>
         <div class="payment-icons">
-          <span class="payment-text">Visa • Mastercard • PSE • Efecty • Nequi</span>
+          <span class="payment-text">Visa � Mastercard � PSE � Efecty � Nequi</span>
         </div>
         <h4>Vigilado por:</h4>
         <span class="super-text">Superintendencia de Industria y Comercio</span>
@@ -227,7 +229,12 @@
   <script src="js/chatbot.js"></script>
   <script src="js/mobile-navigation.js"></script>
   <script src="js/product-images.js"></script>
-  <script src="js/cart-manager.js"></script>
+  <script src="js/cart-manager.js"></script>`n  <script src="js/cart-fix-complete.js"></script>
   <script src="js/header-manager.js"></script>
 </body>
 </html>
+
+
+
+
+

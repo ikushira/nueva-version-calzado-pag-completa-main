@@ -1,5 +1,5 @@
-﻿// Lista de imágenes para la sección Niñas
-// Agrega aquí las rutas de las imágenes de productos para niñas
+﻿// Lista de imagenes para la seccion Ninas
+// Agrega aqui las rutas de las imagenes de productos para ninas
 
 const imagenesNinas = [
   './assets/img/calzninas/n1.jpeg',

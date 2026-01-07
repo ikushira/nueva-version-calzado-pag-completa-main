@@ -41,8 +41,8 @@ const transformaciones = [
   },
   // 5. Destacar etiquetas de envío gratis
   {
-    buscar: /<span class="etiqueta-envio">\*ENVÍO GRATIS <i class="fa-solid fa-rocket"><\/i><\/span>/g,
-    reemplazar: '<span class="etiqueta-envio"><i class="fa-solid fa-rocket"></i> ¡ENVÍO GRATIS!</span>'
+    buscar: /<span class="etiqueta-envio">ENVIO GRATIS X 2 PARES! <i class="fa-solid fa-rocket"><\/i><\/span>/g,
+    reemplazar: '<span class="etiqueta-envio"><i class="fa-solid fa-rocket"></i> ENVIO GRATIS X 2 PARES!</span>'
   }
 ];
 

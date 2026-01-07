@@ -88,9 +88,20 @@
     // Obtener la imagen seleccionada o la primera disponible
     const selectedImage = images[index] || images[0];
     
-    // Si la imagen ya tiene una ruta completa (desde el JSON), usarla directamente
-    if (selectedImage && (selectedImage.startsWith('./assets/') || selectedImage.startsWith('assets/'))) {
-      return resolveAssetPath(selectedImage);
+    // Si la imagen ya tiene una ruta completa, usarla directamente
+    // Detectar rutas que ya apuntan a ubicaciones específicas
+    if (selectedImage && (
+      selectedImage.startsWith('./assets/') || 
+      selectedImage.startsWith('assets/') ||
+      selectedImage.startsWith('./mypageshoes/') ||
+      selectedImage.startsWith('mypageshoes/') ||
+      selectedImage.startsWith('/mypageshoes/') ||
+      selectedImage.includes('/carrusel2/') ||
+      selectedImage.includes('/img/')
+    )) {
+      // Para rutas desde index.html (raíz), limpiar el ./ inicial si existe
+      const cleanPath = selectedImage.replace(/^\.\//, '');
+      return cleanPath;
     }
     
     const fileName = normalizeImageName(selectedImage);

@@ -2,21 +2,29 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <!-- Cache-busting: v2.0 - 2026-01-07 -->
   <title>Mundo Calzado | Tienda de Calzado</title>
+  <link rel="stylesheet" href="mypageshoes/css/responsive-viewport.css">
   <link rel="stylesheet" href="mypageshoes/css/variables.css">
   <link rel="stylesheet" href="mypageshoes/css/standardized-cards.css">
   <link rel="stylesheet" href="mypageshoes/css/styles.css">
   <link rel="stylesheet" href="mypageshoes/css/new-colors.css">
   <link rel="stylesheet" href="mypageshoes/css/enhanced-shopping.css">
   <link rel="stylesheet" href="mypageshoes/css/novedades-carousel.css">
+  <link rel="stylesheet" href="mypageshoes/css/cart-styles.css">
+  <link rel="stylesheet" href="mypageshoes/css/cart-button-feedback.css">
   <link rel="stylesheet" href="mypageshoes/css/carrito.css">
   <link rel="stylesheet" href="mypageshoes/css/carrito-enhanced.css">
+  <link rel="stylesheet" href="mypageshoes/css/carrito-enhanced-v2.css">
   <link rel="stylesheet" href="mypageshoes/css/carrito-imagen-fix.css">
   <link rel="stylesheet" href="mypageshoes/css/carrito-fix-adicional.css">
+  <link rel="stylesheet" href="mypageshoes/css/cart-display-fix.css">
+  <link rel="stylesheet" href="mypageshoes/css/cart-image-force.css">
   <link rel="stylesheet" href="mypageshoes/css/carrusel-talla-modal.css">
   <link rel="stylesheet" href="mypageshoes/css/whatsapp-button.css">
   <link rel="stylesheet" href="mypageshoes/css/footer-enhanced.css">
+  <link rel="stylesheet" href="mypageshoes/css/cart-notifications.css">
   <link rel="stylesheet" href="mypageshoes/css/responsive-mobile.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -47,30 +55,30 @@
         <button type="button" class="carrusel-talla-btn">41</button>
         <button type="button" class="carrusel-talla-btn">42</button>
       </div>
-      <button type="button" class="carrusel-talla-guia">Guía de tallas</button>
+      <button type="button" class="carrusel-talla-guia">Guia de tallas</button>
       <button type="button" id="carrusel-talla-aceptar" class="carrusel-talla-aceptar">ACEPTAR</button>
     </div>
   </div>
-  <!-- Barra superior con promoción y accesos rápidos -->
+  <!-- Barra superior con promocion y accesos rapidos -->
   <div class="top-bar #ff0000-theme">
     <div class="promo">
-      <span class="promo-strong"><i class="fa-solid fa-fire"></i> POR COMPRA DE 2 PARES EN ADELANTE, ENVÍO GRATIS!!</span>
+      <span class="promo-strong"><i class="fa-solid fa-fire"></i> POR COMPRA DE 2 PARES EN ADELANTE, ENVIO GRATIS!!</span>
       <span class="promo-timer"><i class="fa-regular fa-clock"></i> APROVECHA ESTA OPORTUNIDAD!</span>
     </div>
     <div class="top-links">
-      <a href="mypageshoes/pages/contactanos.html" role="button"><i class="fa-regular fa-envelope"></i> Contáctanos</a>
+      <a href="mypageshoes/pages/Contactanos.html" role="button"><i class="fa-regular fa-envelope"></i> Contactanos</a>
       <a href="mypageshoes/pages/sigue-tu-pedido.html" role="button"><i class="fa-solid fa-truck"></i> Sigue tu pedido</a>
     </div>
   </div>
 
-  <!-- Encabezado principal con logo, buscador y accesos rápidos (estilo bosquejo de Niños) -->
+  <!-- Encabezado principal con logo, buscador y accesos rapidos -->
   <header class="main-header #ff0000-theme">
     <div class="logo">MUNDO CALZADO</div>
-    <input type="text" class="search-bar" id="main-search" placeholder="¿Qué zapatos estás buscando?">
+    <input type="text" class="search-bar" id="main-search" placeholder="Que zapatos estas buscando?">
     <div class="header-actions">
       <a href="mypageshoes/login.html" class="header-login">
         <i class="fa-regular fa-user"></i>
-        <span>Iniciar sesión</span>
+        <span>Iniciar sesion</span>
       </a>
       <button id="btn-carrito" class="btn-carrito">
         <i class="fa-solid fa-cart-shopping"></i>
@@ -79,7 +87,7 @@
       </button>
     </div>
   </header>
-    <!-- Modal Carrito de Compras -->
+  <!-- Modal Carrito de Compras -->
   <div id="modal-carrito" class="modal-carrito oculto">
     <div class="modal-carrito-content">
       <div class="modal-carrito-header">
@@ -87,35 +95,47 @@
         <button id="cerrar-carrito" class="cerrar-carrito">&times;</button>
       </div>
       <div id="carrito-lista" class="carrito-lista">
-        <!-- Aquí se mostrarán los productos del carrito -->
+        <!-- Aqui se mostraran los productos del carrito -->
       </div>
       <div id="carrito-vacio" class="carrito-vacio">
-        <!-- Usamos un icono visual para representar el carrito vacío -->
         <div class="carrito-vacio-icon">
           <i class="fa-solid fa-box-open fa-4x carrito-vacio-icon-color"></i>
         </div>
-        <p class="carrito-vacio-txt">Tu carrito está vacío</p>
-        <p class="carrito-vacio-desc">Aún no tienes artículos en tu carrito de compra.</p>
+        <p class="carrito-vacio-txt">Tu carrito esta vacio</p>
+        <p class="carrito-vacio-desc">Aun no tienes articulos en tu carrito de compra.</p>
         <button id="btn-elegir-productos" class="btn-elegir-productos"><i class="fa-solid fa-shoe-prints"></i> Explorar productos</button>
       </div>
       <div id="carrito-total" class="carrito-total oculto">
-        <span>Total: $<span id="carrito-total-precio">0</span></span>
+        <div class="carrito-resumen">
+          <div class="carrito-linea">
+            <span>Subtotal:</span>
+            <span>$<span id="carrito-subtotal">0</span></span>
+          </div>
+          <div class="carrito-linea">
+            <span>Envio:</span>
+            <span id="carrito-envio">$15,000</span>
+          </div>
+          <div id="envio-gratis-mensaje" class="envio-gratis-mensaje" style="display:none;"></div>
+          <div class="carrito-linea carrito-total-final">
+            <span>Total:</span>
+            <span>$<span id="carrito-total-precio">0</span></span>
+          </div>
+        </div>
         <button id="btn-finalizar-compra" class="btn-finalizar-compra"><i class="fa-solid fa-check"></i> IR A PAGAR</button>
       </div>
     </div>
   </div>
-  </div>
 
-  <!-- Menú de navegación principal -->
+  <!-- Men de navegacin principal -->
   <nav class="main-nav #ff0000-theme">
     <ul>
       <li><a href="mypageshoes/nuevos.html">Nuevos</a></li>
       <li><a href="mypageshoes/mujeres.html">Mujeres</a></li>
       <li><a href="mypageshoes/hombres.html">Hombres</a></li>
-      <li><a href="mypageshoes/ninas.html">Niñas</a></li>
-      <li><a href="mypageshoes/ninos.html">Niños</a></li>
+      <li><a href="mypageshoes/ninas.html">Ninas</a></li>
+      <li><a href="mypageshoes/ninos.html">Ninos</a></li>
       <li><a href="mypageshoes/colegiales.html">Colegiales</a></li>
-      <li><a href="mypageshoes/dotacion.html">Dotación</a></li>
+      <li><a href="mypageshoes/dotacion.html">Dotacion</a></li>
       <li><a href="mypageshoes/accesorios.html">Accesorios</a></li>
       <li><a href="mypageshoes/marcas.html">Marcas</a></li>
       <li><a href="#" class="ofertas">Ofertas</a></li>
@@ -128,12 +148,23 @@
     <div class="banner-carousel-container">
       <button class="banner-carousel-btn left" id="banner-carousel-prev" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="banner-carousel" id="banner-carousel">
-        <!-- Slides del carrusel principal se generan dinámicamente por JS -->
+        <!-- Slides del carrusel principal - fallback esttico -->
+        <div class="banner-slide active">
+          <img src="mypageshoes/assets/img/carrusel1/carrusel1.jpg" alt="Banner 1" loading="lazy">
+        </div>
+        <div class="banner-slide">
+          <img src="mypageshoes/assets/img/carrusel1/carrusel2.jpg" alt="Banner 2" loading="lazy">
+        </div>
+        <div class="banner-slide">
+          <img src="mypageshoes/assets/img/carrusel1/banner-calzado.jpg" alt="Banner 3" loading="lazy">
+        </div>
       </div>
       <button class="banner-carousel-btn right" id="banner-carousel-next" title="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
     <div class="banner-carousel-indicators" id="banner-carousel-indicators">
-      <!-- Indicadores del carrusel principal se generan dinámicamente por JS -->
+      <span class="banner-indicator active"></span>
+      <span class="banner-indicator"></span>
+      <span class="banner-indicator"></span>
     </div>
   </section>
 
@@ -143,24 +174,222 @@
     <div class="novedades-carousel-container">
       <button class="novedades-carousel-btn left" id="novedades-carousel-prev" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="novedades-carousel" id="novedades-carousel">
-        <!-- Los slides se generan dinámicamente por JS -->
+        <!-- Slide 1 - 4 productos -->
+        <div class="novedades-slide" style="display: flex; gap: 24px; justify-content: center; align-items: stretch;">
+          <div class="producto-card">
+            <div class="img-producto-wrapper" style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:#eaf3fb;overflow:hidden;border-radius:16px 16px 0 0;">
+              <img src="mypageshoes/assets/img/carrusel2/2.jpeg" alt="Producto 1" loading="lazy" style="max-width:92%;max-height:92%;object-fit:contain;">
+            </div>
+            <div class="producto-info" style="padding:12px;">
+              <h3 class="producto-nombre">Producto 1</h3>
+              <p class="producto-precio" style="color:#0d6efd;font-weight:bold;">$129.900</p>
+              <div class="producto-tallas">
+                <div class="tallas-label">Selecciona tu talla:</div>
+                <div class="tallas-list">
+                  <button type="button" class="talla-btn" data-size="35">35</button>
+                  <button type="button" class="talla-btn" data-size="36">36</button>
+                  <button type="button" class="talla-btn" data-size="37">37</button>
+                  <button type="button" class="talla-btn" data-size="38">38</button>
+                  <button type="button" class="talla-btn" data-size="39">39</button>
+                  <button type="button" class="talla-btn" data-size="40">40</button>
+                  <button type="button" class="talla-btn" data-size="41">41</button>
+                  <button type="button" class="talla-btn" data-size="42">42</button>
+                </div>
+                <button type="button" class="btn-guia-tallas">Guia de tallas</button>
+              </div>
+              <button class="btn-add-cart" data-product-id="prod-1">Anadir al carrito</button>
+            </div>
+          </div>
+          <div class="producto-card">
+            <div class="img-producto-wrapper" style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:#eaf3fb;overflow:hidden;border-radius:16px 16px 0 0;">
+              <img src="mypageshoes/assets/img/carrusel2/3.jpeg" alt="Producto 2" loading="lazy" style="max-width:92%;max-height:92%;object-fit:contain;">
+            </div>
+            <div class="producto-info" style="padding:12px;">
+              <h3 class="producto-nombre">Producto 2</h3>
+              <p class="producto-precio" style="color:#0d6efd;font-weight:bold;">$129.900</p>
+              <div class="producto-tallas">
+                <div class="tallas-label">Selecciona tu talla:</div>
+                <div class="tallas-list">
+                  <button type="button" class="talla-btn" data-size="35">35</button>
+                  <button type="button" class="talla-btn" data-size="36">36</button>
+                  <button type="button" class="talla-btn" data-size="37">37</button>
+                  <button type="button" class="talla-btn" data-size="38">38</button>
+                  <button type="button" class="talla-btn" data-size="39">39</button>
+                  <button type="button" class="talla-btn" data-size="40">40</button>
+                  <button type="button" class="talla-btn" data-size="41">41</button>
+                  <button type="button" class="talla-btn" data-size="42">42</button>
+                </div>
+                <button type="button" class="btn-guia-tallas">Guia de tallas</button>
+              </div>
+              <button class="btn-add-cart" data-product-id="prod-2">Anadir al carrito</button>
+            </div>
+          </div>
+          <div class="producto-card">
+            <div class="img-producto-wrapper" style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:#eaf3fb;overflow:hidden;border-radius:16px 16px 0 0;">
+              <img src="mypageshoes/assets/img/carrusel2/4.jpeg" alt="Producto 3" loading="lazy" style="max-width:92%;max-height:92%;object-fit:contain;">
+            </div>
+            <div class="producto-info" style="padding:12px;">
+              <h3 class="producto-nombre">Producto 3</h3>
+              <p class="producto-precio" style="color:#0d6efd;font-weight:bold;">$129.900</p>
+              <div class="producto-tallas">
+                <div class="tallas-label">Selecciona tu talla:</div>
+                <div class="tallas-list">
+                  <button type="button" class="talla-btn" data-size="35">35</button>
+                  <button type="button" class="talla-btn" data-size="36">36</button>
+                  <button type="button" class="talla-btn" data-size="37">37</button>
+                  <button type="button" class="talla-btn" data-size="38">38</button>
+                  <button type="button" class="talla-btn" data-size="39">39</button>
+                  <button type="button" class="talla-btn" data-size="40">40</button>
+                  <button type="button" class="talla-btn" data-size="41">41</button>
+                  <button type="button" class="talla-btn" data-size="42">42</button>
+                </div>
+                <button type="button" class="btn-guia-tallas">Guia de tallas</button>
+              </div>
+              <button class="btn-add-cart" data-product-id="prod-3">Anadir al carrito</button>
+            </div>
+          </div>
+          <div class="producto-card">
+            <div class="img-producto-wrapper" style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:#eaf3fb;overflow:hidden;border-radius:16px 16px 0 0;">
+              <img src="mypageshoes/assets/img/carrusel2/5.jpeg" alt="Producto 4" loading="lazy" style="max-width:92%;max-height:92%;object-fit:contain;">
+            </div>
+            <div class="producto-info" style="padding:12px;">
+              <h3 class="producto-nombre">Producto 4</h3>
+              <p class="producto-precio" style="color:#0d6efd;font-weight:bold;">$129.900</p>
+              <div class="producto-tallas">
+                <div class="tallas-label">Selecciona tu talla:</div>
+                <div class="tallas-list">
+                  <button type="button" class="talla-btn" data-size="35">35</button>
+                  <button type="button" class="talla-btn" data-size="36">36</button>
+                  <button type="button" class="talla-btn" data-size="37">37</button>
+                  <button type="button" class="talla-btn" data-size="38">38</button>
+                  <button type="button" class="talla-btn" data-size="39">39</button>
+                  <button type="button" class="talla-btn" data-size="40">40</button>
+                  <button type="button" class="talla-btn" data-size="41">41</button>
+                  <button type="button" class="talla-btn" data-size="42">42</button>
+                </div>
+                <button type="button" class="btn-guia-tallas">Guia de tallas</button>
+              </div>
+              <button class="btn-add-cart" data-product-id="prod-4">Anadir al carrito</button>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 - 4 productos -->
+        <div class="novedades-slide" style="display: none; gap: 24px; justify-content: center; align-items: stretch;">
+          <div class="producto-card">
+            <div class="img-producto-wrapper" style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:#eaf3fb;overflow:hidden;border-radius:16px 16px 0 0;">
+              <img src="mypageshoes/assets/img/carrusel2/6.jpeg" alt="Producto 5" loading="lazy" style="max-width:92%;max-height:92%;object-fit:contain;">
+            </div>
+            <div class="producto-info" style="padding:12px;">
+              <h3 class="producto-nombre">Producto 5</h3>
+              <p class="producto-precio" style="color:#0d6efd;font-weight:bold;">$129.900</p>
+              <div class="producto-tallas">
+                <div class="tallas-label">Selecciona tu talla:</div>
+                <div class="tallas-list">
+                  <button type="button" class="talla-btn" data-size="35">35</button>
+                  <button type="button" class="talla-btn" data-size="36">36</button>
+                  <button type="button" class="talla-btn" data-size="37">37</button>
+                  <button type="button" class="talla-btn" data-size="38">38</button>
+                  <button type="button" class="talla-btn" data-size="39">39</button>
+                  <button type="button" class="talla-btn" data-size="40">40</button>
+                  <button type="button" class="talla-btn" data-size="41">41</button>
+                  <button type="button" class="talla-btn" data-size="42">42</button>
+                </div>
+                <button type="button" class="btn-guia-tallas">Guia de tallas</button>
+              </div>
+              <button class="btn-add-cart" data-product-id="prod-5">Anadir al carrito</button>
+            </div>
+          </div>
+          <div class="producto-card">
+            <div class="img-producto-wrapper" style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:#eaf3fb;overflow:hidden;border-radius:16px 16px 0 0;">
+              <img src="mypageshoes/assets/img/carrusel2/7.jpeg" alt="Producto 6" loading="lazy" style="max-width:92%;max-height:92%;object-fit:contain;">
+            </div>
+            <div class="producto-info" style="padding:12px;">
+              <h3 class="producto-nombre">Producto 6</h3>
+              <p class="producto-precio" style="color:#0d6efd;font-weight:bold;">$129.900</p>
+              <div class="producto-tallas">
+                <div class="tallas-label">Selecciona tu talla:</div>
+                <div class="tallas-list">
+                  <button type="button" class="talla-btn" data-size="35">35</button>
+                  <button type="button" class="talla-btn" data-size="36">36</button>
+                  <button type="button" class="talla-btn" data-size="37">37</button>
+                  <button type="button" class="talla-btn" data-size="38">38</button>
+                  <button type="button" class="talla-btn" data-size="39">39</button>
+                  <button type="button" class="talla-btn" data-size="40">40</button>
+                  <button type="button" class="talla-btn" data-size="41">41</button>
+                  <button type="button" class="talla-btn" data-size="42">42</button>
+                </div>
+                <button type="button" class="btn-guia-tallas">Guia de tallas</button>
+              </div>
+              <button class="btn-add-cart" data-product-id="prod-6">Anadir al carrito</button>
+            </div>
+          </div>
+          <div class="producto-card">
+            <div class="img-producto-wrapper" style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:#eaf3fb;overflow:hidden;border-radius:16px 16px 0 0;">
+              <img src="mypageshoes/assets/img/carrusel2/8.jpeg" alt="Producto 7" loading="lazy" style="max-width:92%;max-height:92%;object-fit:contain;">
+            </div>
+            <div class="producto-info" style="padding:12px;">
+              <h3 class="producto-nombre">Producto 7</h3>
+              <p class="producto-precio" style="color:#0d6efd;font-weight:bold;">$129.900</p>
+              <div class="producto-tallas">
+                <div class="tallas-label">Selecciona tu talla:</div>
+                <div class="tallas-list">
+                  <button type="button" class="talla-btn" data-size="35">35</button>
+                  <button type="button" class="talla-btn" data-size="36">36</button>
+                  <button type="button" class="talla-btn" data-size="37">37</button>
+                  <button type="button" class="talla-btn" data-size="38">38</button>
+                  <button type="button" class="talla-btn" data-size="39">39</button>
+                  <button type="button" class="talla-btn" data-size="40">40</button>
+                  <button type="button" class="talla-btn" data-size="41">41</button>
+                  <button type="button" class="talla-btn" data-size="42">42</button>
+                </div>
+                <button type="button" class="btn-guia-tallas">Guia de tallas</button>
+              </div>
+              <button class="btn-add-cart" data-product-id="prod-7">Anadir al carrito</button>
+            </div>
+          </div>
+          <div class="producto-card">
+            <div class="img-producto-wrapper" style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:#eaf3fb;overflow:hidden;border-radius:16px 16px 0 0;">
+              <img src="mypageshoes/assets/img/carrusel2/9.jpeg" alt="Producto 8" loading="lazy" style="max-width:92%;max-height:92%;object-fit:contain;">
+            </div>
+            <div class="producto-info" style="padding:12px;">
+              <h3 class="producto-nombre">Producto 8</h3>
+              <p class="producto-precio" style="color:#0d6efd;font-weight:bold;">$129.900</p>
+              <div class="producto-tallas">
+                <div class="tallas-label">Selecciona tu talla:</div>
+                <div class="tallas-list">
+                  <button type="button" class="talla-btn" data-size="35">35</button>
+                  <button type="button" class="talla-btn" data-size="36">36</button>
+                  <button type="button" class="talla-btn" data-size="37">37</button>
+                  <button type="button" class="talla-btn" data-size="38">38</button>
+                  <button type="button" class="talla-btn" data-size="39">39</button>
+                  <button type="button" class="talla-btn" data-size="40">40</button>
+                  <button type="button" class="talla-btn" data-size="41">41</button>
+                  <button type="button" class="talla-btn" data-size="42">42</button>
+                </div>
+                <button type="button" class="btn-guia-tallas">Guia de tallas</button>
+              </div>
+              <button class="btn-add-cart" data-product-id="prod-8">Anadir al carrito</button>
+            </div>
+          </div>
+        </div>
       </div>
       <button class="novedades-carousel-btn right" id="novedades-carousel-next" title="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
     <div class="novedades-carousel-indicators" id="novedades-carousel-indicators">
-      <!-- Los indicadores se generan dinámicamente por JS -->
+      <span class="novedades-indicator active"></span>
+      <span class="novedades-indicator"></span>
     </div>
   </section>
 
-  <!-- Categorías visuales -->
+  <!-- Categoras visuales -->
   <section class="categories-section">
     <div class="categories">
       <a class="category-card" href="mypageshoes/mujeres.html"><img src="mypageshoes/assets/img/mujer.jpg" alt="Mujeres"><span>Mujeres</span></a>
       <a class="category-card" href="mypageshoes/hombres.html"><img src="mypageshoes/assets/img/hombre.jpg" alt="Hombres"><span>Hombres</span></a>
-      <a class="category-card" href="mypageshoes/ninas.html"><img src="mypageshoes/assets/img/ninas.jpg" alt="Niñas"><span>Niñas</span></a>
-      <a class="category-card" href="mypageshoes/ninos.html"><img src="mypageshoes/assets/img/ninos.jpg" alt="Niños"><span>Niños</span></a>
+      <a class="category-card" href="mypageshoes/ninas.html"><img src="mypageshoes/assets/img/ninas.jpg" alt="Ninas"><span>Ninas</span></a>
+      <a class="category-card" href="mypageshoes/ninos.html"><img src="mypageshoes/assets/img/ninos.jpg" alt="Ninos"><span>Ninos</span></a>
       <a class="category-card" href="mypageshoes/colegiales.html"><img src="mypageshoes/assets/img/colegial.jpg" alt="Colegiales"><span>Colegiales</span></a>
-      <a class="category-card" href="mypageshoes/dotacion.html"><img src="mypageshoes/assets/img/zapato1.jpeg" alt="Dotación"><span>Dotación</span></a>
+      <a class="category-card" href="mypageshoes/dotacion.html"><img src="mypageshoes/assets/img/zapato1.jpeg" alt="Dotacin"><span>Dotacin</span></a>
       <a class="category-card" href="mypageshoes/ofertas.html"><img src="mypageshoes/assets/img/nuevo.jpg" alt="Ofertas"><span>Ofertas</span></a>
       <a class="category-card" href="mypageshoes/accesorios.html"><img src="mypageshoes/assets/img/accesorios.jpg" alt="Complementos"><span>Complementos</span></a>
     </div>
@@ -197,18 +426,18 @@
   <section class="benefits-sketch">
     <div class="benefits-sketch-container">
       <div class="benefit-sketch-item">
-        <img src="mypageshoes/assets/img/colombia.svg" alt="Envíos a todo el país" class="benefit-sketch-icon">
+        <img src="mypageshoes/assets/img/colombia.svg" alt="Envos a todo el pas" class="benefit-sketch-icon">
         <div>
-          <div class="benefit-sketch-title">Envíos a todo el país</div>
-          <div class="benefit-sketch-desc">Entregas en hasta 6 días hábiles en ciudades principales<br><a href="#" class="benefit-sketch-link">Ver cobertura</a></div>
+          <div class="benefit-sketch-title">Envos a todo el pas</div>
+          <div class="benefit-sketch-desc">Entregas en hasta 6 das hbiles en ciudades principales<br><a href="#" class="benefit-sketch-link">Ver cobertura</a></div>
         </div>
       </div>
       <div class="benefit-sketch-divider"></div>
       <div class="benefit-sketch-item">
-        <img src="mypageshoes/assets/img/cambio.svg" alt="¿Necesitas un cambio?" class="benefit-sketch-icon">
+        <img src="mypageshoes/assets/img/cambio.svg" alt="Necesitas un cambio?" class="benefit-sketch-icon">
         <div>
-          <div class="benefit-sketch-title">¿Necesitas un cambio?</div>
-          <div class="benefit-sketch-desc">Cambios fáciles en cualquiera de nuestras tiendas físicas o gestiona aquí tus cambios online<br><a href="#" class="benefit-sketch-link">Gestiona tus cambios</a></div>
+          <div class="benefit-sketch-title">Necesitas un cambio?</div>
+          <div class="benefit-sketch-desc">Cambios fciles en cualquiera de nuestras tiendas fsicas o gestiona aqu tus cambios online<br><a href="#" class="benefit-sketch-link">Gestiona tus cambios</a></div>
         </div>
       </div>
       <div class="benefit-sketch-divider"></div>
@@ -222,70 +451,69 @@
     </div>
   </section>
 
-  <!-- Newsletter / suscripción estilo bosquejo -->
+  <!-- Newsletter / suscripcin estilo bosquejo -->
   <section class="newsletter newsletter-sketch">
     <div class="newsletter-content">
       <div class="newsletter-text">
-        <h2><span class="newsletter-strong">¡Suscríbete y obtén el 20%OFF en tu cumple!</span></h2>
-        <p class="newsletter-legal">El diligenciar el presente formulario se entenderá como una conducta inequívoca de que otorga su consentimiento de forma libre, voluntaria y expresa a Calzado S.A. para que trate su información personal de acuerdo con lo descrito en nuestro aviso de privacidad</p>
+        <h2><span class="newsletter-strong">Suscrbete y obtn el 20%OFF en tu cumple!</span></h2>
+        <p class="newsletter-legal">El diligenciar el presente formulario se entender como una conducta inequvoca de que otorga su consentimiento de forma libre, voluntaria y expresa a Calzado S.A. para que trate su informacin personal de acuerdo con lo descrito en nuestro aviso de privacidad</p>
       </div>
       <form class="newsletter-form">
-        <input type="email" placeholder="ESCRIBE ACÁ TU EMAIL PARA REGISTRARTE" requi#ff0000>
+        <input type="email" placeholder="ESCRIBE AC TU EMAIL PARA REGISTRARTE" requi#ff0000>
         <button type="submit" class="btn-newsletter">Registrarme al newsletter</button>
       </form>
     </div>
   </section>
 
-  <!-- Pie de página completo con enlaces, información y #ff0000es sociales -->
+  <!-- Pie de pgina completo con enlaces, informacin y #ff0000es sociales -->
   <footer class="footer">
     <div class="footer-main">
-      <!-- Políticas -->
+      <!-- Polticas -->
       <div class="footer-col">
-        <h4>Políticas</h4>
+        <h4>Polticas</h4>
         <a href="mypageshoes/pages/condiciones-promociones.html">Condiciones Promociones vigentes</a>
         <a href="mypageshoes/pages/canjear-bonos.html">Canjear bonos empresariales</a>
-        <a href="mypageshoes/pages/codigo-etica.html">Código de ética y buen gobierno</a>
-        <a href="mypageshoes/pages/politica-cambios-tiendas.html">Política de cambios y garantías tiendas físicas</a>
-        <a href="mypageshoes/pages/politica-cambios-online.html">Política de cambios y garantías tienda online</a>
-        <a href="mypageshoes/pages/politicas.html">Política de privacidad, tratamiento y protección de datos personales</a>
+        <a href="mypageshoes/pages/codigo-etica.html">Cdigo de tica y buen gobierno</a>
+        <a href="mypageshoes/pages/politica-cambios-tiendas.html">Poltica de cambios y garantas tiendas fsicas</a>
+        <a href="mypageshoes/pages/politica-cambios-online.html">Poltica de cambios y garantas tienda online</a>
+        <a href="mypageshoes/pages/politicas.html">Poltica de privacidad, tratamiento y proteccin de datos personales</a>
       </div>
       <!-- Descubre Mundo Calzado -->
       <div class="footer-col">
         <h4>Descubre Mundo Calzado</h4>
-        <a href="mypageshoes/pages/quienes-somos.html">¿Quiénes somos?</a>
+        <a href="mypageshoes/pages/quienes-somos.html">Quines somos?</a>
         <a href="mypageshoes/pages/trabaja-con-nosotros.html">Trabaja con nosotros</a>
         <a href="mypageshoes/pages/encuentra-nuestras-tiendas.html">Encuentra nuestras tiendas</a>
-        <a href="mypageshoes/pages/registro-descuento-cumpleanos.html">Registro de descuento de cumpleaños</a>
+        <a href="mypageshoes/pages/registro-descuento-cumpleanos.html">Registro de descuento de cumpleaos</a>
       </div>
       <!-- Necesitas ayuda -->
       <div class="footer-col">
         <h4>Necesitas ayuda</h4>
-        <a href="mypageshoes/pages/ayuda.html">Contáctanos</a>
+        <a href="mypageshoes/pages/ayuda.html">Contctanos</a>
         <a href="mypageshoes/pages/gestiona-cambios.html">Gestiona tus cambios</a>
-        <a href="mypageshoes/pages/portal-autogestion-proveedores.html">Portal Autogestión de proveedores</a>
+        <a href="mypageshoes/pages/portal-autogestion-proveedores.html">Portal Autogestin de proveedores</a>
         <a href="mypageshoes/pages/verifica-estado-pedido.html">Verifica el estado de tu pedido</a>
-        <a href="mypageshoes/pages/descubre.html">Descubre más beneficios</a>
+        <a href="mypageshoes/pages/descubre.html">Descubre ms beneficios</a>
       </div>
       <!-- #ff0000es sociales y medios de pago -->
       <div class="footer-col footer-social">
-        <h4>Síguenos en nuestras #ff0000es:</h4>
+        <h4>Sguenos en nuestras redes:</h4>
         <div class="social-icons">
-          <a href="#"><img src="mypageshoes/assets/img/instagram.svg" alt="Instagram" /></a>
-          <a href="#"><img src="mypageshoes/assets/img/facebook.png" alt="Facebook" /></a>
-          <a href="#"><img src="mypageshoes/assets/img/whatsapp.svg" alt="WhatsApp" /></a>
-          <a href="#"><img src="mypageshoes/assets/img/tiktok.svg" alt="TikTok" /></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         </div>
         <h4>Medios de pago disponibles:</h4>
         <div class="payment-icons">
-          <span class="payment-text">Visa • Mastercard • PSE • Efecty • Nequi</span>
+          <span class="payment-text">Visa  Mastercard  PSE  Efecty  Nequi</span>
         </div>
         <h4>Vigilado por:</h4>
         <span class="super-text">Superintendencia de Industria y Comercio</span>
       </div>
     </div>
     <!-- WhatsApp flotante -->
-    <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener">
-      <img src="mypageshoes/assets/img/whatsapp.svg" alt="WhatsApp">
+    <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+      <i class="fab fa-whatsapp"></i>
     </a>
     <p class="copyright">&copy; 2025 Mundo Calzado. Todos los derechos reservados.</p>
   </footer>
@@ -308,15 +536,17 @@
   
 
   
-  <!-- Sistema moderno de imágenes y carrito -->
+  <!-- Sistema moderno de imgenes y carrito -->
   <script src="mypageshoes/js/header-manager.js"></script>
   <script src="mypageshoes/js/product-images.js"></script>
   <script src="mypageshoes/js/cart-manager.js"></script>
+  <script src="mypageshoes/js/cart-fix-complete.js"></script>
+  <script src="mypageshoes/js/carrusel-carrito.js"></script>
   <!-- Scripts del sistema de checkout y perfil -->
   <script src="mypageshoes/js/user-profile-manager.js"></script>
   <script src="mypageshoes/js/payment-gateway.js"></script>
   <script src="mypageshoes/js/addi-integration.js"></script>
-<script src="mypageshoes/js/aplicar-whatsapp-all-pages.js"></script>
+  <!-- <script src="mypageshoes/js/aplicar-whatsapp-all-pages.js"></script> -->
   <script src="mypageshoes/js/chatbot.js"></script>
   <script src="mypageshoes/js/mobile-navigation.js"></script>
   <script src="mypageshoes/js/whatsapp-widget.js"></script>

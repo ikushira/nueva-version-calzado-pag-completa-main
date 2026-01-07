@@ -1,16 +1,25 @@
 ﻿// Modal Guía de Tallas - Lógica de apertura, cierre y contenido dinámico
 
+// Detectar si estamos en la raíz o en una subcarpeta
+function getBasePath() {
+  const path = window.location.pathname;
+  if (path.includes('/mypageshoes/')) {
+    return './';
+  }
+  return './mypageshoes/';
+}
 
 // Inserta el modal dinámicamente al hacer click en el botón "Guía de tallas" si no existe
 function ensureGuiaTallasModal() {
   if (!document.getElementById('modal-guia-tallas')) {
+    const basePath = getBasePath();
     const modalHtml = `
     <div id="modal-guia-tallas" class="modal-guia-tallas" style="display:none;">
       <div class="modal-gt-content">
         <button class="modal-gt-close" id="close-modal-gt" aria-label="Cerrar">&times;</button>
         <div class="modal-gt-body">
           <div class="modal-gt-img" id="modal-gt-img">
-            <img src="./assets/img/guiatalla1.webp" alt="Guía de tallas" id="img-gt-main" />
+            <img src="${basePath}assets/img/guiatalla1.webp" alt="Guia de tallas" id="img-gt-main" />
           </div>
           <div class="modal-gt-panel">
             <div class="modal-gt-select-bar">
@@ -18,7 +27,7 @@ function ensureGuiaTallasModal() {
                 <option value="medida">Recomendaciones para encontrar tu talla</option>
                 <option value="hombres">Hombres</option>
                 <option value="mujeres">Mujeres</option>
-                <option value="ninos">Niños</option>
+                <option value="ninos">Ninos</option>
               </select>
             </div>
             <div id="modal-gt-content-panel">
@@ -148,8 +157,10 @@ function mostrarPanelGuiaTallas(opcion) {
 
 function cambiarImagenGuiaTallas(opcion) {
   const img = document.getElementById('img-gt-main');
+  const basePath = getBasePath();
+  
   if (opcion === 'hombres' || opcion === 'mujeres') {
-    img.src = './assets/img/zapatomedida.png';
+    img.src = basePath + 'assets/img/zapatomedida.png';
     img.alt = 'Medida zapato adulto';
     img.style.width = '100%';
     img.style.height = 'auto';
@@ -157,15 +168,15 @@ function cambiarImagenGuiaTallas(opcion) {
     return;
   }
   if (opcion === 'ninos') {
-    img.src = './assets/img/zapatosmedidasninos.png';
-    img.alt = 'Medida zapato niños';
+    img.src = basePath + 'assets/img/zapatosmedidasninos.png';
+    img.alt = 'Medida zapato ninos';
     img.style.width = '100%';
     img.style.height = 'auto';
     img.style.objectFit = 'contain';
     return;
   }
-  img.src = './assets/img/guiatalla1.webp';
-  img.alt = 'Guía de tallas';
+  img.src = basePath + 'assets/img/guiatalla1.webp';
+  img.alt = 'Guia de tallas';
   img.style.width = '';
   img.style.height = '';
   img.style.objectFit = '';

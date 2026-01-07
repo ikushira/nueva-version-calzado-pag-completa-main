@@ -2,8 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnóstico del Carrito - Mundo Calzado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">>
+  <title>Diagn�stico del Carrito - Mundo Calzado</title>
+  
+  <link rel="stylesheet" href="css/responsive-viewport.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/standardized-cards.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -110,7 +112,7 @@
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/image-size-fix.css">
+    <link rel="stylesheet" href="css/image-size-fix.css">
   <link rel="stylesheet" href="css/whatsapp-button.css">
     <link rel="stylesheet" href="css/chatbot.css">
 </head>
@@ -119,19 +121,19 @@
     <a href="../index.html">Inicio</a>
     <a href="hombres.html">Hombres</a>
     <a href="mujeres.html">Mujeres</a>
-    <a href="ninos.html">Niños</a>
-    <a href="ninas.html">Niñas</a>
+    <a href="ninos.html">Ni�os</a>
+    <a href="ninas.html">Ni�as</a>
   </div>
 
-  <h1>Herramienta de Diagnóstico del Carrito</h1>
+  <h1>Herramienta de Diagn�stico del Carrito</h1>
   
   <div class="card">
     <h2>Estado Actual</h2>
-    <p><span class="status-indicator" id="status-general"></span> <span id="status-text">Ejecutando diagnóstico...</span></p>
+    <p><span class="status-indicator" id="status-general"></span> <span id="status-text">Ejecutando diagn�stico...</span></p>
     
     <div class="control-panel">
-      <button class="btn" id="btn-ejecutar">Ejecutar Diagnóstico</button>
-      <button class="btn" id="btn-agregar-test">Añadir Producto de Prueba</button>
+      <button class="btn" id="btn-ejecutar">Ejecutar Diagn�stico</button>
+      <button class="btn" id="btn-agregar-test">A�adir Producto de Prueba</button>
       <button class="btn" id="btn-limpiar">Limpiar Carrito</button>
       <button class="btn" id="btn-verificar-js">Verificar Scripts</button>
       <button class="btn" id="btn-abrir-consola">Mostrar Consola</button>
@@ -139,9 +141,9 @@
   </div>
   
   <div class="card">
-    <h2>Diagnóstico</h2>
-    <p>Resultados del diagnóstico del carrito:</p>
-    <div class="results" id="results">Esperando diagnóstico...</div>
+    <h2>Diagn�stico</h2>
+    <p>Resultados del diagn�stico del carrito:</p>
+    <div class="results" id="results">Esperando diagn�stico...</div>
   </div>
   
   <div class="card">
@@ -158,14 +160,14 @@
       const statusGeneral = document.getElementById('status-general');
       const statusText = document.getElementById('status-text');
       
-      // Función para formatear la salida de consola
+      // Funci�n para formatear la salida de consola
       function formatOutput(message, type) {
         const now = new Date();
         const time = now.toLocaleTimeString();
         return `[${time}] ${type ? type + ': ' : ''}${message}\n`;
       }
       
-      // Función para mostrar datos del carrito
+      // Funci�n para mostrar datos del carrito
       function mostrarDatosCarrito() {
         try {
           const carritoData = localStorage.getItem('carrito');
@@ -173,7 +175,7 @@
             const carrito = JSON.parse(carritoData);
             carritoDataEl.textContent = JSON.stringify(carrito, null, 2);
           } else {
-            carritoDataEl.textContent = 'El carrito está vacío';
+            carritoDataEl.textContent = 'El carrito est� vac�o';
           }
         } catch (e) {
           carritoDataEl.textContent = 'Error al leer datos del carrito: ' + e.message;
@@ -216,22 +218,22 @@
           statusText.className = 'success';
         } else if (typeof window.diagnosticoCarrito === 'undefined') {
           statusGeneral.className = 'status-indicator #ff0000';
-          statusText.textContent = 'Error crítico: carrito-debug.js no se ha cargado correctamente';
+          statusText.textContent = 'Error cr�tico: carrito-debug.js no se ha cargado correctamente';
           statusText.className = 'error';
         } else {
           statusGeneral.className = 'status-indicator orange';
-          statusText.textContent = 'Se encontraron problemas - Ver diagnóstico para detalles';
+          statusText.textContent = 'Se encontraron problemas - Ver diagn�stico para detalles';
           statusText.className = 'error';
         }
       }
       
-      // Ejecutar diagnóstico
+      // Ejecutar diagn�stico
       document.getElementById('btn-ejecutar').addEventListener('click', function() {
         resultsEl.textContent = '';
-        console.log('Iniciando diagnóstico completo...');
+        console.log('Iniciando diagn�stico completo...');
         
         if (typeof window.diagnosticoCarrito === 'undefined') {
-          console.error('Error crítico: carrito-debug.js no se ha cargado correctamente');
+          console.error('Error cr�tico: carrito-debug.js no se ha cargado correctamente');
           return;
         }
         
@@ -241,7 +243,7 @@
         window.diagnosticoCarrito.verificarDatosCarrito();
         window.diagnosticoCarrito.verificarBotonesAgregarCarrito();
         
-        console.log('Diagnóstico completo finalizado');
+        console.log('Diagn�stico completo finalizado');
         verificarEstadoGlobal();
         mostrarDatosCarrito();
       });
@@ -252,15 +254,15 @@
         console.log('Intentando agregar producto de prueba...');
         
         if (typeof window.diagnosticoCarrito === 'undefined') {
-          console.error('Error crítico: carrito-debug.js no se ha cargado correctamente');
+          console.error('Error cr�tico: carrito-debug.js no se ha cargado correctamente');
           return;
         }
         
         const resultado = window.diagnosticoCarrito.testAgregarProducto();
         if (resultado) {
-          console.log('✓ Producto de prueba agregado correctamente');
+          console.log('? Producto de prueba agregado correctamente');
         } else {
-          console.error('✗ No se pudo agregar el producto de prueba');
+          console.error('? No se pudo agregar el producto de prueba');
         }
         
         mostrarDatosCarrito();
@@ -268,7 +270,7 @@
       
       // Limpiar carrito
       document.getElementById('btn-limpiar').addEventListener('click', function() {
-        if (confirm('¿Estás seguro de que quieres eliminar todos los productos del carrito?')) {
+        if (confirm('�Est�s seguro de que quieres eliminar todos los productos del carrito?')) {
           localStorage.removeItem('carrito');
           console.log('Carrito eliminado correctamente');
           mostrarDatosCarrito();
@@ -285,14 +287,14 @@
         
         scripts.forEach(script => {
           if (script.src) {
-            console.log(`✓ Script externo: ${script.src}`);
+            console.log(`? Script externo: ${script.src}`);
           } else {
-            console.log(`✓ Script inline: ${script.textContent.substring(0, 30)}...`);
+            console.log(`? Script inline: ${script.textContent.substring(0, 30)}...`);
           }
         });
       });
       
-      // Botón para abrir consola del navegador
+      // Bot�n para abrir consola del navegador
       document.getElementById('btn-abrir-consola').addEventListener('click', function() {
         console.log('Por favor, abre la consola del navegador presionando F12 o Ctrl+Shift+J (Windows/Linux) o Cmd+Option+J (Mac)');
         alert('Por favor, abre la consola del navegador presionando F12 o Ctrl+Shift+J (Windows/Linux) o Cmd+Option+J (Mac)');
@@ -327,7 +329,7 @@
               <button type="button" class="talla-btn">40</button>
             </div>
           </div>
-          <button class="btn-add-cart">Añadir al carrito</button>
+          <button class="btn-add-cart">A�adir al carrito</button>
         </div>
       </div>
       
@@ -347,7 +349,7 @@
               <button type="button" class="talla-btn">37</button>
             </div>
           </div>
-          <button class="btn-add-cart">Añadir al carrito</button>
+          <button class="btn-add-cart">A�adir al carrito</button>
         </div>
       </div>
     </div>
@@ -361,14 +363,14 @@
         <button id="cerrar-carrito" class="cerrar-carrito">&times;</button>
       </div>
       <div id="carrito-lista" class="carrito-lista">
-        <!-- Aquí se mostrarán los productos del carrito -->
+        <!-- Aqu� se mostrar�n los productos del carrito -->
       </div>
       <div id="carrito-vacio" class="carrito-vacio">
         <div class="carrito-vacio-icon">
           <i class="fa-solid fa-box-open fa-4x carrito-vacio-icon-color"></i>
         </div>
-        <p class="carrito-vacio-txt">Tu carrito está vacío</p>
-        <p class="carrito-vacio-desc">Aún no tienes artículos en tu carrito de compra.</p>
+        <p class="carrito-vacio-txt">Tu carrito est� vac�o</p>
+        <p class="carrito-vacio-desc">A�n no tienes art�culos en tu carrito de compra.</p>
         <button id="btn-elegir-productos" class="btn-elegir-productos"><i class="fa-solid fa-shoe-prints"></i> Explorar productos</button>
       </div>
       <div id="carrito-total" class="carrito-total oculto">
@@ -380,7 +382,7 @@
   
   <script src="js/tallas.js"></script>
   
-  // Ejecutar diagnóstico automáticamente al cargar
+  // Ejecutar diagn�stico autom�ticamente al cargar
       setTimeout(function() {
         document.getElementById('btn-ejecutar').click();
       }, 500);
@@ -396,3 +398,6 @@
   <script src="js/chatbot.js"></script>
 </body>
 </html>
+
+
+

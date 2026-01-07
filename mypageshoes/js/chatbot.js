@@ -18,7 +18,8 @@ class MundoCalzadoChatbot {
         const chatbotButton = document.createElement('div');
         chatbotButton.className = 'chatbot-float';
         chatbotButton.id = 'chatbot-button';
-        chatbotButton.innerHTML = '<img src="./assets/img/chatbot-robot.svg" alt="Asistente Virtual">';
+        chatbotButton.innerHTML = '<i class="fas fa-robot"></i>';
+        chatbotButton.setAttribute('aria-label', 'Abrir asistente virtual');
         document.body.appendChild(chatbotButton);
 
         // Crear el modal del chatbot
@@ -155,7 +156,7 @@ class MundoCalzadoChatbot {
             return "Nuestra colección para mujeres es increíble: tacones, flats, sandalias, botas, deportivos y más. Contamos con marcas como Piccadilly, Moleca, Frattini e Ipanema. ¿Qué estilo prefieres?";
         }
 
-        if (this.matchesAny(message, ['niños', 'niño', 'infantil', 'escolar'])) {
+        if (this.matchesAny(message, ['ninos', 'nino', 'infantil', 'escolar'])) {
             return "¡Tenemos calzado perfecto para niños! Zapatos escolares, deportivos y casuales. Nuestras marcas Bubblegummers y Gumball son ideales para los pequeños. ¿Para qué ocasión necesitas el calzado?";
         }
 

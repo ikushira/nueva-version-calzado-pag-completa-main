@@ -1,0 +1,68 @@
+/* Estilos adicionales para el carrito mejorado */
+
+/* Resumen del carrito */
+.carrito-resumen {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.carrito-linea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.carrito-linea:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.carrito-total-final {
+  font-weight: 700;
+  font-size: 16px;
+  color: #000;
+  margin-top: 8px;
+  padding-top: 12px !important;
+  border-top: 2px solid #333 !important;
+}
+
+/* Mensaje de envío gratis */
+.envio-gratis-mensaje {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background: #f0f8ff;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.envio-gratis-mensaje i {
+  font-size: 16px;
+}
+
+#carrito-envio {
+  font-weight: 600;
+}
+
+/* Mejoras para móvil */
+@media (max-width: 768px) {
+  .carrito-linea {
+    font-size: 13px;
+  }
+
+  .carrito-total-final {
+    font-size: 15px;
+  }
+
+  .envio-gratis-mensaje {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

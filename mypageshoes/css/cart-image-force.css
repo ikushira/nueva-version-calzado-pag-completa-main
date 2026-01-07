@@ -1,0 +1,98 @@
+/* 
+ * cart-image-force.css
+ * Fix ultra-agresivo para forzar visualización de imágenes en el carrito
+ * Este archivo usa !important en TODAS las propiedades
+ */
+
+/* FORZAR contenedor de imagen */
+.carrito-producto-imagen,
+#carrito-lista .carrito-producto-imagen,
+.modal-carrito .carrito-producto-imagen {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 70px !important;
+  height: 70px !important;
+  min-width: 70px !important;
+  min-height: 70px !important;
+  max-width: 70px !important;
+  max-height: 70px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  border-radius: 6px !important;
+  overflow: visible !important;
+  background-color: #f8f8f8 !important;
+  border: 1px solid #e0e0e0 !important;
+  position: relative !important;
+}
+
+/* FORZAR imagen dentro del contenedor */
+.carrito-producto-imagen img,
+#carrito-lista .carrito-producto-imagen img,
+.modal-carrito .carrito-producto-imagen img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* FORZAR nombre del producto */
+.carrito-producto-nombre,
+#carrito-lista .carrito-producto-nombre,
+.modal-carrito .carrito-producto-nombre {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  line-height: 1.3 !important;
+  margin: 0 0 4px 0 !important;
+  padding: 0 !important;
+}
+
+/* FORZAR info del producto */
+.carrito-producto-info,
+#carrito-lista .carrito-producto-info,
+.modal-carrito .carrito-producto-info {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+/* FORZAR todo el producto sea visible */
+.carrito-producto,
+#carrito-lista .carrito-producto,
+.modal-carrito .carrito-producto {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+/* Evitar que cualquier otro CSS oculte elementos */
+.carrito-producto *,
+.carrito-producto-imagen *,
+.carrito-producto-info * {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Fix para imágenes que no cargan */
+.carrito-producto-imagen img[src=""],
+.carrito-producto-imagen img:not([src]) {
+  content: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23ddd%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23999%22%3EProducto%3C/text%3E%3C/svg%3E') !important;
+}

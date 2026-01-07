@@ -1,7 +1,30 @@
 ﻿
 // Script para Mundo Calzado - Carruseles y funcionalidades
 
+// Función para detectar la ruta base correctamente
+function getBasePath() {
+    // Buscar el script actual para determinar la ruta
+    const scripts = document.querySelectorAll('script[src*="script.js"]');
+    for (let script of scripts) {
+        const src = script.getAttribute('src');
+        if (src && src.includes('script.js')) {
+            // Si el src incluye 'mypageshoes/', estamos en la raíz
+            if (src.includes('mypageshoes/')) {
+                return './mypageshoes/';
+            }
+            // Si no, estamos dentro de mypageshoes
+            return './';
+        }
+    }
+    // Fallback: verificar si existe el directorio mypageshoes
+    return window.location.pathname.includes('/mypageshoes/') ? './' : './mypageshoes/';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // Obtener la ruta base una sola vez
+    const basePath = getBasePath();
+    console.log('Base path detectado:', basePath);
     
     // ===============================
     // CARRUSEL BANNER PRINCIPAL (DINÁMICO)
@@ -42,16 +65,41 @@ document.addEventListener('DOMContentLoaded', function() {
         if (bannerInterval) clearInterval(bannerInterval);
     }
 
-    // Cargar imágenes del carrusel desde JSON
-    fetch('./assets/img/carrusel1/imagenes-carrusel1.json')
-        .then(response => response.json())
-        .then(imagenes => {
-            // Limpiar slides e indicadores existentes
-            bannerCarousel.innerHTML = '';
-            bannerIndicatorsContainer.innerHTML = '';
+    // Verificar si ya hay slides en el HTML (fallback estático)
+    if (bannerCarousel && bannerIndicatorsContainer) {
+        bannerSlides = Array.from(bannerCarousel.querySelectorAll('.banner-slide'));
+        bannerIndicators = Array.from(bannerIndicatorsContainer.querySelectorAll('.banner-indicator'));
+        
+        // Si ya hay slides en el HTML, solo inicializar la funcionalidad
+        if (bannerSlides.length > 0) {
+            console.log('✅ Usando slides estáticos del HTML:', bannerSlides.length);
+            
+            // Agregar click listeners a los indicadores
+            bannerIndicators.forEach((indicator, idx) => {
+                indicator.addEventListener('click', () => showBannerSlide(idx));
+            });
+            
+            // Listeners para botones
+            if (bannerNextBtn) bannerNextBtn.addEventListener('click', nextBannerSlide);
+            if (bannerPrevBtn) bannerPrevBtn.addEventListener('click', prevBannerSlide);
+            
+            // Autoplay
+            startBannerAutoplay();
+            
+            // Pausar autoplay al hacer hover
+            bannerCarousel.addEventListener('mouseenter', stopBannerAutoplay);
+            bannerCarousel.addEventListener('mouseleave', startBannerAutoplay);
+        } else {
+            // Si no hay slides, crearlos dinámicamente
+            const imagenesBanner = [
+                basePath + 'assets/img/carrusel1/carrusel1.jpg',
+                basePath + 'assets/img/carrusel1/carrusel2.jpg',
+                basePath + 'assets/img/carrusel1/banner-calzado.jpg'
+            ];
+            
+            console.log('Creando slides dinámicamente con imágenes:', imagenesBanner);
 
-            // Crear slides e indicadores dinámicamente
-            imagenes.forEach((src, idx) => {
+            imagenesBanner.forEach((src, idx) => {
                 const slide = document.createElement('div');
                 slide.className = 'banner-slide';
                 if (idx === 0) slide.classList.add('active');
@@ -59,6 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 img.src = src;
                 img.alt = `Banner ${idx + 1}`;
                 img.loading = 'lazy';
+                img.onerror = function() {
+                    console.error('Error cargando imagen:', src);
+                };
                 slide.appendChild(img);
                 bannerCarousel.appendChild(slide);
 
@@ -84,10 +135,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Pausar autoplay al hacer hover
             bannerCarousel.addEventListener('mouseenter', stopBannerAutoplay);
             bannerCarousel.addEventListener('mouseleave', startBannerAutoplay);
-        })
-        .catch(err => {
-            console.error('Error cargando imágenes del carrusel principal:', err);
-        });
+            
+            console.log('✅ Carrusel banner inicializado con', bannerSlides.length, 'slides');
+        }
+    }
 
     // ===============================
     // CARRUSEL DE PRODUCTOS
@@ -127,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Limpiar el carrusel
             carousel.innerHTML = '';
             
-            const response = await fetch('./data/products.json');
+            const response = await fetch(basePath + 'data/products.json');
             const data = await response.json();
             const products = data.products;
             
@@ -143,8 +194,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 slide.className = 'carousel-slide';
                 
                 // Obtener imagen usando el sistema de imágenes
-                const imgSrc = window.getProductImage ? window.getProductImage(product, 0) : (product.images?.[0] || './images/placeholder.png');
-                const placeholder = window.getPlaceholderImage ? window.getPlaceholderImage() : './images/placeholder.png';
+                const imgSrc = window.getProductImage ? window.getProductImage(product, 0) : (product.images?.[0] || basePath + 'images/placeholder.png');
+                const placeholder = window.getPlaceholderImage ? window.getPlaceholderImage() : basePath + 'images/placeholder.png';
                 
                 slide.innerHTML = `
                     <img src="${imgSrc}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='${placeholder}';">

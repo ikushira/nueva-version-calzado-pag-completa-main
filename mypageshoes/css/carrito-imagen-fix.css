@@ -7,36 +7,57 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  padding: 0 !important;
 }
 
 .modal-carrito-header {
-  background-color: #ff0000;
-  color: white;
-  padding: 10px 15px;
-  margin: -24px -18px 15px -18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #ff0000 !important;
+  color: white !important;
+  padding: 15px !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .modal-carrito-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: white !important;
+  white-space: nowrap !important;
+}
+
+.modal-carrito-title i {
+  font-size: 20px !important;
 }
 
 .cerrar-carrito {
-  color: white;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
+  color: white !important;
+  background: none !important;
+  border: none !important;
+  font-size: 28px !important;
+  cursor: pointer !important;
+  padding: 0 5px !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  transition: opacity 0.2s ease !important;
+}
+
+.cerrar-carrito:hover {
+  opacity: 0.8 !important;
 }
 
 .carrito-lista {
   flex: 1;
   overflow-y: auto;
   margin-bottom: 15px;
+  padding: 0 15px;
 }
 
 /* Contenedor de ítem del carrito */

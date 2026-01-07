@@ -1,0 +1,109 @@
+/**
+ * responsive-viewport.css
+ * CSS para ajustar el viewport y escalado en todas las pantallas
+ */
+
+/* Asegurar que todo el contenido se ajuste correctamente */
+html {
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ajuste de contenedores principales para evitar desbordamiento */
+.main-container,
+.container,
+.wrapper {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ajuste automático para pantallas muy grandes (>1920px) */
+@media (min-width: 1920px) {
+  body {
+    zoom: 0.9;
+    -moz-transform: scale(0.9);
+    -moz-transform-origin: 0 0;
+  }
+}
+
+/* Pantallas extra grandes */
+@media (min-width: 2560px) {
+  body {
+    zoom: 0.85;
+    -moz-transform: scale(0.85);
+    -moz-transform-origin: 0 0;
+  }
+}
+
+/* Asegurar que las imágenes no se desborden */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Contenedores de productos */
+.productos-grid,
+.productos-container,
+.novedades-carousel-section {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Evitar scroll horizontal en carrusel */
+.novedades-carousel-container {
+  max-width: 100%;
+  overflow: visible;
+}
+
+/* Footer responsive */
+footer {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ajuste para modales y overlays */
+.modal-carrito,
+.modal {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+/* Responsive para contenido ancho */
+@media (max-width: 1600px) {
+  .main-nav ul {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .main-nav ul {
+    gap: 10px;
+  }
+}
+
+/* Ajuste para navegación en pantallas medianas */
+@media (max-width: 1200px) {
+  .main-nav ul li a {
+    font-size: 0.95rem;
+    padding: 10px 15px;
+  }
+}
+
+/* Prevenir desbordamiento en todos los elementos */
+* {
+  box-sizing: border-box;
+}
+
+*:not(svg):not(path) {
+  max-width: 100%;
+}

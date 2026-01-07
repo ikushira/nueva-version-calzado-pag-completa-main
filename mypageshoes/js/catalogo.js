@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
               </div>
             `;
           } else {
-            if (!esMarcas && catalogo.id !== 'catalogo-marcas' && catalogo.id !== 'catalogo-accesorios') etiquetas += '<span class="etiqueta-envio">*ENVÍO GRATIS <i class="fa-solid fa-rocket"></i></span>';
+            if (!esMarcas && catalogo.id !== 'catalogo-marcas' && catalogo.id !== 'catalogo-accesorios') etiquetas += '<span class="etiqueta-envio">ENVIO GRATIS X 2 PARES! <i class="fa-solid fa-rocket"></i></span>';
             if (catalogo.id === 'catalogo-accesorios') {
               card.innerHTML = `
                 ${etiquetas}
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       <button type="button" class="talla-btn">41</button>
                       <button type="button" class="talla-btn">42</button>
                     </div>
-                    <button type="button" class="btn-guia-tallas">Guía de tallas</button>
+                    <button type="button" class="btn-guia-tallas">Guia de tallas</button>
                   </div>
                   <button class="btn-add-cart">Añadir al carrito</button>
                 </div>
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
           card.className = 'producto-card';
           let etiquetas = '';
           if (esNuevos) etiquetas += '<span class="etiqueta-nuevo">NUEVOS</span>';
-          if (!esMarcas && catalogo.id !== 'catalogo-marcas') etiquetas += '<span class="etiqueta-envio">*ENVÍO GRATIS <i class="fa-solid fa-rocket"></i></span>';
+          if (!esMarcas && catalogo.id !== 'catalogo-marcas') etiquetas += '<span class="etiqueta-envio">ENVIO GRATIS X 2 PARES! <i class="fa-solid fa-rocket"></i></span>';
           card.innerHTML = `
             ${etiquetas}
             <div class="img-container">

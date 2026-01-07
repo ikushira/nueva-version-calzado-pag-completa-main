@@ -245,11 +245,12 @@ class CartManager {
 
   /**
    * Calcula los costos de envío
+   * Envío gratis a partir de 2 pares
    */
   getShippingCost() {
-    const subtotal = this.getSubtotal();
-    // Envío gratis para compras superiores a $150.000
-    return subtotal >= 150000 ? 0 : 15000;
+    const totalPairs = this.getTotalItems();
+    // Envío gratis a partir de 2 pares
+    return totalPairs >= 2 ? 0 : 15000;
   }
 
   /**
@@ -280,8 +281,38 @@ class CartManager {
       for (const key of keysToTry) {
         const data = localStorage.getItem(key);
         if (data) {
-          this.cart = JSON.parse(data);
+          let cartData = JSON.parse(data);
+          
+          // Validar y limpiar datos incompletos
+          cartData = cartData.filter(item => {
+            // Verificar que tenga los campos necesarios
+            const isValid = item && item.id && item.price !== undefined;
+            if (!isValid) {
+              console.warn('⚠️ Item inválido eliminado:', item);
+            }
+            return isValid;
+          }).map(item => {
+            // Asegurar que todos los campos existan
+            return {
+              id: item.id,
+              name: item.name || `Producto ${item.id}`,
+              price: item.price || 0,
+              image: item.image || this.placeholder,
+              size: item.size || 'Única',
+              quantity: item.quantity || 1,
+              category: item.category || '',
+              brand: item.brand || ''
+            };
+          });
+          
+          this.cart = cartData;
           console.log(`📦 Carrito cargado (${key}): ${this.cart.length} productos`);
+          
+          // Debug: mostrar datos de cada producto
+          this.cart.forEach((item, index) => {
+            console.log(`  📌 Producto ${index + 1}: ${item.name} | Talla: ${item.size} | Imagen: ${item.image ? '✅' : '❌'}`);
+          });
+          
           // Migrar al key oficial si era legacy
           if (key !== this.storageKey) {
             this.saveToStorage();
@@ -336,30 +367,102 @@ class CartManager {
       if (carritoVacio) carritoVacio.classList.add('oculto');
       if (carritoTotal) carritoTotal.classList.remove('oculto');
 
-      // Renderizar productos
-      listaCarrito.innerHTML = this.cart.map(item => `
-        <div class="carrito-producto" data-product-id="${item.id}" data-size="${item.size}">
-          <div class="carrito-producto-imagen">
-            <img src="${item.image || this.placeholder}" alt="${item.name}" loading="lazy" onerror="this.onerror=null; this.src='${this.placeholder}';">
+      // Placeholder SVG para imágenes que fallan
+      const placeholderSVG = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23eee%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2212%22 fill=%22%23999%22%3EImagen%3C/text%3E%3C/svg%3E';
+
+      // Mapa de imágenes de productos del carrusel (backup para productos con imagen faltante)
+      const imagenesProductos = {
+        'prod-1': 'mypageshoes/assets/img/carrusel2/2.jpeg',
+        'prod-2': 'mypageshoes/assets/img/carrusel2/3.jpeg',
+        'prod-3': 'mypageshoes/assets/img/carrusel2/4.jpeg',
+        'prod-4': 'mypageshoes/assets/img/carrusel2/5.jpeg',
+        'prod-5': 'mypageshoes/assets/img/carrusel2/6.jpeg',
+        'prod-6': 'mypageshoes/assets/img/carrusel2/7.jpeg',
+        'prod-7': 'mypageshoes/assets/img/carrusel2/8.jpeg',
+        'prod-8': 'mypageshoes/assets/img/carrusel2/9.jpeg'
+      };
+
+      // Mapa de nombres de productos del carrusel (backup para productos con nombre incorrecto)
+      const nombresProductos = {
+        'prod-1': 'Bota Urbana Clásica',
+        'prod-2': 'Zapato Casual Sport',
+        'prod-3': 'Tenis Running Pro',
+        'prod-4': 'Sandalia Elegante',
+        'prod-5': 'Mocasín Ejecutivo',
+        'prod-6': 'Bota Montañera',
+        'prod-7': 'Zapatilla Deportiva',
+        'prod-8': 'Oxford Formal'
+      };
+
+      // Renderizar productos CON ESTILOS INLINE para evitar conflictos de CSS
+      listaCarrito.innerHTML = this.cart.map(item => {
+        // Obtener imagen: usar la guardada si es válida, si no buscar en el mapa de backup
+        let imagenFinal = item.image;
+        
+        // Verificar si la imagen guardada es válida (no es placeholder SVG ni vacía)
+        const esImagenInvalida = !imagenFinal || 
+                                 imagenFinal.startsWith('data:image/svg') || 
+                                 imagenFinal === this.placeholder;
+        
+        if (esImagenInvalida && imagenesProductos[item.id]) {
+          imagenFinal = imagenesProductos[item.id];
+          console.log(`🔄 Imagen recuperada para ${item.id}: ${imagenFinal}`);
+        }
+        
+        // Si aún no hay imagen válida, usar placeholder
+        if (!imagenFinal || imagenFinal.startsWith('data:image/svg')) {
+          imagenFinal = placeholderSVG;
+        }
+        
+        // Obtener nombre: usar el guardado si es válido, si no buscar en el mapa de backup
+        let nombreFinal = item.name;
+        
+        // Verificar si el nombre guardado es inválido (muy corto, es "Producto X", o parece talla)
+        const esNombreInvalido = !nombreFinal || 
+                                  nombreFinal.length < 5 ||
+                                  nombreFinal.startsWith('Producto ') ||
+                                  /^Ta(lla)?[\s:]?\d+/i.test(nombreFinal) ||
+                                  /^\d+\/\d+$/.test(nombreFinal);
+        
+        if (esNombreInvalido && nombresProductos[item.id]) {
+          nombreFinal = nombresProductos[item.id];
+          console.log(`🔄 Nombre recuperado para ${item.id}: ${nombreFinal}`);
+        }
+        
+        // Si aún no hay nombre válido, usar genérico
+        if (!nombreFinal || nombreFinal.length < 3) {
+          nombreFinal = 'Producto';
+        }
+        
+        return `
+        <div class="carrito-producto" data-product-id="${item.id}" data-size="${item.size}" style="display: flex !important; visibility: visible !important; opacity: 1 !important; flex-direction: row !important; align-items: center !important; gap: 12px !important; padding: 12px 8px !important; border-bottom: 1px solid #e0e0e0 !important; background-color: #fff !important;">
+          
+          <div class="carrito-producto-imagen" style="display: block !important; visibility: visible !important; opacity: 1 !important; width: 70px !important; height: 70px !important; min-width: 70px !important; min-height: 70px !important; flex-shrink: 0 !important; border-radius: 6px !important; overflow: hidden !important; background-color: #f8f8f8 !important; border: 1px solid #ddd !important;">
+            <img src="${imagenFinal}" alt="${nombreFinal}" style="display: block !important; visibility: visible !important; opacity: 1 !important; width: 100% !important; height: 100% !important; object-fit: contain !important;" onerror="this.onerror=null; this.src='${placeholderSVG}';">
           </div>
-          <div class="carrito-producto-info">
-            <h4 class="carrito-producto-nombre">${item.name}</h4>
-            <p class="carrito-producto-talla">Talla: ${item.size || 'Única'}</p>
-            <p class="carrito-producto-precio">$${item.price.toLocaleString('es-CO')}</p>
+          
+          <div class="carrito-producto-info" style="display: block !important; visibility: visible !important; opacity: 1 !important; flex: 1 !important; min-width: 0 !important;">
+            <h4 class="carrito-producto-nombre" style="display: block !important; visibility: visible !important; opacity: 1 !important; font-size: 14px !important; font-weight: 600 !important; color: #333 !important; margin: 0 0 4px 0 !important; line-height: 1.3 !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;">${nombreFinal}</h4>
+            <p class="carrito-producto-talla" style="display: block !important; visibility: visible !important; opacity: 1 !important; font-size: 12px !important; color: #666 !important; margin: 0 0 4px 0 !important;">Talla: ${item.size || 'Única'}</p>
+            <p class="carrito-producto-precio" style="display: block !important; visibility: visible !important; opacity: 1 !important; font-size: 13px !important; font-weight: 700 !important; color: #ff0000 !important; margin: 0 !important;">$${item.price.toLocaleString('es-CO')}</p>
           </div>
-          <div class="carrito-producto-cantidad">
-            <button class="btn-cantidad btn-decrementar" data-product-id="${item.id}" data-size="${item.size}">-</button>
-            <span class="cantidad-valor">${item.quantity}</span>
-            <button class="btn-cantidad btn-incrementar" data-product-id="${item.id}" data-size="${item.size}">+</button>
+          
+          <div class="carrito-producto-cantidad" style="display: flex !important; visibility: visible !important; opacity: 1 !important; align-items: center !important; gap: 6px !important; flex-shrink: 0 !important;">
+            <button class="btn-cantidad btn-decrementar" data-product-id="${item.id}" data-size="${item.size}" style="display: flex !important; visibility: visible !important; opacity: 1 !important; align-items: center !important; justify-content: center !important; width: 26px !important; height: 26px !important; border: 1px solid #ddd !important; background: #fff !important; border-radius: 4px !important; cursor: pointer !important; font-size: 16px !important;">-</button>
+            <span class="cantidad-valor" style="display: inline-block !important; visibility: visible !important; opacity: 1 !important; min-width: 20px !important; text-align: center !important; font-weight: 600 !important;">${item.quantity}</span>
+            <button class="btn-cantidad btn-incrementar" data-product-id="${item.id}" data-size="${item.size}" style="display: flex !important; visibility: visible !important; opacity: 1 !important; align-items: center !important; justify-content: center !important; width: 26px !important; height: 26px !important; border: 1px solid #ddd !important; background: #fff !important; border-radius: 4px !important; cursor: pointer !important; font-size: 16px !important;">+</button>
           </div>
-          <div class="carrito-producto-subtotal">
-            <p>$${(item.price * item.quantity).toLocaleString('es-CO')}</p>
+          
+          <div class="carrito-producto-subtotal" style="display: block !important; visibility: visible !important; opacity: 1 !important; text-align: right !important; min-width: 70px !important; flex-shrink: 0 !important;">
+            <p style="display: block !important; visibility: visible !important; opacity: 1 !important; font-size: 14px !important; font-weight: 700 !important; color: #333 !important; margin: 0 !important;">$${(item.price * item.quantity).toLocaleString('es-CO')}</p>
           </div>
-          <button class="btn-eliminar-producto" data-product-id="${item.id}" data-size="${item.size}">
-            <i class="fa-solid fa-trash"></i>
+          
+          <button class="btn-eliminar-producto" data-product-id="${item.id}" data-size="${item.size}" style="display: flex !important; visibility: visible !important; opacity: 1 !important; align-items: center !important; justify-content: center !important; width: 30px !important; height: 30px !important; border: none !important; background: transparent !important; color: #999 !important; cursor: pointer !important; border-radius: 4px !important; flex-shrink: 0 !important;">
+            <i class="fa-solid fa-trash" style="font-size: 14px !important;"></i>
           </button>
-        </div>
-      `).join('');
+        </div>`}).join('');
+      
+      console.log('✅ Carrito renderizado con estilos inline forzados');
     }
   }
 
@@ -401,9 +504,42 @@ class CartManager {
    */
   updateCartTotal() {
     const totalElement = document.getElementById('carrito-total-precio');
+    const subtotalElement = document.getElementById('carrito-subtotal');
+    const envioElement = document.getElementById('carrito-envio');
+    const envioMensaje = document.getElementById('envio-gratis-mensaje');
+    
+    const subtotal = this.getSubtotal();
+    const totalPairs = this.getTotalItems();
+    const shippingCost = this.getShippingCost();
+    const total = this.getTotal();
+    
     if (totalElement) {
-      const total = this.getTotal();
       totalElement.textContent = total.toLocaleString('es-CO');
+    }
+    
+    if (subtotalElement) {
+      subtotalElement.textContent = subtotal.toLocaleString('es-CO');
+    }
+    
+    if (envioElement) {
+      envioElement.textContent = shippingCost === 0 ? 'GRATIS' : `$${shippingCost.toLocaleString('es-CO')}`;
+      envioElement.style.color = shippingCost === 0 ? '#28a745' : '';
+      envioElement.style.fontWeight = shippingCost === 0 ? 'bold' : '';
+    }
+    
+    // Mostrar mensaje de envío gratis
+    if (envioMensaje) {
+      if (totalPairs >= 2) {
+        envioMensaje.innerHTML = '<i class="fas fa-check-circle"></i> ¡Tienes envio gratis!';
+        envioMensaje.style.color = '#28a745';
+        envioMensaje.style.display = 'block';
+      } else if (totalPairs === 1) {
+        envioMensaje.innerHTML = '<i class="fas fa-info-circle"></i> Agrega 1 par mas para envio gratis';
+        envioMensaje.style.color = '#ffc107';
+        envioMensaje.style.display = 'block';
+      } else {
+        envioMensaje.style.display = 'none';
+      }
     }
   }
 
@@ -490,22 +626,38 @@ class CartManager {
   }
 
   /**
-   * Muestra una notificación
+   * Muestra una notificación profesional con icono
    */
-  showNotification(message) {
+  showNotification(message, type = 'success') {
+    // Verificar si ya existe un contenedor de notificaciones
+    let container = document.getElementById('cart-notifications-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'cart-notifications-container';
+      container.className = 'cart-notifications-container';
+      document.body.appendChild(container);
+    }
+    
     // Crear notificación flotante
     const notification = document.createElement('div');
-    notification.className = 'cart-notification';
-    notification.textContent = message;
+    notification.className = `cart-notification ${type}`;
     
-    document.body.appendChild(notification);
+    // Agregar ícono según el tipo
+    const icon = type === 'success' ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-info-circle"></i>';
+    
+    notification.innerHTML = `
+      ${icon}
+      <span class="notification-message">${message}</span>
+    `;
+    
+    container.appendChild(notification);
     
     // Mostrar con animación
     setTimeout(() => notification.classList.add('show'), 10);
     
     // Ocultar y eliminar después de 3 segundos
     setTimeout(() => {
-      notification.classList.remove('show');
+      notification.classList.add('hide');
       setTimeout(() => notification.remove(), 300);
     }, 3000);
   }

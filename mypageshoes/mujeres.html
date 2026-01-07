@@ -1,9 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Mundo Calzado | Mujeres</title>
+  
+  <link rel="stylesheet" href="css/responsive-viewport.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/standardized-cards.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -11,20 +13,24 @@
   <link rel="stylesheet" href="css/enhanced-shopping.css">
   <link rel="stylesheet" href="css/filtros-styles.css">
   <link rel="stylesheet" href="css/carrito.css">
+  <link rel="stylesheet" href="css/carrito-enhanced.css">
+  <link rel="stylesheet" href="css/carrito-imagen-fix.css">
+  <link rel="stylesheet" href="css/carrito-fix-adicional.css">
+  <link rel="stylesheet" href="css/cart-display-fix.css">
+  <link rel="stylesheet" href="css/cart-image-force.css">
   <link rel="stylesheet" href="css/whatsapp-button.css">
   <link rel="stylesheet" href="css/footer-enhanced.css">
-  <link rel="stylesheet" href="css/responsive-mobile.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/image-size-fix.css">
+  <link rel="stylesheet" href="css/image-size-fix.css">
   <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/responsive-mobile.css">
   <link rel="stylesheet" href="css/mobile-navigation.css">
   <link rel="stylesheet" href="css/carrito-mobile-improvements.css">
   <link rel="stylesheet" href="css/header-user-menu.css">
   <link rel="stylesheet" href="css/z-index-hierarchy.css">
 </head>
 <body>
-  <!-- Header y navegación igual que index.html -->
   <div class="top-bar #ff0000-theme">
     <div class="promo">
       <span class="promo-strong"><i class="fa-solid fa-fire"></i> POR COMPRA DE 2 PARES EN ADELANTE, ENVÍO GRATIS!!</span>
@@ -50,21 +56,14 @@
       </button>
     </div>
   </header>
-  <!-- Modal Carrito de Compras -->
   <div id="modal-carrito" class="modal-carrito oculto">
     <div class="modal-carrito-content">
       <div class="modal-carrito-header">
         <span class="modal-carrito-title"><i class="fa-solid fa-cart-shopping"></i> MI CARRITO</span>
         <button id="cerrar-carrito" class="cerrar-carrito">&times;</button>
       </div>
-      <div id="carrito-lista" class="carrito-lista">
-        <!-- Aquí se mostrarán los productos del carrito -->
-      </div>
+      <div id="carrito-lista" class="carrito-lista"></div>
       <div id="carrito-vacio" class="carrito-vacio">
-        <!-- Usamos un icono visual para representar el carrito vacío -->
-        <div class="carrito-vacio-icon">
-          <i class="fa-solid fa-box-open fa-4x carrito-vacio-icon-color"></i>
-        </div>
         <p class="carrito-vacio-txt">Tu carrito está vacío</p>
         <p class="carrito-vacio-desc">Aún no tienes artículos en tu carrito de compra.</p>
         <button id="btn-elegir-productos" class="btn-elegir-productos"><i class="fa-solid fa-shoe-prints"></i> Explorar productos</button>
@@ -79,7 +78,7 @@
   <nav class="main-nav #ff0000-theme">
     <ul>
       <li><a href="nuevos.html">Nuevos</a></li>
-      <li><a href="mujeres.html" class="ofertas">Mujeres</a></li>
+      <li><a href="mujeres.html" class="active">Mujeres</a></li>
       <li><a href="hombres.html">Hombres</a></li>
       <li><a href="ninas.html">Niñas</a></li>
       <li><a href="ninos.html">Niños</a></li>
@@ -87,21 +86,17 @@
       <li><a href="dotacion.html">Dotación</a></li>
       <li><a href="accesorios.html">Accesorios</a></li>
       <li><a href="marcas.html">Marcas</a></li>
-      <li><a href="#" class="ofertas">Ofertas</a></li>
+      <li><a href="ofertas.html" class="ofertas">Ofertas</a></li>
     </ul>
   </nav>
 
-  <!-- Breadcrumb -->
   <nav class="breadcrumb-nav">
     <a href="../index.html">Home</a> <span class="breadcrumb-sep">/</span>
-    <a href="nuevos.html">Nuevos</a> <span class="breadcrumb-sep">/</span>
     <span class="breadcrumb-current">Mujeres</span>
   </nav>
-  <!-- Botones desplegables -->
-  <div class="catalogo-actions">
-    <button class="btn-guia-tallas">Guía de tallas</button>
-  </div>
-  <!-- Sidebar de filtros estilo bosquejo -->
+
+  <div class="catalogo-actions"></div>
+
   <div id="filtroSidebar" class="filtro-sidebar-sketch filtro-sidebar-left">
     <div class="filtro-header-sketch">
       <span><i class="fa-solid fa-bars"></i> Filtros</span>
@@ -118,48 +113,24 @@
           <label class="filtro-link" data-filtro="Tenis"><input type="checkbox"> Tenis</label><br>
           <label class="filtro-link" data-filtro="Botas botines"><input type="checkbox"> Botas botines</label><br>
           <label class="filtro-link" data-filtro="Zapatos Formales"><input type="checkbox"> Zapatos Formales</label><br>
-          <label class="filtro-link" data-filtro="Accesorios"><input type="checkbox"> Accesorios</label><br>
-          <label class="filtro-link" data-filtro="Tacones"><input type="checkbox"> Tacones</label>
         </div>
       </div>
       <hr>
       <div class="filtro-group-sketch">
         <div class="filtro-group-title-sketch" onclick="toggleFiltroSub('colores')">Colores <i class="fa-solid fa-angle-down"></i></div>
         <div class="filtro-group-list-sketch visually-hidden filtro-colores-list" id="filtro-colores">
-          <label class="filtro-link" data-filtro="amarillo"><input type="checkbox"> amarillo</label>
-          <label class="filtro-link" data-filtro="beige"><input type="checkbox"> beige</label>
-          <label class="filtro-link" data-filtro="blanco"><input type="checkbox"> blanco</label>
-          <label class="filtro-link" data-filtro="café"><input type="checkbox"> café</label>
-          <label class="filtro-link" data-filtro="verde"><input type="checkbox"> verde</label>
-          <label class="filtro-link" data-filtro="dorado"><input type="checkbox"> dorado</label>
-          <label class="filtro-link" data-filtro="multicolor"><input type="checkbox"> multicolor</label>
-          <label class="filtro-link" data-filtro="gris"><input type="checkbox"> gris</label>
-          <label class="filtro-link" data-filtro="miel"><input type="checkbox"> miel</label>
-          <label class="filtro-link" data-filtro="naranja"><input type="checkbox"> naranja</label>
-          <label class="filtro-link" data-filtro="negro"><input type="checkbox"> negro</label>
-          <label class="filtro-link" data-filtro="rosado"><input type="checkbox"> rosado</label>
+          <label class="filtro-link" data-filtro="negro"><input type="checkbox"> Negro</label>
+          <label class="filtro-link" data-filtro="cafe"><input type="checkbox"> Café</label>
+          <label class="filtro-link" data-filtro="blanco"><input type="checkbox"> Blanco</label>
+          <label class="filtro-link" data-filtro="gris"><input type="checkbox"> Gris</label>
         </div>
       </div>
       <div class="filtro-group-sketch">
         <div class="filtro-group-title-sketch" onclick="toggleFiltroSub('marca')">Marca <i class="fa-solid fa-angle-down"></i></div>
         <div class="filtro-group-list-sketch visually-hidden filtro-marca-list" id="filtro-marca">
-          <label class="filtro-link" data-filtro="24 Walks"><input type="checkbox"> 24 Walks</label>
-          <label class="filtro-link" data-filtro="Aldo Masconi"><input type="checkbox"> Aldo Masconi</label>
-          <label class="filtro-link" data-filtro="Rider"><input type="checkbox"> Rider</label>
           <label class="filtro-link" data-filtro="Skechers"><input type="checkbox"> Skechers</label>
-          <label class="filtro-link" data-filtro="New balance"><input type="checkbox"> New balance</label>
-          <label class="filtro-link" data-filtro="Cartago"><input type="checkbox"> Cartago</label>
-          <label class="filtro-link" data-filtro="Throwing"><input type="checkbox"> Throwing</label>
-          <label class="filtro-link" data-filtro="River Creek"><input type="checkbox"> River Creek</label>
-          <label class="filtro-link" data-filtro="Patrick"><input type="checkbox"> Patrick</label>
-          <label class="filtro-link" data-filtro="Brahma"><input type="checkbox"> Brahma</label>
-          <label class="filtro-link" data-filtro="Rockland"><input type="checkbox"> Rockland</label>
-        </div>
-      </div>
-      <div class="filtro-group-sketch">
-        <div class="filtro-group-title-sketch" onclick="toggleFiltroSub('ofertas')">Ofertas <i class="fa-solid fa-angle-down"></i></div>
-        <div class="filtro-group-list-sketch visually-hidden filtro-ofertas-list" id="filtro-ofertas">
-          <label class="filtro-link" data-filtro="ofertas"><input type="checkbox"> ofertas</label>
+          <label class="filtro-link" data-filtro="New Balance"><input type="checkbox"> New Balance</label>
+          <label class="filtro-link" data-filtro="Piccadilly"><input type="checkbox"> Piccadilly</label>
         </div>
       </div>
       <div class="filtro-group-sketch">
@@ -176,16 +147,13 @@
       </div>
     </div>
   </div>
-  <div id="filtroOverlay" class="filtro-overlay-sketch visually-hidden"></div>
+  <div id="filtroOverlay" class="filtro-overlay-sketch"></div>
 
   <section class="catalogo-section">
     <h2>Calzado para Mujeres</h2>
-    <div class="catalogo-container" id="catalogo-mujeres">
-      <!-- Los productos se generan dinámicamente por JS -->
-    </div>
+    <div class="catalogo-container" id="catalogo-mujeres"></div>
   </section>
 
-  <!-- Footer igual que index.html -->
   <footer class="footer">
     <div class="footer-main">
       <div class="footer-col">
@@ -213,7 +181,7 @@
         <a href="pages/descubre.html">Descubre más beneficios</a>
       </div>
       <div class="footer-col footer-social">
-        <h4>Síguenos en nuestras #ff0000es:</h4>
+        <h4>Síguenos en nuestras redes:</h4>
         <div class="social-icons">
           <a href="#"><img src="assets/img/instagram.svg" alt="Instagram" /></a>
           <a href="#"><img src="assets/img/facebook.png" alt="Facebook" /></a>
@@ -228,8 +196,6 @@
         <span class="super-text">Superintendencia de Industria y Comercio</span>
       </div>
     </div>
-    <link rel="stylesheet" href="css/guia-tallas-modal.css">
-    <script src="js/guia-tallas-modal.js"></script>
     <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener">
       <img src="assets/img/whatsapp.svg" alt="WhatsApp">
     </a>
@@ -239,14 +205,16 @@
   <script src="js/secciones_js/Mujeres_fotos.js"></script>
   <script src="js/catalogo.js"></script>
   <script src="js/busqueda.js"></script>
-  <script src="js/filtros-global.js"></script><script src="js/tallas.js"></script>
-  <script src="js/diagnostico-tallas.js"></script>
-    <script src="./js/image-size-fix.js"></script>
-<script src="js/aplicar-whatsapp-all-pages.js"></script>
-  <script src="js/chatbot.js"></script>
-  <script src="js/mobile-navigation.js"></script>
+  <script src="js/filtros-global.js"></script>
   <script src="js/product-images.js"></script>
   <script src="js/cart-manager.js"></script>
+  <script src="js/cart-fix-complete.js"></script>
+  <script src="js/tallas.js"></script>
+  <script src="js/diagnostico-tallas.js"></script>
+  <script src="js/image-size-fix.js"></script>
+  <script src="js/aplicar-whatsapp-all-pages.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/mobile-navigation.js"></script>
   <script src="js/header-manager.js"></script>
 </body>
 </html>
