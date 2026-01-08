@@ -421,15 +421,20 @@
 
     console.log('💳 Procediendo al checkout...');
     
-    // Detectar la ruta correcta según dónde estemos
+    // Detectar la ruta correcta según la ubicación actual
     const currentPath = window.location.pathname;
-    let checkoutUrl = './checkout.html';
+    let checkoutUrl;
     
-    // Si estamos en el root (index.html), necesitamos mypageshoes/
-    if (currentPath.endsWith('index.html') || currentPath.endsWith('/') || !currentPath.includes('mypageshoes')) {
+    // Si estamos en mypageshoes/ (cualquier página dentro de mypageshoes)
+    if (currentPath.includes('/mypageshoes/')) {
+      checkoutUrl = 'checkout.html';
+    } 
+    // Si estamos en root (index.html)
+    else {
       checkoutUrl = 'mypageshoes/checkout.html';
     }
     
+    console.log('Ruta actual:', currentPath);
     console.log('Redirigiendo a:', checkoutUrl);
     window.location.href = checkoutUrl;
   }
