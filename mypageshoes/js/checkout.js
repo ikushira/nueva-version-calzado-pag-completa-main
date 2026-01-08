@@ -555,15 +555,14 @@ class CheckoutManager {
     async processAddiPayment() {
         const phone = document.getElementById('addiPhone').value;
         
-        // Simulación de Addi (en producción usar la API real)
-        await this.delay(1500);
-        
-        return {
-            success: true,
-            transactionId: this.generateTransactionId(),
-            method: 'addi',
-            phone: phone
-        };
+        // Integración con Addi
+        const addiResult = await window.AddiIntegration.requestCredit({
+            amount: this.orderTotal,
+            phone: phone,
+            userInfo: this.userInfo
+        });
+
+        return addiResult;
     }
 
     // Procesar pago en efectivo
