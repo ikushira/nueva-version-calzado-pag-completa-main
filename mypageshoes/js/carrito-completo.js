@@ -420,7 +420,18 @@
     }
 
     console.log('💳 Procediendo al checkout...');
-    window.location.href = './checkout.html';
+    
+    // Detectar la ruta correcta según dónde estemos
+    const currentPath = window.location.pathname;
+    let checkoutUrl = './checkout.html';
+    
+    // Si estamos en el root (index.html), necesitamos mypageshoes/
+    if (currentPath.endsWith('index.html') || currentPath.endsWith('/') || !currentPath.includes('mypageshoes')) {
+      checkoutUrl = 'mypageshoes/checkout.html';
+    }
+    
+    console.log('Redirigiendo a:', checkoutUrl);
+    window.location.href = checkoutUrl;
   }
 
   /**
