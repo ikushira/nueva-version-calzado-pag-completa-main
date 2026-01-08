@@ -50,32 +50,56 @@ class CheckoutManager {
 
         if (this.orderItems.length === 0) {
             container.innerHTML = `
-                <div class="empty-cart-message">
-                    <p>No hay productos en el carrito</p>
-                    <a href="nuevos.html" class="btn-continue-shopping">Ver Productos</a>
+                <div class="empty-cart-message" style="text-align: center; padding: 2rem; color: #6b7280;">
+                    <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; color: #d1d5db;"></i>
+                    <p style="margin-bottom: 1rem;">No hay productos en el carrito</p>
+                    <a href="nuevos.html" style="color: var(--primary-color, #ff0000); text-decoration: none; font-weight: 600;">Ver Productos</a>
                 </div>
             `;
             return;
         }
 
-        const itemsHTML = this.orderItems.map(item => `
-            <div class="order-item">
-                <img src="${item.image || item.imagen || './assets/img/placeholder.jpg'}" 
-                     alt="${item.name || item.nombre || 'Producto'}" 
-                     class="item-image"
-                     onerror="this.src='./assets/img/placeholder.jpg'">
-                <div class="item-info">
-                    <div class="item-name">${item.name || item.nombre || 'Producto'}</div>
-                    <div class="item-details">
-                        Talla: ${item.size || item.talla || 'N/A'} | Cantidad: ${item.quantity || item.cantidad || 1}
+        const itemsHTML = this.orderItems.map(item => {
+            // Obtener la imagen correcta
+            let imageSrc = item.image || item.imagen || '';
+            
+            // Si la imagen empieza con ./ o ../, corregir la ruta
+            if (imageSrc.startsWith('./')) {
+                imageSrc = imageSrc.substring(2);
+            } else if (imageSrc.startsWith('../')) {
+                imageSrc = imageSrc.substring(3);
+            }
+            
+            // Asegurar que tenga una ruta válida
+            if (!imageSrc || imageSrc === '') {
+                imageSrc = 'assets/img/placeholder.jpg';
+            }
+            
+            const nombre = item.name || item.nombre || 'Producto';
+            const talla = item.size || item.talla || 'N/A';
+            const cantidad = item.quantity || item.cantidad || 1;
+            const precio = item.price || item.precio || 0;
+            const total = precio * cantidad;
+            
+            return `
+                <div class="order-item">
+                    <img src="${imageSrc}" 
+                         alt="${nombre}" 
+                         class="item-image"
+                         onerror="this.src='assets/img/placeholder.jpg'; this.onerror=null;">
+                    <div class="item-info">
+                        <div class="item-name">${nombre}</div>
+                        <div class="item-details">
+                            Talla: ${talla} | Cantidad: ${cantidad}
+                        </div>
+                        <div class="item-price">$${this.formatPrice(total)}</div>
                     </div>
-                    <div class="item-price">$${this.formatPrice((item.price || item.precio || 0) * (item.quantity || item.cantidad || 1))}</div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
 
         container.innerHTML = itemsHTML;
-        console.log('Items renderizados en checkout');
+        console.log('Items renderizados en checkout:', this.orderItems.length);
     }
 
     // Calcular totales
