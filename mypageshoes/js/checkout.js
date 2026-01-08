@@ -23,10 +23,17 @@ class CheckoutManager {
     // Cargar items del carrito
     loadCartItems() {
         try {
-            const cart = JSON.parse(localStorage.getItem('carrito') || '[]');
+            // Intentar cargar del carrito correcto
+            const cart = JSON.parse(localStorage.getItem('mundo_calzado_cart') || '[]');
+            console.log('Carrito cargado:', cart);
             this.orderItems = cart;
             this.renderOrderItems();
             this.calculateTotals();
+            
+            // Si el carrito está vacío, mostrar mensaje
+            if (cart.length === 0) {
+                console.warn('Carrito vacío en checkout');
+            }
         } catch (error) {
             console.error('Error al cargar items del carrito:', error);
             this.orderItems = [];
@@ -36,41 +43,54 @@ class CheckoutManager {
     // Renderizar items del pedido
     renderOrderItems() {
         const container = document.getElementById('order-items');
-        if (!container) return;
+        if (!container) {
+            console.error('Contenedor order-items no encontrado');
+            return;
+        }
 
         if (this.orderItems.length === 0) {
-            container.innerHTML = '<p class="empty-cart">No hay productos en el carrito</p>';
+            container.innerHTML = `
+                <div class="empty-cart-message">
+                    <p>No hay productos en el carrito</p>
+                    <a href="nuevos.html" class="btn-continue-shopping">Ver Productos</a>
+                </div>
+            `;
             return;
         }
 
         const itemsHTML = this.orderItems.map(item => `
             <div class="order-item">
-                <img src="${item.imagen || './assets/img/placeholder.jpg'}" 
-                     alt="${item.nombre}" 
+                <img src="${item.image || item.imagen || './assets/img/placeholder.jpg'}" 
+                     alt="${item.name || item.nombre || 'Producto'}" 
                      class="item-image"
                      onerror="this.src='./assets/img/placeholder.jpg'">
                 <div class="item-info">
-                    <div class="item-name">${item.nombre}</div>
+                    <div class="item-name">${item.name || item.nombre || 'Producto'}</div>
                     <div class="item-details">
-                        Talla: ${item.talla} | Cantidad: ${item.cantidad}
+                        Talla: ${item.size || item.talla || 'N/A'} | Cantidad: ${item.quantity || item.cantidad || 1}
                     </div>
-                    <div class="item-price">$${this.formatPrice(item.precio * item.cantidad)}</div>
+                    <div class="item-price">$${this.formatPrice((item.price || item.precio || 0) * (item.quantity || item.cantidad || 1))}</div>
                 </div>
             </div>
         `).join('');
 
         container.innerHTML = itemsHTML;
+        console.log('Items renderizados en checkout');
     }
 
     // Calcular totales
     calculateTotals() {
-        const subtotal = this.orderItems.reduce((sum, item) => 
-            sum + (item.precio * item.cantidad), 0);
+        const subtotal = this.orderItems.reduce((sum, item) => {
+            const precio = item.price || item.precio || 0;
+            const cantidad = item.quantity || item.cantidad || 1;
+            return sum + (precio * cantidad);
+        }, 0);
         
         let shipping = 15000; // Costo de envío base
         
         // Envío gratis por compra de 2 pares o más
-        const totalItems = this.orderItems.reduce((sum, item) => sum + item.cantidad, 0);
+        const totalItems = this.orderItems.reduce((sum, item) => 
+            sum + (item.quantity || item.cantidad || 1), 0);
         if (totalItems >= 2) {
             shipping = 0;
         }
@@ -85,22 +105,39 @@ class CheckoutManager {
         this.orderTotal = total;
 
         // Actualizar UI
-        document.getElementById('subtotal').textContent = `$${this.formatPrice(subtotal)}`;
-        document.getElementById('shipping').textContent = shipping === 0 ? 'GRATIS' : `$${this.formatPrice(shipping)}`;
-        document.getElementById('total').textContent = `$${this.formatPrice(total)}`;
+        const subtotalEl = document.getElementById('subtotal');
+        const shippingEl = document.getElementById('shipping');
+        const totalEl = document.getElementById('total');
+        const discountEl = document.getElementById('discount');
+        
+        if (subtotalEl) subtotalEl.textContent = `$${this.formatPrice(subtotal)}`;
+        if (shippingEl) shippingEl.textContent = shipping === 0 ? 'GRATIS' : `$${this.formatPrice(shipping)}`;
+        if (totalEl) totalEl.textContent = `$${this.formatPrice(total)}`;
 
-        if (discount > 0) {
-            document.getElementById('discount').textContent = `-$${this.formatPrice(discount)}`;
-            document.querySelector('.total-line.discount').classList.remove('hidden');
+        if (discount > 0 && discountEl) {
+            discountEl.textContent = `-$${this.formatPrice(discount)}`;
+            const discountLine = document.querySelector('.total-line.discount');
+            if (discountLine) discountLine.classList.remove('hidden');
         }
     }
 
     // Verificar sesión de usuario
     checkUserSession() {
-        const user = JSON.parse(localStorage.getItem('usuarioActual') || 'null');
+        // Buscar usuario en cualquier fuente
+        let user = null;
+        try {
+            user = JSON.parse(localStorage.getItem('usuarioActual') || 'null') ||
+                   JSON.parse(localStorage.getItem('usuarioActivo') || 'null') ||
+                   JSON.parse(localStorage.getItem('currentUser') || 'null');
+        } catch (e) {
+            console.error('Error al cargar sesión:', e);
+        }
+        
         const statusContainer = document.getElementById('user-login-status');
+        if (!statusContainer) return;
 
         if (user) {
+            console.log('Usuario logueado en checkout:', user.email);
             statusContainer.innerHTML = `
                 <div class="logged-user">
                     <p>Conectado como: <strong>${user.email}</strong></p>
@@ -112,10 +149,15 @@ class CheckoutManager {
             this.prefillUserForm(user);
             
             // Agregar evento de logout
-            document.getElementById('logout-link').addEventListener('click', (e) => {
-                e.preventDefault();
-                this.logout();
-            });
+            const logoutLink = document.getElementById('logout-link');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.logout();
+                });
+            }
+        } else {
+            console.log('Usuario no logueado en checkout');
         }
     }
 
@@ -140,25 +182,36 @@ class CheckoutManager {
     // Configurar eventos
     bindEvents() {
         // Continuar al pago
-        document.getElementById('continue-to-payment').addEventListener('click', () => {
-            this.proceedToPayment();
-        });
+        const continueBtn = document.getElementById('continue-to-payment');
+        if (continueBtn) {
+            continueBtn.addEventListener('click', () => {
+                this.proceedToPayment();
+            });
+        }
 
         // Procesar pago
-        document.getElementById('process-payment').addEventListener('click', () => {
-            this.processPayment();
-        });
+        const processBtn = document.getElementById('process-payment');
+        if (processBtn) {
+            processBtn.addEventListener('click', () => {
+                this.processPayment();
+            });
+        }
 
         // Aplicar descuento
-        document.getElementById('applyDiscount').addEventListener('click', () => {
-            this.applyDiscount();
-        });
+        const discountBtn = document.getElementById('applyDiscount');
+        if (discountBtn) {
+            discountBtn.addEventListener('click', () => {
+                this.applyDiscount();
+            });
+        }
 
         // Link de login
         const loginLink = document.getElementById('login-link');
         if (loginLink) {
             loginLink.addEventListener('click', (e) => {
                 e.preventDefault();
+                console.log('Redirigiendo a login con redirect a checkout');
+                // Redirigir a login con parámetro redirect=checkout
                 window.location.href = 'login.html?redirect=checkout';
             });
         }
@@ -498,7 +551,8 @@ class CheckoutManager {
             total: this.orderTotal,
             paymentMethod: this.paymentMethod,
             paymentResult: paymentResult,
-            status: 'confirmed',
+            status: 'pendiente',
+            fecha: new Date().toISOString(),
             createdAt: new Date().toISOString()
         };
 
@@ -506,10 +560,14 @@ class CheckoutManager {
         this.saveOrder(order);
 
         // Limpiar carrito
-        localStorage.removeItem('carrito');
+        localStorage.removeItem('mundo_calzado_cart');
+        console.log('Carrito limpiado después de completar pedido');
 
         // Mostrar confirmación
-        document.getElementById('orderNumber').textContent = orderNumber;
+        const orderNumberEl = document.getElementById('orderNumber');
+        if (orderNumberEl) {
+            orderNumberEl.textContent = orderNumber;
+        }
         this.goToStep(3);
 
         // Enviar notificación (simulado)
@@ -519,17 +577,17 @@ class CheckoutManager {
     // Guardar pedido
     saveOrder(order) {
         try {
+            // Guardar en pedidos generales
             const orders = JSON.parse(localStorage.getItem('orders') || '[]');
             orders.push(order);
             localStorage.setItem('orders', JSON.stringify(orders));
 
-            // También guardar en el perfil del usuario si está logueado
-            const user = JSON.parse(localStorage.getItem('usuarioActual') || 'null');
-            if (user) {
-                const userOrders = JSON.parse(localStorage.getItem(`orders_${user.email}`) || '[]');
-                userOrders.push(order);
-                localStorage.setItem(`orders_${user.email}`, JSON.stringify(userOrders));
-            }
+            // También guardar en pedidos_usuario para la página de cuenta
+            const userOrders = JSON.parse(localStorage.getItem('pedidos_usuario') || '[]');
+            userOrders.push(order);
+            localStorage.setItem('pedidos_usuario', JSON.stringify(userOrders));
+
+            console.log('Pedido guardado correctamente:', order.orderNumber);
         } catch (error) {
             console.error('Error al guardar pedido:', error);
         }
