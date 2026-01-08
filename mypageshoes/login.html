@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar sesión | Mundo Calzado</title>
   
   <link rel="stylesheet" href="css/responsive-viewport.css">
@@ -21,9 +21,12 @@
     .btn { width: 100%; padding: 12px; background: #1a355e; color: #fff; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; margin-top: 8px; }
     .toggle-link { display: block; text-align: center; margin: 16px 0 0; color: #1a355e; cursor: pointer; text-decoration: underline; }
     .error-msg { color: #d32f2f; text-align: center; margin-bottom: 12px; }
+    #register-form { display: none; }
   </style>
-    <link rel="stylesheet" href="css/image-size-fix.css">
-  <link rel="stylesheet" href="css/carrito-imagen-fix.css">`n  <link rel="stylesheet" href="css/cart-display-fix.css">`n  <link rel="stylesheet" href="css/cart-image-force.css">
+  <link rel="stylesheet" href="css/image-size-fix.css">
+  <link rel="stylesheet" href="css/carrito-imagen-fix.css">
+  <link rel="stylesheet" href="css/cart-display-fix.css">
+  <link rel="stylesheet" href="css/cart-image-force.css">
     <link rel="stylesheet" href="css/whatsapp-button.css">
     <link rel="stylesheet" href="css/chatbot.css">
   <link rel="stylesheet" href="css/responsive-mobile.css">
@@ -37,31 +40,31 @@
     <form id="login-form">
       <div class="form-group">
         <label for="login-email">Correo electrónico</label>
-        <input type="email" id="login-email" requi#ff0000>
+        <input type="email" id="login-email" required>
       </div>
       <div class="form-group">
         <label for="login-password">Contraseña</label>
-        <input type="password" id="login-password" requi#ff0000>
+        <input type="password" id="login-password" required>
       </div>
       <button type="submit" class="btn">Entrar</button>
       <span class="toggle-link" id="show-register">¿No tienes cuenta? Regístrate</span>
     </form>
-    <form id="register-form" style="display:none;">
+    <form id="register-form">
       <div class="form-group">
         <label for="reg-name">Nombre completo</label>
-        <input type="text" id="reg-name" requi#ff0000>
+        <input type="text" id="reg-name" required>
       </div>
       <div class="form-group">
         <label for="reg-email">Correo electrónico</label>
-        <input type="email" id="reg-email" requi#ff0000>
+        <input type="email" id="reg-email" required>
       </div>
       <div class="form-group">
         <label for="reg-password">Contraseña</label>
-        <input type="password" id="reg-password" requi#ff0000>
+        <input type="password" id="reg-password" required>
       </div>
       <div class="form-group">
         <label for="reg-confirm">Confirmar contraseña</label>
-        <input type="password" id="reg-confirm" requi#ff0000>
+        <input type="password" id="reg-confirm" required>
       </div>
       <button type="submit" class="btn">Registrarse</button>
       <span class="toggle-link" id="show-login">¿Ya tienes cuenta? Inicia sesión</span>
