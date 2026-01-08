@@ -219,10 +219,15 @@ document.addEventListener('DOMContentLoaded', function() {
           // Buscar la card del producto
           const card = e.target.closest('.producto-card');
           if (!card) return;
+          
           // Extraer nombre y precio
           const nombre = card.querySelector('h3')?.textContent?.trim() || 'Producto';
           const precioTxt = card.querySelector('.producto-precio')?.textContent?.replace(/[^\d]/g, '') || '0';
           const precio = parseInt(precioTxt, 10) || 0;
+          
+          // Obtener imagen del producto
+          const imagenSrc = card.querySelector('img')?.src || '';
+          
           // Buscar talla seleccionada
           let talla = '';
           const tallaBtns = card.querySelectorAll('.talla-btn');
@@ -231,19 +236,26 @@ document.addEventListener('DOMContentLoaded', function() {
               talla = btn.textContent.trim();
             }
           });
+          
           if (!talla) {
-            alert('Por favor selecciona una talla antes de añadir al carrito.');
+            // Mostrar notificación si existe la función
+            if (window.carritoCompleto && window.carritoCompleto.showNotification) {
+              window.carritoCompleto.showNotification('Por favor selecciona una talla', 'warning');
+            } else {
+              alert('Por favor selecciona una talla antes de añadir al carrito.');
+            }
             return;
           }
-          // Agregar al carrito
+          
+          // Agregar al carrito con todos los datos necesarios
           if (window.agregarAlCarrito) {
             window.agregarAlCarrito({
-              id: nombre + '-' + talla,
-              nombre: nombre + ' Talla ' + talla,
+              id: nombre.replace(/\s+/g, '-').toLowerCase(),
+              nombre: nombre,
               precio: precio,
-              cantidad: 1,
-              talla: talla
-            });
+              talla: talla,
+              imagen: imagenSrc
+            }, talla);
           }
         }
         if (e.target.classList.contains('btn-guia-tallas')) {

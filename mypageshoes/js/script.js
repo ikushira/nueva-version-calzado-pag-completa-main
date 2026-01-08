@@ -350,6 +350,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const nombre = card.querySelector('h3')?.textContent?.trim() || 'Producto';
             const precioTxt = card.querySelector('span')?.textContent?.replace(/[^\d]/g, '') || '0';
             const precio = parseInt(precioTxt, 10) || 0;
+            
+            // Obtener imagen del producto
+            const imagenSrc = card.querySelector('img')?.src || '';
+            
             // Buscar talla seleccionada (si existiera)
             let talla = '';
             const tallaBtns = card.querySelectorAll('.talla-btn');
@@ -360,18 +364,22 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             // Si hay selector de talla y no se ha elegido, pedirla
             if (tallaBtns.length > 0 && !talla) {
-                alert('Por favor selecciona una talla antes de añadir al carrito.');
+                if (window.carritoCompleto && window.carritoCompleto.showNotification) {
+                    window.carritoCompleto.showNotification('Por favor selecciona una talla', 'warning');
+                } else {
+                    alert('Por favor selecciona una talla antes de añadir al carrito.');
+                }
                 return;
             }
-            // Agregar al carrito
+            // Agregar al carrito con imagen
             if (window.agregarAlCarrito) {
                 window.agregarAlCarrito({
-                    id: nombre + (talla ? '-' + talla : ''),
-                    nombre: nombre + (talla ? ' Talla ' + talla : ''),
+                    id: nombre.replace(/\s+/g, '-').toLowerCase(),
+                    nombre: nombre,
                     precio: precio,
-                    cantidad: 1,
-                    talla: talla
-                });
+                    imagen: imagenSrc,
+                    talla: talla || 'Única'
+                }, talla || 'Única');
             }
         }
         // Selección visual de talla en carrusel

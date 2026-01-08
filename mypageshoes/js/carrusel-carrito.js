@@ -89,14 +89,14 @@
    * Inicializa los event listeners del carrusel
    */
   function inicializarCarrusel() {
-    // Esperar a que el cartManager esté disponible
-    if (!window.cartManager) {
-      console.log('⏳ Esperando a que CartManager esté disponible...');
+    // Esperar a que el sistema de carrito esté disponible
+    if (!window.agregarAlCarrito) {
+      console.log('⏳ Esperando a que el sistema de carrito esté disponible...');
       setTimeout(inicializarCarrusel, 100);
       return;
     }
 
-    console.log('✅ CartManager disponible, configurando eventos del carrusel');
+    console.log('✅ Sistema de carrito disponible, configurando eventos del carrusel');
 
     // Event delegation para botones de añadir al carrito del carrusel
     document.addEventListener('click', function(e) {
@@ -123,7 +123,11 @@
       const tallaSeleccionada = productoCard.querySelector('.talla-btn.selected');
       
       if (!tallaSeleccionada) {
-        alert('Por favor selecciona una talla antes de añadir al carrito');
+        if (window.carritoCompleto && window.carritoCompleto.showNotification) {
+          window.carritoCompleto.showNotification('Por favor selecciona una talla', 'warning');
+        } else {
+          alert('Por favor selecciona una talla antes de añadir al carrito');
+        }
         return;
       }
 
@@ -137,8 +141,13 @@
 
       console.log(`🛒 Añadiendo producto al carrito: ${producto.name} - Talla ${size}`);
 
-      // Agregar al carrito usando el CartManager
-      const exito = window.cartManager.addProduct(producto, size, 1);
+      // Agregar al carrito usando la función global
+      const exito = window.agregarAlCarrito({
+        id: producto.id,
+        nombre: producto.name,
+        precio: producto.price,
+        imagen: producto.images[0]
+      }, size);
 
       if (exito) {
         // Feedback visual
