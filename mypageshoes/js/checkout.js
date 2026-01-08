@@ -25,17 +25,23 @@ class CheckoutManager {
         try {
             // Intentar cargar del carrito correcto
             const cart = JSON.parse(localStorage.getItem('mundo_calzado_cart') || '[]');
-            console.log('Carrito cargado:', cart);
+            console.log('🛒 Carrito cargado en checkout:', cart);
+            console.log('📦 Cantidad de items:', cart.length);
+            
+            if (cart.length > 0) {
+                console.log('Ejemplo de item:', cart[0]);
+            }
+            
             this.orderItems = cart;
             this.renderOrderItems();
             this.calculateTotals();
             
             // Si el carrito está vacío, mostrar mensaje
             if (cart.length === 0) {
-                console.warn('Carrito vacío en checkout');
+                console.warn('⚠️ Carrito vacío en checkout');
             }
         } catch (error) {
-            console.error('Error al cargar items del carrito:', error);
+            console.error('❌ Error al cargar items del carrito:', error);
             this.orderItems = [];
         }
     }
@@ -50,49 +56,41 @@ class CheckoutManager {
 
         if (this.orderItems.length === 0) {
             container.innerHTML = `
-                <div class="empty-cart-message" style="text-align: center; padding: 2rem; color: #6b7280;">
-                    <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; color: #d1d5db;"></i>
-                    <p style="margin-bottom: 1rem;">No hay productos en el carrito</p>
-                    <a href="nuevos.html" style="color: var(--primary-color, #ff0000); text-decoration: none; font-weight: 600;">Ver Productos</a>
+                <div class="empty-cart-message">
+                    <p>No hay productos en el carrito</p>
+                    <a href="nuevos.html" class="btn-continue-shopping">Ver Productos</a>
                 </div>
             `;
             return;
         }
 
         const itemsHTML = this.orderItems.map(item => {
-            // Obtener la imagen correcta
-            let imageSrc = item.image || item.imagen || '';
+            // Obtener la imagen con fallback
+            let imageSrc = item.image || item.imagen || 'assets/img/placeholder.jpg';
             
-            // Si la imagen empieza con ./ o ../, corregir la ruta
-            if (imageSrc.startsWith('./')) {
-                imageSrc = imageSrc.substring(2);
-            } else if (imageSrc.startsWith('../')) {
-                imageSrc = imageSrc.substring(3);
-            }
-            
-            // Asegurar que tenga una ruta válida
-            if (!imageSrc || imageSrc === '') {
+            // Asegurar que la ruta de imagen sea correcta
+            if (!imageSrc.startsWith('http') && !imageSrc.startsWith('./') && !imageSrc.startsWith('assets/')) {
                 imageSrc = 'assets/img/placeholder.jpg';
             }
             
-            const nombre = item.name || item.nombre || 'Producto';
-            const talla = item.size || item.talla || 'N/A';
-            const cantidad = item.quantity || item.cantidad || 1;
-            const precio = item.price || item.precio || 0;
-            const total = precio * cantidad;
+            const itemName = item.name || item.nombre || 'Producto';
+            const itemSize = item.size || item.talla || 'U';
+            const itemQty = item.quantity || item.cantidad || 1;
+            const itemPrice = item.price || item.precio || 0;
+            const itemTotal = itemPrice * itemQty;
             
             return `
                 <div class="order-item">
                     <img src="${imageSrc}" 
-                         alt="${nombre}" 
+                         alt="${itemName}" 
                          class="item-image"
-                         onerror="this.src='assets/img/placeholder.jpg'; this.onerror=null;">
+                         onerror="this.src='assets/img/placeholder.jpg'">
                     <div class="item-info">
-                        <div class="item-name">${nombre}</div>
+                        <div class="item-name">${itemName}</div>
                         <div class="item-details">
-                            Talla: ${talla} | Cantidad: ${cantidad}
+                            Talla: ${itemSize} | Cantidad: ${itemQty}
                         </div>
-                        <div class="item-price">$${this.formatPrice(total)}</div>
+                        <div class="item-price">$${this.formatPrice(itemTotal)}</div>
                     </div>
                 </div>
             `;
