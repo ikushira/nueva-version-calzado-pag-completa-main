@@ -167,15 +167,8 @@
       return false;
     }
 
-    // Permitir talla vacía para accesorios (usar 'Única' como default)
-    const tallaFinal = size || 'Única';
-    
-    // Si no tiene talla y no es un accesorio, validar
-    const esAccesorio = product.nombre && product.nombre.toLowerCase().includes('accesorio');
-    if (!size && !esAccesorio && product.precio && product.precio < 50000) {
-      // Asumir que productos baratos (<50000) son accesorios
-      console.log('ℹ️ Producto sin talla detectado como accesorio');
-    } else if (!size && !esAccesorio) {
+    // Validar que tenga talla (permitir 'U' para productos sin talla como accesorios)
+    if (!size) {
       showNotification('Por favor selecciona una talla', 'warning');
       return false;
     }
@@ -185,7 +178,7 @@
       id: product.id || `prod-${Date.now()}`,
       name: product.nombre || product.name || 'Producto',
       price: parseInt(product.precio || product.price || 0),
-      size: tallaFinal,
+      size: size,
       quantity: 1,
       image: product.imagen || product.image || getPlaceholder()
     };

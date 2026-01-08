@@ -213,28 +213,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       // Lógica para el botón "Añadir al carrito" en cada catálogo
+      // Prevenir múltiples listeners
+      if (contenedor.dataset.catalogoInicializado === 'true') {
+        return;
+      }
+      contenedor.dataset.catalogoInicializado = 'true';
+      
       contenedor.addEventListener('click', function(e) {
         if (e.target.classList.contains('btn-add-cart')) {
           e.preventDefault();
-          const btn = e.target;
           
           // Prevenir doble click
-          if (btn.disabled || btn.classList.contains('procesando')) {
-            console.log('⚠️ Botón ya está procesando');
-            return;
-          }
-          
-          // Marcar como procesando
-          btn.disabled = true;
-          btn.classList.add('procesando');
+          if (e.target.disabled) return;
           
           // Buscar la card del producto
-          const card = btn.closest('.producto-card');
-          if (!card) {
-            btn.disabled = false;
-            btn.classList.remove('procesando');
-            return;
-          }
+          const card = e.target.closest('.producto-card');
+          if (!card) return;
           
           // Extraer nombre y precio
           const nombre = card.querySelector('h3')?.textContent?.trim() || 'Producto';
@@ -244,25 +238,21 @@ document.addEventListener('DOMContentLoaded', function() {
           // Obtener imagen del producto
           const imagenSrc = card.querySelector('img')?.src || '';
           
-          // Verificar si es un accesorio (no tiene tallas)
-          const esAccesorio = catalogo.id === 'catalogo-accesorios' || !card.querySelector('.producto-tallas');
+          // Determinar si el producto requiere talla (accesorios no requieren)
+          const esAccesorio = catalogo.id === 'catalogo-accesorios';
           
           // Buscar talla seleccionada
-          let talla = 'Única'; // Talla por defecto para accesorios
-          
+          let talla = 'U'; // Talla única por defecto para accesorios
           if (!esAccesorio) {
             const tallaBtns = card.querySelectorAll('.talla-btn');
-            talla = ''; // Resetear para productos con talla
-            tallaBtns.forEach(btnTalla => {
-              if (btnTalla.classList.contains('selected') || btnTalla.classList.contains('active')) {
-                talla = btnTalla.textContent.trim();
+            tallaBtns.forEach(btn => {
+              if (btn.classList.contains('selected') || btn.classList.contains('active')) {
+                talla = btn.textContent.trim();
               }
             });
             
-            // Validar que tenga talla si no es accesorio
-            if (!talla) {
-              btn.disabled = false;
-              btn.classList.remove('procesando');
+            if (talla === 'U') {
+              // Mostrar notificación si existe la función
               if (window.carritoCompleto && window.carritoCompleto.showNotification) {
                 window.carritoCompleto.showNotification('Por favor selecciona una talla', 'warning');
               } else {
@@ -282,28 +272,23 @@ document.addEventListener('DOMContentLoaded', function() {
               imagen: imagenSrc
             }, talla);
             
+            // Cambiar aspecto del botón si se agregó exitosamente
             if (resultado !== false) {
-              // Feedback visual: cambiar a verde con "Agregado"
-              const originalHTML = btn.innerHTML;
-              const originalBg = btn.style.backgroundColor;
-              btn.innerHTML = '<i class="fas fa-check"></i> Agregado';
-              btn.style.backgroundColor = '#28a745';
-              btn.classList.add('agregado');
+              const boton = e.target;
+              const textoOriginal = boton.textContent;
+              const estiloOriginal = boton.style.cssText;
+              
+              boton.textContent = '✓ Agregado';
+              boton.style.cssText = 'background-color: #00a650 !important; border-color: #00a650 !important; color: white !important;';
+              boton.disabled = true;
               
               // Restaurar después de 2 segundos
               setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.style.backgroundColor = originalBg;
-                btn.classList.remove('agregado', 'procesando');
-                btn.disabled = false;
+                boton.textContent = textoOriginal;
+                boton.style.cssText = estiloOriginal;
+                boton.disabled = false;
               }, 2000);
-            } else {
-              btn.disabled = false;
-              btn.classList.remove('procesando');
             }
-          } else {
-            btn.disabled = false;
-            btn.classList.remove('procesando');
           }
         }
         if (e.target.classList.contains('btn-guia-tallas')) {
