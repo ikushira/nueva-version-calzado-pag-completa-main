@@ -26,7 +26,18 @@ class CheckoutManager {
         try {
             // Intentar cargar del carrito correcto
             const cart = JSON.parse(localStorage.getItem('mundo_calzado_cart') || '[]');
-            console.log('Carrito cargado:', cart);
+            console.log('===== CARRITO CARGADO =====');
+            console.log('Número de productos:', cart.length);
+            cart.forEach((item, index) => {
+                console.log(`Producto ${index + 1}:`, {
+                    nombre: item.name || item.nombre,
+                    imagen: item.image || item.imagen,
+                    precio: item.price || item.precio,
+                    talla: item.size || item.talla
+                });
+            });
+            console.log('===========================');
+            
             this.orderItems = cart;
             this.renderOrderItems();
             this.calculateTotals();
@@ -59,35 +70,42 @@ class CheckoutManager {
             return;
         }
 
-        const itemsHTML = this.orderItems.map(item => {
+        const itemsHTML = this.orderItems.map((item, index) => {
             // Obtener la ruta de la imagen
             let imgSrc = item.image || item.imagen || '';
             
-            console.log('Procesando imagen:', imgSrc);
+            console.log(`[Item ${index + 1}] Imagen original:`, imgSrc);
             
-            // Si no hay imagen, usar placeholder
-            if (!imgSrc) {
+            // Si no hay imagen o está vacía, usar placeholder directamente
+            if (!imgSrc || imgSrc.trim() === '') {
+                console.warn(`[Item ${index + 1}] Sin imagen, usando placeholder`);
                 imgSrc = 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect fill=%27%23f0f0f0%27 width=%27100%27 height=%27100%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 font-family=%27Arial%27 font-size=%2714%27 fill=%27%23999%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3EProducto%3C/text%3E%3C/svg%3E';
             } 
-            // Si la imagen es relativa y no tiene prefijo, mantenerla como está
-            // porque ya debería tener la ruta correcta desde el catálogo
+            // Si la imagen es relativa y no tiene prefijo
             else if (!imgSrc.startsWith('http') && !imgSrc.startsWith('data:')) {
                 // Remover ./ inicial si existe
                 imgSrc = imgSrc.replace(/^\.\//, '');
+                console.log(`[Item ${index + 1}] Imagen procesada:`, imgSrc);
             }
+            
+            const nombre = item.name || item.nombre || 'Producto';
+            const talla = item.size || item.talla || 'N/A';
+            const cantidad = item.quantity || item.cantidad || 1;
+            const precio = item.price || item.precio || 0;
             
             return `
                 <div class="order-item">
                     <img src="${imgSrc}" 
-                         alt="${item.name || item.nombre || 'Producto'}" 
+                         alt="${nombre}" 
                          class="item-image"
-                         onerror="console.error('Error cargando imagen:', this.src); this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect fill=%27%23f0f0f0%27 width=%27100%27 height=%27100%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 font-family=%27Arial%27 font-size=%2714%27 fill=%27%23999%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3EProducto%3C/text%3E%3C/svg%3E';">
+                         onload="console.log('✅ Imagen cargada:', this.src)"
+                         onerror="console.error('❌ Error cargando imagen:', this.src); this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect fill=%27%23f0f0f0%27 width=%27100%27 height=%27100%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 font-family=%27Arial%27 font-size=%2714%27 fill=%27%23999%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3EProducto%3C/text%3E%3C/svg%3E';">
                     <div class="item-info">
-                        <div class="item-name">${item.name || item.nombre || 'Producto'}</div>
+                        <div class="item-name">${nombre}</div>
                         <div class="item-details">
-                            Talla: ${item.size || item.talla || 'N/A'} | Cantidad: ${item.quantity || item.cantidad || 1}
+                            Talla: ${talla} | Cantidad: ${cantidad}
                         </div>
-                        <div class="item-price">$${this.formatPrice((item.price || item.precio || 0) * (item.quantity || item.cantidad || 1))}</div>
+                        <div class="item-price">$${this.formatPrice(precio * cantidad)}</div>
                     </div>
                 </div>
             `;
