@@ -25,23 +25,17 @@ class CheckoutManager {
         try {
             // Intentar cargar del carrito correcto
             const cart = JSON.parse(localStorage.getItem('mundo_calzado_cart') || '[]');
-            console.log('🛒 Carrito cargado en checkout:', cart);
-            console.log('📦 Cantidad de items:', cart.length);
-            
-            if (cart.length > 0) {
-                console.log('Ejemplo de item:', cart[0]);
-            }
-            
+            console.log('Carrito cargado:', cart);
             this.orderItems = cart;
             this.renderOrderItems();
             this.calculateTotals();
             
             // Si el carrito está vacío, mostrar mensaje
             if (cart.length === 0) {
-                console.warn('⚠️ Carrito vacío en checkout');
+                console.warn('Carrito vacío en checkout');
             }
         } catch (error) {
-            console.error('❌ Error al cargar items del carrito:', error);
+            console.error('Error al cargar items del carrito:', error);
             this.orderItems = [];
         }
     }
@@ -65,39 +59,33 @@ class CheckoutManager {
         }
 
         const itemsHTML = this.orderItems.map(item => {
-            // Obtener la imagen con fallback
-            let imageSrc = item.image || item.imagen || 'assets/img/placeholder.jpg';
+            // Corregir ruta de imagen
+            let imageSrc = item.image || item.imagen || './assets/img/placeholder.jpg';
             
-            // Asegurar que la ruta de imagen sea correcta
-            if (!imageSrc.startsWith('http') && !imageSrc.startsWith('./') && !imageSrc.startsWith('assets/')) {
-                imageSrc = 'assets/img/placeholder.jpg';
+            // Si la imagen no tiene protocolo ni empieza con ./ o ../, agregar ./
+            if (!imageSrc.startsWith('http') && !imageSrc.startsWith('./') && !imageSrc.startsWith('../') && !imageSrc.startsWith('assets/')) {
+                imageSrc = './' + imageSrc;
             }
-            
-            const itemName = item.name || item.nombre || 'Producto';
-            const itemSize = item.size || item.talla || 'U';
-            const itemQty = item.quantity || item.cantidad || 1;
-            const itemPrice = item.price || item.precio || 0;
-            const itemTotal = itemPrice * itemQty;
             
             return `
                 <div class="order-item">
                     <img src="${imageSrc}" 
-                         alt="${itemName}" 
+                         alt="${item.name || item.nombre || 'Producto'}" 
                          class="item-image"
-                         onerror="this.src='assets/img/placeholder.jpg'">
+                         onerror="this.src='./assets/img/placeholder.jpg'">
                     <div class="item-info">
-                        <div class="item-name">${itemName}</div>
+                        <div class="item-name">${item.name || item.nombre || 'Producto'}</div>
                         <div class="item-details">
-                            Talla: ${itemSize} | Cantidad: ${itemQty}
+                            Talla: ${item.size || item.talla || 'N/A'} | Cantidad: ${item.quantity || item.cantidad || 1}
                         </div>
-                        <div class="item-price">$${this.formatPrice(itemTotal)}</div>
+                        <div class="item-price">$${this.formatPrice((item.price || item.precio || 0) * (item.quantity || item.cantidad || 1))}</div>
                     </div>
                 </div>
             `;
         }).join('');
 
         container.innerHTML = itemsHTML;
-        console.log('Items renderizados en checkout:', this.orderItems.length);
+        console.log('Items renderizados en checkout:', this.orderItems);
     }
 
     // Calcular totales
