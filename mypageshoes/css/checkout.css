@@ -416,13 +416,10 @@
 
 .order-items {
     margin-bottom: 1rem;
-    max-height: 400px;
-    overflow-y: auto;
 }
 
 .order-item {
     display: flex;
-    align-items: flex-start;
     gap: 1rem;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
@@ -436,45 +433,23 @@
 }
 
 .item-image {
-    width: 70px;
-    height: 70px;
-    min-width: 70px;
-    border-radius: 8px;
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
     object-fit: cover;
+    background-color: #f3f4f6;
     border: 1px solid #e5e7eb;
-    background: #f9fafb;
+    flex-shrink: 0;
 }
 
 .item-info {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    min-width: 0;
 }
 
-.item-name {
-    font-weight: 600;
-    color: #1f2937;
-    font-size: 0.9rem;
-    line-height: 1.3;
-}
-
-.item-details {
-    color: #6b7280;
-    font-size: 0.875rem;
-}
-
-.item-price {
-    font-weight: 700;
-    color: var(--primary-color, #ff0000);
-    font-size: 0.95rem;
-    margin-top: auto;
-}
-
-/* Mensaje de carrito vacío */
 .empty-cart-message {
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 2rem;
     color: #6b7280;
 }
 
@@ -485,18 +460,34 @@
 
 .empty-cart-message .btn-continue-shopping {
     display: inline-block;
-    background: var(--primary-color, #ff0000);
-    color: white;
     padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    background-color: var(--primary-color, #ff0000);
+    color: white;
     text-decoration: none;
+    border-radius: 6px;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .empty-cart-message .btn-continue-shopping:hover {
-    background: #cc0000;
-    transform: translateY(-2px);
+    background-color: #cc0000;
+}
+
+.item-name {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.item-details {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.item-price {
+    font-weight: 600;
+    color: var(--primary-color, #ff0000);
 }
 
 .order-totals {
