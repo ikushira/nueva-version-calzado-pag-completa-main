@@ -35,14 +35,31 @@ class HeaderManager {
    * Cargar sesión del usuario desde localStorage
    */
   loadSession() {
-    const sessionData = localStorage.getItem('mundo_calzado_session');
-    if (sessionData) {
+    // Intentar cargar de cualquier fuente de sesión
+    const usuarioActual = localStorage.getItem('usuarioActual');
+    const usuarioActivo = localStorage.getItem('usuarioActivo');
+    const currentUser = localStorage.getItem('currentUser');
+    
+    if (usuarioActual) {
       try {
-        this.currentUser = JSON.parse(sessionData);
+        this.currentUser = JSON.parse(usuarioActual);
         console.log('👤 Usuario logueado:', this.currentUser.email);
       } catch (error) {
         console.error('Error al cargar sesión:', error);
-        this.clearSession();
+      }
+    } else if (usuarioActivo) {
+      try {
+        this.currentUser = JSON.parse(usuarioActivo);
+        console.log('👤 Usuario logueado:', this.currentUser.email);
+      } catch (error) {
+        console.error('Error al cargar sesión:', error);
+      }
+    } else if (currentUser) {
+      try {
+        this.currentUser = JSON.parse(currentUser);
+        console.log('👤 Usuario logueado:', this.currentUser.email);
+      } catch (error) {
+        console.error('Error al cargar sesión:', error);
       }
     }
   }
@@ -137,21 +154,26 @@ class HeaderManager {
 
     console.log('👋 Cerrando sesión...');
     
-    // Limpiar localStorage
-    this.clearSession();
+    // Limpiar todas las fuentes de sesión
+    localStorage.removeItem('usuarioActual');
+    localStorage.removeItem('usuarioActivo');
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('perfilUsuario');
     
-    // Limpiar carrito si es necesario (opcional)
-    // localStorage.removeItem('mundo_calzado_cart');
+    this.currentUser = null;
     
-    // Redirigir a index
-    window.location.href = this.getBasePath().replace('mypageshoes/', '') + 'index.html';
+    // Redirigir a login
+    window.location.href = 'login.html';
   }
 
   /**
    * Limpiar sesión
    */
   clearSession() {
-    localStorage.removeItem('mundo_calzado_session');
+    localStorage.removeItem('usuarioActual');
+    localStorage.removeItem('usuarioActivo');
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('perfilUsuario');
     this.currentUser = null;
   }
 
@@ -160,7 +182,7 @@ class HeaderManager {
    */
   setSession(userData) {
     this.currentUser = userData;
-    localStorage.setItem('mundo_calzado_session', JSON.stringify(userData));
+    localStorage.setItem('usuarioActual', JSON.stringify(userData));
     this.updateHeaderUI();
   }
 

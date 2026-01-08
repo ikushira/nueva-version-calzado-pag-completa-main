@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Pedidos - Mundo Calzado</title>
+    
+  <link rel="stylesheet" href="css/responsive-viewport.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/standardized-cards.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/new-colors.css">
+  <link rel="stylesheet" href="css/enhanced-shopping.css">
+    <link rel="stylesheet" href="css/cuenta.css">
+    <link rel="stylesheet" href="css/carrito.css">
+  <link rel="stylesheet" href="css/carrito-enhanced.css">
+  <link rel="stylesheet" href="css/carrito-imagen-fix.css">
+  <link rel="stylesheet" href="css/cart-display-fix.css">
+  <link rel="stylesheet" href="css/cart-image-force.css">
+    <link rel="stylesheet" href="css/whatsapp-button.css">
+    <link rel="stylesheet" href="css/whatsapp-widget.css">
+  <link rel="stylesheet" href="css/footer-enhanced.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/image-size-fix.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/responsive-mobile.css">
+  <link rel="stylesheet" href="css/mobile-navigation.css">
+  <link rel="stylesheet" href="css/header-user-menu.css">
+  <link rel="stylesheet" href="css/z-index-hierarchy.css">
+  <style>
+    .pedidos-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .pedido-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .pedido-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .pedido-numero {
+      font-weight: 700;
+      font-size: 16px;
+      color: #333;
+    }
+    .pedido-estado {
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .estado-pendiente {
+      background: #fff3cd;
+      color: #856404;
+    }
+    .estado-enviado {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    .estado-entregado {
+      background: #d4edda;
+      color: #155724;
+    }
+    .pedido-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .pedido-info-item label {
+      display: block;
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+    .pedido-info-item span {
+      font-size: 14px;
+      color: #333;
+      font-weight: 600;
+    }
+    .pedido-productos {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .pedido-productos-titulo {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #333;
+    }
+    .pedido-producto-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px;
+      background: #f8f8f8;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .pedido-producto-imagen {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 4px;
+      background: white;
+    }
+    .pedido-producto-info {
+      flex: 1;
+    }
+    .pedido-producto-nombre {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .pedido-producto-detalles {
+      font-size: 12px;
+      color: #666;
+    }
+    .pedido-vacio {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .pedido-vacio i {
+      font-size: 64px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+    .pedido-vacio-texto {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .pedido-vacio-desc {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body class="cuenta-page">
+    <div class="top-bar #ff0000-theme">
+      <div class="promo">
+        <span class="promo-strong"><i class="fa-solid fa-fire"></i> POR COMPRA DE 2 PARES EN ADELANTE, ENVÍO GRATIS!!</span>
+        <span class="promo-timer"><i class="fa-regular fa-clock"></i> APROVECHA ESTA OPORTUNIDAD!</span>
+      </div>
+      <div class="top-links">
+        <a href="pages/contactanos.html"><i class="fa-regular fa-envelope"></i> Contáctanos</a>
+        <a href="pages/sigue-tu-pedido.html"><i class="fa-solid fa-truck"></i> Sigue tu pedido</a>
+      </div>
+    </div>
+    <header class="main-header #ff0000-theme">
+      <div class="logo">MUNDO CALZADO</div>
+      <input type="text" class="search-bar" id="main-search" placeholder="¿Qué zapatos estás buscando?">
+      <div class="header-actions">
+        <a href="login.html" class="header-login">
+          <i class="fa-regular fa-user"></i>
+          <span>Iniciar sesión</span>
+        </a>
+        <button id="btn-carrito" class="btn-carrito">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Carrito de compras</span>
+          <span id="carrito-cantidad" class="carrito-cantidad">0</span>
+        </button>
+      </div>
+    </header>
+  <!-- Modal Carrito -->
+  <div id="modal-carrito" class="modal-carrito oculto">
+    <div class="modal-carrito-content">
+      <div class="modal-carrito-header">
+        <span class="modal-carrito-title"><i class="fa-solid fa-cart-shopping"></i> MI CARRITO</span>
+        <button id="cerrar-carrito" class="cerrar-carrito">&times;</button>
+      </div>
+      <div id="carrito-lista" class="carrito-lista"></div>
+      <div id="carrito-vacio" class="carrito-vacio">
+        <p class="carrito-vacio-txt">Tu carrito está vacío</p>
+        <p class="carrito-vacio-desc">Aún no tienes artículos en tu carrito de compra.</p>
+        <button id="btn-elegir-productos" class="btn-elegir-productos"><i class="fa-solid fa-shoe-prints"></i> Explorar productos</button>
+      </div>
+      <div id="carrito-total" class="carrito-total oculto">
+        <div class="carrito-resumen">
+          <div class="carrito-linea">
+            <span>Subtotal:</span>
+            <span>$<span id="carrito-subtotal">0</span></span>
+          </div>
+          <div class="carrito-linea">
+            <span>Envío:</span>
+            <span id="carrito-envio">$15,000</span>
+          </div>
+          <div id="envio-gratis-mensaje" class="envio-gratis-mensaje oculto"></div>
+          <div class="carrito-linea carrito-total-final">
+            <span>Total:</span>
+            <span>$<span id="carrito-total-precio">0</span></span>
+          </div>
+        </div>
+        <button id="btn-finalizar-compra" class="btn-finalizar-compra"><i class="fa-solid fa-check"></i> IR A PAGAR</button>
+      </div>
+    </div>
+  </div>
+    <nav class="main-nav #ff0000-theme">
+      <ul>
+        <li><a href="nuevos.html">Nuevos</a></li>
+        <li><a href="mujeres.html">Mujeres</a></li>
+        <li><a href="hombres.html">Hombres</a></li>
+        <li><a href="ninas.html">Niñas</a></li>
+        <li><a href="ninos.html">Niños</a></li>
+        <li><a href="colegiales.html">Colegiales</a></li>
+        <li><a href="dotacion.html">Dotación</a></li>
+        <li><a href="accesorios.html">Accesorios</a></li>
+        <li><a href="marcas.html">Marcas</a></li>
+        <li><a href="ofertas.html" class="ofertas">Ofertas</a></li>
+      </ul>
+    </nav>
+    <div class="cuenta-container">
+        <div class="cuenta-header">
+            <div class="cuenta-avatar"><span>👤</span></div>
+            <div class="cuenta-bienvenida">Mis Pedidos</div>
+        </div>
+        <div class="cuenta-main">
+            <aside class="cuenta-menu">
+                <ul>
+                    <li><a href="cuenta.html">Perfil</a></li>
+                    <li><a href="direccion_cuenta.html">Direcciones</a></li>
+                    <li class="active">Pedidos</li>
+                    <li><a href="tarjetas.html">Tarjetas de crédito</a></li>
+                    <li>Autenticación</li>
+                    <li id="btn-salir-pedidos">Salir</li>
+                </ul>
+            </aside>
+            <section class="cuenta-content">
+                <div id="pedidos-container" class="pedidos-lista">
+                    <!-- Los pedidos se cargarán aquí dinámicamente -->
+                    <div class="pedido-vacio">
+                        <i class="fa-solid fa-box-open"></i>
+                        <div class="pedido-vacio-texto">No tienes pedidos aún</div>
+                        <div class="pedido-vacio-desc">Cuando realices tu primera compra, aparecerá aquí.</div>
+                        <a href="nuevos.html" class="btn" style="display: inline-block; padding: 12px 24px; background: #ff0000; color: white; text-decoration: none; border-radius: 6px; margin-top: 20px;">
+                            <i class="fa-solid fa-shopping-bag"></i> Comenzar a comprar
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <footer class="footer">
+      <div class="footer-main">
+        <div class="footer-col">
+          <h4>Políticas</h4>
+          <a href="#">Condiciones Promociones vigentes</a>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2025 Mundo Calzado. Todos los derechos reservados.</p>
+    </footer>
+    <script src="js/gestor-usuarios.js"></script>
+    <script src="js/product-images.js"></script>
+    <script src="js/carrito-completo.js"></script>
+    <script src="js/header-manager.js"></script>
+    <script src="js/pedidos-system.js"></script>
+</body>
+</html>

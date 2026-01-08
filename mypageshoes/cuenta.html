@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuenta - Calzado Valencia</title>
     
   <link rel="stylesheet" href="css/responsive-viewport.css">
@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="css/novedades-carousel.css">
     <link rel="stylesheet" href="css/cuenta.css">
     <link rel="stylesheet" href="css/carrito.css">
-  <link rel="stylesheet" href="css/carrito-imagen-fix.css">`n  <link rel="stylesheet" href="css/cart-display-fix.css">`n  <link rel="stylesheet" href="css/cart-image-force.css">
+  <link rel="stylesheet" href="css/carrito-imagen-fix.css">
+  <link rel="stylesheet" href="css/cart-display-fix.css">
+  <link rel="stylesheet" href="css/cart-image-force.css">
     <link rel="stylesheet" href="css/whatsapp-button.css">
     <link rel="stylesheet" href="css/whatsapp-widget.css">
   <link rel="stylesheet" href="css/footer-enhanced.css">
@@ -87,7 +89,7 @@
             <span>Envío:</span>
             <span id="carrito-envio">$15,000</span>
           </div>
-          <div id="envio-gratis-mensaje" class="envio-gratis-mensaje" style="display:none;"></div>
+          <div id="envio-gratis-mensaje" class="envio-gratis-mensaje oculto"></div>
           <div class="carrito-linea carrito-total-final">
             <span>Total:</span>
             <span>$<span id="carrito-total-precio">0</span></span>
@@ -123,12 +125,12 @@
         <div class="cuenta-main">
             <aside class="cuenta-menu">
                 <ul>
-                    <li class="active">Perfil</li>
-                    <li><a href="direccion_cuenta.html" style="color:inherit; text-decoration:none;">Direcciones</a></li>
-                    <li>Pedidos</li>
-                    <li>Tarjetas de crédito</li>
-                    <li>Autenticación</li>
-                    <li>Salir</li>
+                    <li class="active" data-seccion="perfil">Perfil</li>
+                    <li data-seccion="direcciones"><a href="direccion_cuenta.html" style="color:inherit; text-decoration:none;">Direcciones</a></li>
+                    <li data-seccion="pedidos">Pedidos</li>
+                    <li data-seccion="tarjetas">Tarjetas de crédito</li>
+                    <li data-seccion="autenticacion">Autenticación</li>
+                    <li data-seccion="salir" id="btn-salir">Salir</li>
                 </ul>
             </aside>
             <section class="cuenta-content">
@@ -166,6 +168,10 @@
                         <div>
                             <label>Teléfono</label>
                             <span id="perfil-telefono"></span>
+                        </div>
+                        <div id="perfil-direccion-container" style="display: none;">
+                            <label>Dirección</label>
+                            <span id="perfil-direccion"></span>
                         </div>
                         <div id="perfil-juridica" class="perfil-juridica">
                             <label>NIT</label>

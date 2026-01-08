@@ -13,9 +13,47 @@ class CuentaSystem {
     init() {
         // Esperar a que el DOM esté listo
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.loadUserProfile());
+            document.addEventListener('DOMContentLoaded', () => {
+                this.loadUserProfile();
+                this.setupMenuListeners();
+            });
         } else {
             this.loadUserProfile();
+            this.setupMenuListeners();
+        }
+    }
+
+    setupMenuListeners() {
+        // Configurar eventos del menú lateral
+        const menuItems = document.querySelectorAll('.cuenta-menu li');
+        menuItems.forEach(item => {
+            const seccion = item.dataset.seccion;
+            
+            if (seccion === 'salir') {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.logout();
+                });
+            } else if (seccion === 'pedidos') {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'pedidos.html';
+                });
+            } else if (seccion === 'tarjetas') {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'tarjetas.html';
+                });
+            }
+        });
+
+        // Botón salir específico
+        const btnSalir = document.getElementById('btn-salir');
+        if (btnSalir) {
+            btnSalir.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.logout();
+            });
         }
     }
 
@@ -97,6 +135,15 @@ class CuentaSystem {
         this.setElementText('telefono', perfil.telefono);
         this.setElementText('genero', perfil.genero);
         this.setElementText('fecha', perfil.fecha);
+
+        // Mostrar dirección si existe
+        if (perfil.direccion) {
+            const direccionContainer = document.getElementById('perfil-direccion-container');
+            if (direccionContainer) {
+                direccionContainer.style.display = 'block';
+                this.setElementText('direccion', perfil.direccion);
+            }
+        }
 
         // Mostrar información jurídica si existe
         if ((perfil.nit && perfil.nit.length > 0) || (perfil.razon && perfil.razon.length > 0)) {
@@ -190,18 +237,29 @@ class CuentaSystem {
 
     // Método para cerrar sesión
     logout() {
+        if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+            return;
+        }
+
         try {
             if (window.gestorUsuarios) {
                 window.gestorUsuarios.cerrarSesion();
             } else {
                 localStorage.removeItem('usuarioActual');
                 localStorage.removeItem('usuarioActivo');
+                localStorage.removeItem('currentUser');
                 localStorage.removeItem('perfilUsuario');
             }
             
             window.location.href = 'login.html';
         } catch (error) {
             console.error('Error cerrando sesión:', error);
+            // Intentar limpiar de todas formas
+            localStorage.removeItem('usuarioActual');
+            localStorage.removeItem('usuarioActivo');
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('perfilUsuario');
+            window.location.href = 'login.html';
         }
     }
 }

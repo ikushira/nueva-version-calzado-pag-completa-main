@@ -7,7 +7,6 @@
 (function() {
     'use strict';
     
-    // Código original del script inline
     // Listado completo de municipios por departamento de Colombia
 const municipiosPorDepartamento = {
   "Amazonas": ["Leticia", "Puerto Nariño"],
@@ -43,8 +42,12 @@ const municipiosPorDepartamento = {
   "Vaupés": ["Mitú", "Carimagua", "Pacoa", "Papunaua", "Raudal", "Taraira", "Yavaraté"],
   "Vichada": ["Puerto Carreño", "Puerto Concordia", "Santa Rosalía", "La Primavera", "Cumaribo", "El Retorno", "San José de Ocune", "San Juan de Arama", "Tame"],
 };
+
 const departamentoSelect = document.getElementById('departamento');
 const municipioSelect = document.getElementById('municipio');
+const form = document.querySelector('.direccion-form');
+
+// Cargar municipios según departamento seleccionado
 departamentoSelect.addEventListener('change', function() {
   const depto = departamentoSelect.value;
   municipioSelect.innerHTML = '<option value="">Seleccione un municipio</option>';
@@ -57,5 +60,164 @@ departamentoSelect.addEventListener('change', function() {
     });
   }
 });
+
+// Manejar envío del formulario
+if (form) {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Obtener datos del formulario
+        const pais = document.getElementById('pais').value;
+        const departamento = document.getElementById('departamento').value;
+        const municipio = document.getElementById('municipio').value;
+        const calle = document.getElementById('calle').value;
+        const info = document.getElementById('info').value;
+        const barrio = document.getElementById('barrio').value;
+        const destinatario = document.getElementById('destinatario').value;
+
+        // Validar campos requeridos
+        if (!departamento || !municipio || !calle || !destinatario) {
+            alert('Por favor completa todos los campos requeridos');
+            return;
+        }
+
+        // Crear objeto de dirección
+        const direccionCompleta = `${calle}${info ? ', ' + info : ''}, ${barrio || ''}, ${municipio}, ${departamento}, ${pais}`;
+        const direccionData = {
+            pais,
+            departamento,
+            municipio,
+            calle,
+            informacionAdicional: info,
+            barrio,
+            destinatario,
+            direccionCompleta
+        };
+
+        // Guardar en el perfil del usuario
+        try {
+            let perfilActualizado = false;
+
+            // Intentar guardar con gestor de usuarios
+            if (window.gestorUsuarios) {
+                const usuarioActivo = window.gestorUsuarios.obtenerUsuarioActivo();
+                if (usuarioActivo && usuarioActivo.email) {
+                    const perfil = window.gestorUsuarios.obtenerUsuarioPorEmail(usuarioActivo.email);
+                    if (perfil) {
+                        perfil.direccion = direccionCompleta;
+                        perfil.direccionDetalle = direccionData;
+                        window.gestorUsuarios.agregarUsuario(perfil);
+                        perfilActualizado = true;
+                    }
+                }
+            }
+
+            // Fallback a localStorage tradicional
+            if (!perfilActualizado) {
+                const perfilStr = localStorage.getItem('perfilUsuario');
+                if (perfilStr) {
+                    const perfil = JSON.parse(perfilStr);
+                    perfil.direccion = direccionCompleta;
+                    perfil.direccionDetalle = direccionData;
+                    localStorage.setItem('perfilUsuario', JSON.stringify(perfil));
+                    perfilActualizado = true;
+                }
+            }
+
+            if (perfilActualizado) {
+                // Mostrar confirmación con fondo verde
+                mostrarConfirmacion();
+            } else {
+                alert('Error: No se pudo guardar la dirección. Por favor, inicia sesión nuevamente.');
+            }
+
+        } catch (error) {
+            console.error('Error guardando dirección:', error);
+            alert('Ocurrió un error al guardar la dirección');
+        }
+    });
+}
+
+// Mostrar confirmación con estilo verde y redirigir
+function mostrarConfirmacion() {
+    // Crear overlay de confirmación
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+    `;
+
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 400px;
+        animation: slideIn 0.3s ease-out;
+    `;
+
+    modal.innerHTML = `
+        <div style="
+            width: 80px;
+            height: 80px;
+            background: #00a650;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        ">
+            <i class="fa-solid fa-check" style="font-size: 40px; color: white;"></i>
+        </div>
+        <h2 style="color: #00a650; margin-bottom: 12px; font-size: 24px;">¡Dirección Agregada!</h2>
+        <p style="color: #666; font-size: 16px; margin-bottom: 24px;">
+            Tu dirección ha sido guardada exitosamente.
+        </p>
+        <p style="color: #999; font-size: 14px;">
+            Redirigiendo a tu perfil...
+        </p>
+    `;
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    // Redirigir después de 2 segundos
+    setTimeout(() => {
+        window.location.href = 'cuenta.html';
+    }, 2000);
+}
+
+// Botón de salir
+const btnSalir = document.getElementById('btn-salir-dir');
+if (btnSalir) {
+    btnSalir.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+            // Limpiar sesión
+            if (window.gestorUsuarios) {
+                window.gestorUsuarios.cerrarSesion();
+            } else {
+                localStorage.removeItem('usuarioActual');
+                localStorage.removeItem('usuarioActivo');
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('perfilUsuario');
+            }
+
+            // Redirigir al login
+            window.location.href = 'login.html';
+        }
+    });
+}
     
 })();

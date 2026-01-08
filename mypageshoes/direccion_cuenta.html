@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir Dirección - Mundo Calzado</title>
     
   <link rel="stylesheet" href="css/responsive-viewport.css">
@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="css/direccion_cuenta.css">
     <link rel="stylesheet" href="css/carrito.css">
   <link rel="stylesheet" href="css/carrito-enhanced.css">
-  <link rel="stylesheet" href="css/carrito-imagen-fix.css">`n  <link rel="stylesheet" href="css/cart-display-fix.css">`n  <link rel="stylesheet" href="css/cart-image-force.css">
+  <link rel="stylesheet" href="css/carrito-imagen-fix.css">
+  <link rel="stylesheet" href="css/cart-display-fix.css">
+  <link rel="stylesheet" href="css/cart-image-force.css">
     <link rel="stylesheet" href="css/whatsapp-button.css">
     <link rel="stylesheet" href="css/whatsapp-widget.css">
   <link rel="stylesheet" href="css/footer-enhanced.css">
@@ -45,10 +47,14 @@
       <div class="logo">MUNDO CALZADO</div>
       <input type="text" class="search-bar" id="main-search" placeholder="¿Qué zapatos estás buscando?">
       <div class="header-actions">
-        <a href="login.html"><i class="fa-regular fa-user"></i> Iniciar sesión</a>
+        <a href="login.html" class="header-login">
+          <i class="fa-regular fa-user"></i>
+          <span>Iniciar sesión</span>
+        </a>
         <button id="btn-carrito" class="btn-carrito">
           <i class="fa-solid fa-cart-shopping"></i>
-          <span id="contador-carrito">0</span>
+          <span>Carrito de compras</span>
+          <span id="carrito-cantidad" class="carrito-cantidad">0</span>
         </button>
       </div>
     </header>
@@ -81,7 +87,7 @@
             <span>Envío:</span>
             <span id="carrito-envio">$15,000</span>
           </div>
-          <div id="envio-gratis-mensaje" class="envio-gratis-mensaje" style="display:none;"></div>
+          <div id="envio-gratis-mensaje" class="envio-gratis-mensaje oculto"></div>
           <div class="carrito-linea carrito-total-final">
             <span>Total:</span>
             <span>$<span id="carrito-total-precio">0</span></span>
@@ -107,18 +113,18 @@
         <li><a href="#" class="ofertas">Ofertas</a></li>
       </ul>
     </nav>
-    <div class="cuenta-container" style="display:flex; gap:40px; margin-top:32px;">
+    <div class="cuenta-container direccion-cuenta-container">
         <aside class="menu-cuenta">
             <ul>
-                <li><a href="cuenta.html" style="color:inherit; text-decoration:none;">Perfil</a></li>
+                <li><a href="cuenta.html">Perfil</a></li>
                 <li class="active">Direcciones</li>
-                <li><a href="#" style="color:inherit; text-decoration:none;">Pedidos</a></li>
-                <li><a href="#" style="color:inherit; text-decoration:none;">Tarjetas de crédito</a></li>
-                <li><a href="#" style="color:inherit; text-decoration:none;">Autenticación</a></li>
-                <li><a href="#" style="color:inherit; text-decoration:none;">Salir</a></li>
+                <li><a href="#">Pedidos</a></li>
+                <li><a href="#">Tarjetas de crédito</a></li>
+                <li><a href="#">Autenticación</a></li>
+                <li><a href="#" id="btn-salir-dir">Salir</a></li>
             </ul>
         </aside>
-        <main style="flex:1;">
+        <main class="direccion-main">
             <a href="cuenta.html" class="direccion-volver"><i class="fa fa-arrow-left"></i> DIRECCIONES</a>
             <div class="direccion-titulo">Añadir Dirección</div>
             <form class="direccion-form direccion-container">
