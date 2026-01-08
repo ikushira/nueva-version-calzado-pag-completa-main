@@ -68,25 +68,34 @@ class HeaderManager {
    * Actualizar UI del header según estado de sesión
    */
   updateHeaderUI() {
-    const headerLogin = document.querySelector('.header-login');
-    if (!headerLogin) return;
+    const headerActions = document.querySelector('.header-actions');
+    if (!headerActions) return;
 
+    // Buscar el elemento de login/perfil
+    let headerLogin = headerActions.querySelector('.header-login, .header-user-menu');
+    
     if (this.currentUser) {
       // Usuario logueado
-      this.renderLoggedInState(headerLogin);
+      this.renderLoggedInState(headerActions, headerLogin);
     } else {
       // Usuario no logueado
-      this.renderLoggedOutState(headerLogin);
+      this.renderLoggedOutState(headerActions, headerLogin);
     }
   }
 
   /**
    * Renderizar estado de usuario logueado
    */
-  renderLoggedInState(container) {
+  renderLoggedInState(headerActions, existingElement) {
     const userName = this.currentUser.displayName || this.currentUser.email.split('@')[0];
     
-    container.innerHTML = `
+    // Si ya existe el menu de usuario, no hacer nada
+    if (existingElement && existingElement.classList.contains('header-user-menu')) {
+      return;
+    }
+    
+    // Crear nuevo elemento de usuario logueado
+    const userMenuHTML = `
       <div class="header-user-menu">
         <a href="${this.getBasePath()}cuenta.html" class="header-profile">
           <i class="fa-regular fa-user"></i>
@@ -98,18 +107,55 @@ class HeaderManager {
         </button>
       </div>
     `;
+    
+    // Reemplazar el elemento existente
+    if (existingElement) {
+      existingElement.outerHTML = userMenuHTML;
+    } else {
+      // Insertar antes del botón de carrito
+      const btnCarrito = headerActions.querySelector('#btn-carrito, .btn-carrito');
+      if (btnCarrito) {
+        btnCarrito.insertAdjacentHTML('beforebegin', userMenuHTML);
+      }
+    }
+    
+    // Configurar el event listener para el botón de logout recién creado
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) {
+      btnLogout.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.logout();
+      });
+    }
   }
 
   /**
    * Renderizar estado de usuario no logueado
    */
-  renderLoggedOutState(container) {
-    container.innerHTML = `
-      <a href="${this.getBasePath()}login.html" class="header-login-link">
+  renderLoggedOutState(headerActions, existingElement) {
+    // Si ya existe el enlace de login correcto, no hacer nada
+    if (existingElement && existingElement.classList.contains('header-login')) {
+      return;
+    }
+    
+    // Crear nuevo elemento de login
+    const loginHTML = `
+      <a href="${this.getBasePath()}login.html" class="header-login">
         <i class="fa-regular fa-user"></i>
         <span>Iniciar sesión</span>
       </a>
     `;
+    
+    // Reemplazar el elemento existente
+    if (existingElement) {
+      existingElement.outerHTML = loginHTML;
+    } else {
+      // Insertar antes del botón de carrito
+      const btnCarrito = headerActions.querySelector('#btn-carrito, .btn-carrito');
+      if (btnCarrito) {
+        btnCarrito.insertAdjacentHTML('beforebegin', loginHTML);
+      }
+    }
   }
 
   /**
@@ -135,10 +181,12 @@ class HeaderManager {
    * Configurar event listeners
    */
   setupEventListeners() {
-    // Event listener para cerrar sesión (delegación de eventos)
+    // Event listener para cerrar sesión (delegación de eventos como respaldo)
     document.addEventListener('click', (e) => {
-      if (e.target.closest('#btn-logout')) {
+      const logoutBtn = e.target.closest('#btn-logout');
+      if (logoutBtn) {
         e.preventDefault();
+        e.stopPropagation();
         this.logout();
       }
     });
