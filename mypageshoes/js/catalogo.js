@@ -216,9 +216,25 @@ document.addEventListener('DOMContentLoaded', function() {
       contenedor.addEventListener('click', function(e) {
         if (e.target.classList.contains('btn-add-cart')) {
           e.preventDefault();
+          const btn = e.target;
+          
+          // Prevenir doble click
+          if (btn.disabled || btn.classList.contains('procesando')) {
+            console.log('⚠️ Botón ya está procesando');
+            return;
+          }
+          
+          // Marcar como procesando
+          btn.disabled = true;
+          btn.classList.add('procesando');
+          
           // Buscar la card del producto
-          const card = e.target.closest('.producto-card');
-          if (!card) return;
+          const card = btn.closest('.producto-card');
+          if (!card) {
+            btn.disabled = false;
+            btn.classList.remove('procesando');
+            return;
+          }
           
           // Extraer nombre y precio
           const nombre = card.querySelector('h3')?.textContent?.trim() || 'Producto';
@@ -228,34 +244,66 @@ document.addEventListener('DOMContentLoaded', function() {
           // Obtener imagen del producto
           const imagenSrc = card.querySelector('img')?.src || '';
           
-          // Buscar talla seleccionada
-          let talla = '';
-          const tallaBtns = card.querySelectorAll('.talla-btn');
-          tallaBtns.forEach(btn => {
-            if (btn.classList.contains('selected') || btn.classList.contains('active')) {
-              talla = btn.textContent.trim();
-            }
-          });
+          // Verificar si es un accesorio (no tiene tallas)
+          const esAccesorio = catalogo.id === 'catalogo-accesorios' || !card.querySelector('.producto-tallas');
           
-          if (!talla) {
-            // Mostrar notificación si existe la función
-            if (window.carritoCompleto && window.carritoCompleto.showNotification) {
-              window.carritoCompleto.showNotification('Por favor selecciona una talla', 'warning');
-            } else {
-              alert('Por favor selecciona una talla antes de añadir al carrito.');
+          // Buscar talla seleccionada
+          let talla = 'Única'; // Talla por defecto para accesorios
+          
+          if (!esAccesorio) {
+            const tallaBtns = card.querySelectorAll('.talla-btn');
+            talla = ''; // Resetear para productos con talla
+            tallaBtns.forEach(btnTalla => {
+              if (btnTalla.classList.contains('selected') || btnTalla.classList.contains('active')) {
+                talla = btnTalla.textContent.trim();
+              }
+            });
+            
+            // Validar que tenga talla si no es accesorio
+            if (!talla) {
+              btn.disabled = false;
+              btn.classList.remove('procesando');
+              if (window.carritoCompleto && window.carritoCompleto.showNotification) {
+                window.carritoCompleto.showNotification('Por favor selecciona una talla', 'warning');
+              } else {
+                alert('Por favor selecciona una talla antes de añadir al carrito.');
+              }
+              return;
             }
-            return;
           }
           
           // Agregar al carrito con todos los datos necesarios
           if (window.agregarAlCarrito) {
-            window.agregarAlCarrito({
+            const resultado = window.agregarAlCarrito({
               id: nombre.replace(/\s+/g, '-').toLowerCase(),
               nombre: nombre,
               precio: precio,
               talla: talla,
               imagen: imagenSrc
             }, talla);
+            
+            if (resultado !== false) {
+              // Feedback visual: cambiar a verde con "Agregado"
+              const originalHTML = btn.innerHTML;
+              const originalBg = btn.style.backgroundColor;
+              btn.innerHTML = '<i class="fas fa-check"></i> Agregado';
+              btn.style.backgroundColor = '#28a745';
+              btn.classList.add('agregado');
+              
+              // Restaurar después de 2 segundos
+              setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.backgroundColor = originalBg;
+                btn.classList.remove('agregado', 'procesando');
+                btn.disabled = false;
+              }, 2000);
+            } else {
+              btn.disabled = false;
+              btn.classList.remove('procesando');
+            }
+          } else {
+            btn.disabled = false;
+            btn.classList.remove('procesando');
           }
         }
         if (e.target.classList.contains('btn-guia-tallas')) {
