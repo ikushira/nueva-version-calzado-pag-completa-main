@@ -5,7 +5,7 @@
 
 .whatsapp-float {
   position: fixed;
-  bottom: 25px;
+  bottom: 20px;
   z-index: 9898; /* Reducido para no tapar carrito (9999) */
   width: 60px;
   height: 60px;
@@ -22,11 +22,11 @@
 }
 
 .whatsapp-float.bottom-left {
-  left: 25px;
+  left: 24px;
 }
 
 .whatsapp-float.bottom-right {
-  right: 25px;
+  right: 24px;
 }
 
 .whatsapp-float:hover {

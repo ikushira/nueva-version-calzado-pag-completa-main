@@ -370,16 +370,20 @@ class CartManager {
       // Placeholder SVG para imágenes que fallan
       const placeholderSVG = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23eee%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2212%22 fill=%22%23999%22%3EImagen%3C/text%3E%3C/svg%3E';
 
+      // Detectar la ruta base correcta según si estamos en index.html o en mypageshoes/
+      const isInMypageshoes = window.location.pathname.includes('/mypageshoes/');
+      const baseImagePath = isInMypageshoes ? './assets/img/carrusel2/' : 'mypageshoes/assets/img/carrusel2/';
+
       // Mapa de imágenes de productos del carrusel (backup para productos con imagen faltante)
       const imagenesProductos = {
-        'prod-1': 'mypageshoes/assets/img/carrusel2/2.jpeg',
-        'prod-2': 'mypageshoes/assets/img/carrusel2/3.jpeg',
-        'prod-3': 'mypageshoes/assets/img/carrusel2/4.jpeg',
-        'prod-4': 'mypageshoes/assets/img/carrusel2/5.jpeg',
-        'prod-5': 'mypageshoes/assets/img/carrusel2/6.jpeg',
-        'prod-6': 'mypageshoes/assets/img/carrusel2/7.jpeg',
-        'prod-7': 'mypageshoes/assets/img/carrusel2/8.jpeg',
-        'prod-8': 'mypageshoes/assets/img/carrusel2/9.jpeg'
+        'prod-1': baseImagePath + '2.jpeg',
+        'prod-2': baseImagePath + '3.jpeg',
+        'prod-3': baseImagePath + '4.jpeg',
+        'prod-4': baseImagePath + '5.jpeg',
+        'prod-5': baseImagePath + '6.jpeg',
+        'prod-6': baseImagePath + '7.jpeg',
+        'prod-7': baseImagePath + '8.jpeg',
+        'prod-8': baseImagePath + '9.jpeg'
       };
 
       // Mapa de nombres de productos del carrusel (backup para productos con nombre incorrecto)
@@ -407,6 +411,15 @@ class CartManager {
         if (esImagenInvalida && imagenesProductos[item.id]) {
           imagenFinal = imagenesProductos[item.id];
           console.log(`🔄 Imagen recuperada para ${item.id}: ${imagenFinal}`);
+        } else if (imagenFinal && !esImagenInvalida) {
+          // Ajustar la ruta de la imagen guardada según la ubicación actual
+          if (isInMypageshoes && imagenFinal.startsWith('mypageshoes/')) {
+            // Estamos en mypageshoes/ y la imagen tiene ruta desde la raíz, ajustar a relativa
+            imagenFinal = imagenFinal.replace('mypageshoes/', './');
+          } else if (!isInMypageshoes && imagenFinal.startsWith('./')) {
+            // Estamos en la raíz y la imagen tiene ruta relativa, ajustar a completa
+            imagenFinal = imagenFinal.replace('./', 'mypageshoes/');
+          }
         }
         
         // Si aún no hay imagen válida, usar placeholder

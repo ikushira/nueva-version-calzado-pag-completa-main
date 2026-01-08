@@ -1,5 +1,6 @@
 /* Estilos para el botón flotante de WhatsApp */
-.whatsapp-float {
+/* NOTA: Posicionamiento manejado por whatsapp-widget.css */
+/* .whatsapp-float {
   position: fixed;
   right: 24px;
   bottom: 24px;
@@ -26,7 +27,7 @@
 
 .whatsapp-float i {
   display: block;
-}
+} */
 
 /* Esconder imágenes antiguas si existen */
 .whatsapp-float img {

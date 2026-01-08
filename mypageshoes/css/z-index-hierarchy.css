@@ -104,7 +104,6 @@
 /* Mobile adjustments */
 @media (max-width: 768px) {
   /* En móvil, los botones flotantes deben estar más bajos para no interferir */
-  .whatsapp-float,
   .chatbot-button {
     bottom: 80px; /* Más espacio desde abajo */
   }
