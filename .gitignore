@@ -47,3 +47,16 @@ actualizar-*.ps1
 # Carpetas de prueba
 test/
 prueba-*/
+
+# Backups del proyecto
+*_BACKUP/
+*_BACKUP_*/
+
+# Sistema
+Thumbs.db
+.DS_Store
+*.psd
+
+# Dependencias
+package-lock.json
+yarn.lock
