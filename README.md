@@ -1,16 +1,34 @@
 # Mundo Calzado - E-commerce Platform
 
-> Plataforma de e-commerce profesional para venta de calzado con sistema completo de pagos, autenticación y administración.
+> Plataforma e-commerce completa desarrollada con **frontend moderno** y **backend en Node.js**, que incluye autenticación segura, carrito persistente, integración de pagos con Wompi y panel administrativo completo.
 
 ![Estado](https://img.shields.io/badge/Estado-En%20Producción-green)
 ![Versión](https://img.shields.io/badge/Versión-2.1.0-brightgreen)
 ![Demo](https://img.shields.io/badge/Demo-Live-blue)
+![GitHub](https://img.shields.io/badge/GitHub-ikushira-black?logo=github)
 
 ---
 
-## 🌐 Demo en Vivo
+## 🚀 Demo en Vivo
 
-**[Accede a la plataforma](https://ikushira.github.io/nueva-version-calzado-pag-completa-main/)**
+**[👉 Accede a la plataforma](https://ikushira.github.io/nueva-version-calzado-pag-completa-main/)**
+
+Funcionalidad completa: crea una cuenta, agrega productos al carrito y realiza una compra de prueba con tarjeta `4242 4242 4242 4242`.
+
+---
+
+## 🎯 Qué Demuestra Este Proyecto
+
+Este proyecto demuestra **competencias profesionales en stack moderno**:
+
+- ✨ **Arquitectura Frontend Escalable** - HTML5, CSS3, JavaScript ES6+ con separación de responsabilidades
+- 💾 **Gestión de Estado Avanzada** - LocalStorage sincronizado, sesiones persistentes, carrito real
+- 🔐 **Autenticación Segura** - Firebase Auth integrado con validación en frontend y backend
+- 💳 **Integración de Pagos Real** - Wompi con webhook validation, manejo de transacciones
+- 📱 **Responsive Design Profesional** - Mobile-first, optimizado para desktop, tablet y móvil
+- 🎁 **Checkout Completo** - Geolocalización GPS, facturación, compartir en WhatsApp
+- 🔧 **Backend Robusto** - Node.js + Express, CORS, validaciones, manejo de errores
+- 📊 **Panel Administrativo** - Gestión de productos, órdenes y usuarios con protección de rutas
 
 ---
 
@@ -109,7 +127,17 @@ npm run dev  # Servidor en http://localhost:3000
 
 ---
 
-## 📚 Documentación Completa
+## � Otros Proyectos Destacados
+
+Si te interesa mi trabajo, también puedo compartir:
+
+- **[Sistema de Automatización Telegram](https://github.com/ikushira/telegram-automation-tool)** - Bot inteligente con APIs externas
+- **[Generador de Reportes](https://github.com/ikushira)** - Análisis de datos con visualizaciones
+- Más proyectos en mi [perfil GitHub](https://github.com/ikushira)
+
+---
+
+## �📚 Documentación Completa
 
 Para guías detalladas de configuración, consulta:
 
